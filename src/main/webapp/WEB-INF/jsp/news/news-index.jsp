@@ -1,21 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ include file="/WEB-INF/views/portal-common/portal-tag.jsp" %>
+<%@ taglib uri="/ar-taglib" prefix="ar" %>
+<%@ include file="../portal-common/portal-tag.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>新闻中心-信电校友录</title>
-    <%@ include file="/WEB-INF/views/portal-common/portal-meta.jsp" %>
+    <title>新闻中心-昌航校友录</title>
+    <%@ include file="../portal-common/portal-meta.jsp" %>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/portal-common/header.jsp" %>
-<%@ include file="/WEB-INF/views/portal-common/navmenu.jsp" %>
+<%@ include file="../portal-common/portal-js.jsp" %>
+<%@ include file="../portal-common/header.jsp" %>
+<%@ include file="../portal-common/navmenu.jsp" %>
 <div class="container higher" id="container">
     <section>
         <!-- 导航栏 -->
         <div class="header">
             <ol class="breadcrumb">
-                <li><i class="fa fa-home"></i>&nbsp;<a href="${pageContext.request.contextPath}/index.action">主页</a>
+                <li><i class="fa fa-home"></i>&nbsp;<a href="${pageContext.request.contextPath}/index">主页</a>
                 </li>
                 <li class="active">新闻中心</li>
             </ol>
@@ -27,28 +29,28 @@
             <div class="panel panel-default panel-alt widget-messaging">
                 <div class="panel-heading">
                     <div class="panel-btns">
-                        <a href="${pageContext.request.contextPath}/forum.action" class="panel-edit"><i
+                        <a href="${pageContext.request.contextPath}/forum" class="panel-edit"><i
                                 class="fa fa-chevron-right"></i></a>
                     </div>
                     <h1 class="panel-title">校友新闻</h1>
                 </div>
                 <div class="panel-body">
                     <ul>
-                        <c:forEach items="${page.beanList}" var="info">
+                        <c:forEach items="${article}" var="info">
                             <li>
                                 <small class="pull-right">
-                                    <fmt:formatDate value="${info.createTime}" pattern="M月d日"></fmt:formatDate>
+                                    <ar:dateTag value="${info.ctime}" pattern="M月d日"></ar:dateTag>
                                 </small>
-                                <a href="${pageContext.request.contextPath}/news/detail.action?infoId=${info.infoId}">
+                                <a href="${pageContext.request.contextPath}/article/detail?articleId=${info.articleId}">
                                     <h4
-                                            class="sender">${info.infoTitle}</h4>
+                                            class="sender">${info.title}</h4>
                                 </a>
                             </li>
                         </c:forEach>
                     </ul>
                 </div><!-- panel-body -->
             </div><!-- panel -->
-            <%@include file="/WEB-INF/views/portal-common/pagination.jsp" %>
+            <%@include file="../portal-common/pagination.jsp" %>
         </div>
         <!-- col-md-9 -->
 
@@ -56,9 +58,8 @@
     </section>
 </div>
 
-<%@ include file="/WEB-INF/views/portal-common/footer.jsp" %>
+<%@ include file="../portal-common/footer.jsp" %>
 
 </body>
-<%@ include file="/WEB-INF/views/portal-common/portal-js.jsp" %>
-<script src="${pageContext.request.contextPath}/assets/script/news/news-index.js"></script>
+<script src="/script/news/news-index.js"></script>
 </html>

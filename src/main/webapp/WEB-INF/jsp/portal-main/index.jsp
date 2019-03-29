@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib uri="/ar-taglib" prefix="ar" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>首页-信电校友录</title>
+    <title>首页-昌航校友录</title>
     <%@ include file="../portal-common/portal-meta.jsp" %>
 </head>
 <body>
@@ -43,44 +44,26 @@
     <div class="col-md-3">
         <div class="panel panel-default">
             <div class="panel-heading" style="background-color: #D8DBDE">
-                <h4 class="panel-title">校友新闻</h4>
+                <h4 class="panel-title">校友活动</h4>
             </div>
             <div class="panel-body padding0">
 
-                <c:forEach items="${inews}" var="info">
-                    <a href="${pageContext.request.contextPath}/news/detail.action?infoId=${info.infoId}"
+                <c:forEach items="${article}" var="article">
+                    <a href="${pageContext.request.contextPath}/article/detail?articleId=${article.articleId}"
                        class="photoday">
-                        <img src="${info.thumbImage}" alt=""/>
+                        <%--<img src="${article}" alt=""/>--%>
                     </a>
                     <div class="photo-details">
-                        <a href="${pageContext.request.contextPath}/news/detail.action?infoId=${info.infoId}">
-                            <h5 class="photo-title"><%--<ar:sub value="${info.infoTitle}" length="20"></ar:sub>--%></h5>
+                        <a href="${pageContext.request.contextPath}/article/detail?articleId=${article.articleId}">
+                            <h5 class="photo-title"><ar:sub value="${info.title}" length="20"></ar:sub></h5>
                         </a>
                         <small class="text-muted">
-                            发布于 ：<fmt:formatDate value="${info.createTime}" pattern="M月d日"></fmt:formatDate>
+                            发布于 ：<ar:dateTag value="${article.ctime}" pattern="M月d日"></ar:dateTag>
                         </small>
                     </div>
                     <hr>
                 </c:forEach>
 
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading" style="background-color: #D8DBDE">
-                <h4 class="panel-title">快速导航</h4>
-            </div>
-            <div class="panel-body text-center nopadding">
-                <br>
-                <a href="${pageContext.request.contextPath}/recruit/addRecruit.action" class="btn btn-warning-alt">
-                    发布招聘 </a>
-                <a href="${pageContext.request.contextPath}/post/add.action" class="btn btn-warning-alt"> 发布新帖 </a>
-                <a class="btn btn-warning-alt"> 我的简历 </a>
-                <hr>
-                <a href="${pageContext.request.contextPath}/my/class.action" class="btn btn-info-alt"> 我的班級 </a>
-                <a href="${pageContext.request.contextPath}/my/recruit.action" class="btn btn-info-alt"> 我的招聘 </a>
-                <a href="${pageContext.request.contextPath}/my/resume.action" class="btn btn-info-alt"> 我的简历 </a>
-                <hr>
             </div>
         </div>
     </div>
@@ -90,20 +73,20 @@
         <div class="panel panel-default panel-alt widget-messaging">
             <div class="panel-heading">
                 <div class="panel-btns">
-                    <a href="${pageContext.request.contextPath}/forum.action" class="panel-edit"><i
+                    <a href="${pageContext.request.contextPath}/article" class="panel-edit"><i
                             class="fa fa-chevron-right"></i></a>
                 </div>
                 <h1 class="panel-title">校友新闻</h1>
             </div>
             <div class="panel-body">
                 <ul>
-                    <c:forEach items="${news}" var="info">
+                    <c:forEach items="${article}" var="info">
                         <li>
                             <small class="pull-right">
-                                <fmt:formatDate value="${info.createTime}" pattern="M月d日"></fmt:formatDate>
+                                <ar:dateTag value="${info.ctime}" pattern="M月d日"></ar:dateTag>
                             </small>
-                            <a href="${pageContext.request.contextPath}/news/detail.action?infoId=${info.infoId}"><h4
-                                    class="sender">${info.infoTitle}</h4>
+                            <a href="${pageContext.request.contextPath}/article/detail?articleId=${info.articleId}"><h4
+                                    class="sender">${info.title}</h4>
                             </a>
                         </li>
                     </c:forEach>
@@ -113,29 +96,6 @@
 
         <div class="mb30"></div>
 
-        <div class="panel panel-default panel-alt widget-messaging">
-            <div class="panel-heading">
-                <div class="panel-btns">
-                    <a href="${pageContext.request.contextPath}/forum.action" class="panel-edit"><i
-                            class="fa fa-chevron-right"></i></a>
-                </div>
-                <h2 class="panel-title">热门话题</h2>
-            </div>
-            <div class="panel-body">
-                <ul>
-                    <c:forEach items="${posts}" var="post">
-                        <li>
-                            <small class="pull-right">
-                                <fmt:formatDate value="${post.createTime}" pattern="M月d日"></fmt:formatDate>
-                            </small>
-                            <a href="${pageContext.request.contextPath}/post/detail.action?postId=${post.infoId}"><h4
-                                    class="sender">${post.infoTitle}</h4>
-                            </a>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </div><!-- panel-body -->
-        </div><!-- panel -->
     </div>
 
     <!--col-md-4   3-->
@@ -149,36 +109,13 @@
                     <c:forEach items="${recruits}" var="recruit">
                         <li>
                             <a href="${pageContext.request.contextPath}/recruit/detailRecruit.action?recruitId=${recruit.recruitId}">
-                                <%--<ar:sub value="${recruit.title}" length="15"></ar:sub>--%>
+                                <ar:sub value="${recruit.title}" length="15"></ar:sub>
                             </a>
                         </li>
                     </c:forEach>
                 </ul>
             </div>
         </div>
-
-        <br>
-        <h3 class="subtitle">最新加入校友</h3>
-        <ul class="folder-list">
-            <c:forEach items="${latestMembers}" var="member">
-                <li>
-                    <div class="media">
-                        <a class="pull-left col-sm-4" style="max-height: 40px;"
-                           href="${pageContext.request.contextPath}/ta/show.action?userId=${member.userId}">
-                            <img class="thumbnail img-responsive" src="${member.imgPath}"></a>
-                        <div class="media-body" style="max-height: 40px;">
-                            <a class="email-summary"
-                               href="${pageContext.request.contextPath}/ta/show.action?userId=">${member.trueName}</a>
-                            <small class="text-muted"><fmt:formatDate value="${member.createTime}"
-                                                                      pattern="yyyy-MM-dd HH:mm"/>&nbsp; 加入
-                            </small>
-                            <a class="email-summary"
-                               href="${pageContext.request.contextPath}/classroom.action?classId=${member.originId}">${member.originName}</a>
-                        </div>
-                    </div>
-                </li>
-            </c:forEach>
-        </ul>
     </div>
 
 </div>

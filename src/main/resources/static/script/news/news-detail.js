@@ -2,11 +2,11 @@ $(function () {
     $("#nav-news").attr("class", "active grid");
 
     // 加载评论列表
-    var infoId = $("#infoId").val();
+    /*var infoId = $("#infoId").val();
     $.post(getContextPath() + "/news/commentList.action?infoId=" + infoId, function (data) {
         $("#comment-list").html(data);
-    });
-    $.post(getContextPath() + "/news/outline.action", function (data) {
+    });*/
+    $.post("/article/outline", function (data) {
         $('#news-detail-outline').html(data);
     })
 
@@ -16,7 +16,7 @@ $(function () {
  * TODO 加载更多评论
  * @param pageIndex
  */
-function loadMoreComment(pageIndex) {
+/*function loadMoreComment(pageIndex) {
     // 按钮显示加载
     $("#btn-load-more").html("<img src='assets/images/icon/loading/loader.gif'>");
     // 加载评论列表
@@ -31,18 +31,18 @@ function loadMoreComment(pageIndex) {
     });
 }
 
-/**
+/!**
  * 点击评论
  * @param replyUser
- */
+ *!/
 function focusCommentPost() {
     $("#comment-content").focus();
     $("html,body").animate({scrollTop: $("#comment-content").offset().top}, 500);//500是ms,也可以用slow代替
 }
 
-/**
+/!**
  * 发表评论校验
- */
+ *!/
 function commentPost() {
     var content = $("#comment-content").val();
     // 评论长度校验
@@ -54,20 +54,20 @@ function commentPost() {
     }
 }
 
-/**
+/!**
  * 点击回复，评论框获得焦点
  * @param replyUser
- */
+ *!/
 function replyComment(replyUser) {
     $("#comment-content").html(replyUser);
     $("#comment-content").focus();
     $("html,body").animate({scrollTop: $("#comment-content").offset().top}, 500);//500是ms,也可以用slow代替
 }
 
-/**
+/!**
  * 喜欢帖子
  * @param postId
- */
+ *!/
 function lovePost(postId) {
 
     $.ajax({
@@ -82,10 +82,10 @@ function lovePost(postId) {
     });
 }
 
-/**
+/!**
  * TODO 删除用户帖子
  * @param postId
- */
+ *!/
 function deletePost(postId) {
     if (confirm("删除后无法恢复，确定删除这条帖子吗？")) {
         // 删除帖子
@@ -93,10 +93,10 @@ function deletePost(postId) {
     }
 }
 
-/**
+/!**
  * TODO 删除用户评论
  * @param commentId
- */
+ *!/
 function deleteComment(commentId) {
     if (confirm("确定删除这条评论吗？")) {
         $.post(getContextPath() + "/post/deleteComment.action?commentId=" + commentId, function (data) {
@@ -105,4 +105,4 @@ function deleteComment(commentId) {
             window.location.reload();
         });
     }
-}
+}*/
