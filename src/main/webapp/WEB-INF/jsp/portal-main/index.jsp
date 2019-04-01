@@ -23,7 +23,7 @@
     </ol>
     <!-- 轮播（Carousel）项目 -->
     <div class="carousel-inner">
-        <div class="item active"><img src="/images/school/xzit-front-wide.jpg"></div>
+        <div class="item active"><img src="/images/school/nchu-l.png"></div>
         <%--<div class="item"><img src="${pageContext.request.contextPath}/assets/images/school/xzit-south.jpg"></div>--%>
         <div class="item"><img src="/images/school/xzit-motto.jpg"></div>
         <div class="item"><img src="/images/school/xzit-library.jpg"></div>
@@ -106,9 +106,9 @@
             </div>
             <div class="panel-body padding0 about-list">
                 <ul>
-                    <c:forEach items="${recruits}" var="recruit">
+                    <c:forEach items="${recruit}" var="recruit">
                         <li>
-                            <a href="${pageContext.request.contextPath}/recruit/detailRecruit.action?recruitId=${recruit.recruitId}">
+                            <a href="${pageContext.request.contextPath}/recruit/detailRecruit?recuritId=${recruit.recuritId}">
                                 <ar:sub value="${recruit.title}" length="15"></ar:sub>
                             </a>
                         </li>

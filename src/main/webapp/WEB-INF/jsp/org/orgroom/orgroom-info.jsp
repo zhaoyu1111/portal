@@ -1,28 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ include file="/WEB-INF/views/portal-common/portal-tag.jsp" %>
+<%@ include file="../../portal-common/portal-js.jsp" %>
+<%@ include file="../../portal-common/portal-tag.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${orgroom.originName}-信电校友录</title>
-    <%@ include file="/WEB-INF/views/portal-common/portal-meta.jsp" %>
+    <title>${orgroom.associaName}-信电校友录</title>
+    <%@ include file="../../portal-common/portal-meta.jsp" %>
 </head>
 <body>
 
-<%@ include file="/WEB-INF/views/portal-common/header.jsp" %>
+<%@ include file="../../portal-common/header.jsp" %>
 
 <div class="container higher" id="container">
-    <%@ include file="/WEB-INF/views/org/orgroom/orgroom-pageheader.jsp" %>
+    <%@ include file="orgroom-pageheader.jsp" %>
     <div class="mb5"></div>
     <!-- nav tab -->
-    <%@ include file="/WEB-INF/views/org/orgroom/orgroom-nav.jsp" %>
+    <%@ include file="orgroom-nav.jsp" %>
 
     <!-- Tab panes -->
     <div class="tab-content" style="background-color: #ddd;">
         <div class="tab-pane active" id="orgroom-content">
             <!-- 动态编写 -->
             <div class="panel panel-dark panel-alt timeline-post" id="infoBox">
-                <form action="${pageContext.request.contextPath}/orgroom/publishInfo.action" method="post"
+                <form action="${pageContext.request.contextPath}/orgroom/publishInfo" method="post"
                       enctype="multipart/form-data" id="originInfoForm">
                     <div class="panel-body" style="border-bottom: solid 5px #ddd">
                         <input class="form-control" name="infoTitle" id="infoTitle" placeholder="标题">
@@ -101,16 +102,15 @@
             </div>
             <input type="hidden" value="${orgroom.originId}" id="originId">
         </div>
-        <%@ include file="/WEB-INF/views/portal-common/pagination.jsp" %>
+        <%@ include file="../../portal-common/pagination.jsp" %>
     </div>
     <!-- Tab panes -->
 
 </div>
 <!-- container -->
 
-<%@ include file="/WEB-INF/views/portal-common/footer.jsp" %>
+<%@ include file="../../portal-common/footer.jsp" %>
 
 </body>
-<%@ include file="/WEB-INF/views/portal-common/portal-js.jsp" %>
-<script src="${pageContext.request.contextPath}/assets/script/org/orgroom/orgroom-info.js"></script>
+<script src="/script/org/orgroom/orgroom-info.js"></script>
 </html>
