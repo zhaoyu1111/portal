@@ -1,20 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ include file="/WEB-INF/views/portal-common/portal-tag.jsp" %>
+<%@ include file="../../portal-common/portal-tag.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${classroom.className}-信电校友录</title>
-    <%@ include file="/WEB-INF/views/portal-common/portal-meta.jsp" %>
+    <title>${classroom.className}-昌航校友录</title>
+    <%@ include file="../../portal-common/portal-meta.jsp" %>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/portal-common/header.jsp" %>
+<%@ include file="../../portal-common/header.jsp" %>
 <div class="container higher" id="container">
-    <%@ include
-            file="/WEB-INF/views/class/classroom/classroom-pageheader.jsp" %>
+    <%@ include file="classroom-pageheader.jsp" %>
     <div class="mb5"></div>
     <!-- nav tab -->
-    <%@ include file="/WEB-INF/views/class/classroom/classroom-nav.jsp" %>
+    <%@ include file="classroom-nav.jsp" %>
 
     <!-- Tab panes -->
     <div class="tab-content">
@@ -28,21 +27,21 @@
                         <blockquote>
                             <i class="fa fa-quote-left"></i>
                             <c:if
-                                    test="${classroom.classDesc!=''&&classroom.classDesc!=null}">
-                                <p>${classroom.classDesc}</p>
+                                    test="${classInfo.descript!=''&&classInfo.descript!=null}">
+                                <p>${classInfo.descript}</p>
                             </c:if>
                             <c:if
-                                    test="${classroom.classDesc==''||classroom.classDesc==null}">
+                                    test="${classInfo.descript==''||classInfo.descript==null}">
                                 <p>(暂无简介)</p>
                             </c:if>
                         </blockquote>
                     </div>
                 </div>
-                <div class="panel panel-default">
+                <%--<div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">最新动态：</h4>
                     </div>
-                </div>
+                </div>--%>
                 <div id="bloglist" class="row">
                     <c:forEach items="${lastInfos}" var="info" varStatus="status">
                         <div class="col-md-12">
@@ -75,15 +74,15 @@
                         </c:if>
                     </c:forEach>
                 </div>
-                <div class="panel panel-default">
+                <%--<div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">最新照片：</h4>
                     </div>
-                </div>
+                </div>--%>
             </div>
             <div class="col-md-3"
                  style="background-color: #eee; padding: 10px 10px 50px 10px;">
-                <%@ include file="/WEB-INF/views/my/my-mini.jsp" %>
+                <%@ include file="../../my/my-mini.jsp" %>
                 <ar:exist items="${memberList}" value="${SESSION_USER.userId}">
                     <div class="alert alert-info">
                         <button class="close" aria-hidden="true" data-dismiss="alert"
@@ -125,8 +124,8 @@
     <!-- Tab panes -->
 </div>
 <!-- container -->
-<%@ include file="/WEB-INF/views/portal-common/footer.jsp" %>
+<%@ include file="../../portal-common/footer.jsp" %>
 </body>
-<%@ include file="/WEB-INF/views/portal-common/portal-js.jsp" %>
-<script src="${pageContext.request.contextPath}/assets/script/class/classroom/classroom-index.js"></script>
+<%@ include file="../../portal-common/portal-js.jsp" %>
+<script src="/script/class/classroom/classroom-index.js"></script>
 </html>

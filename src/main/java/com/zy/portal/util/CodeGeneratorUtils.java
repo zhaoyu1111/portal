@@ -26,7 +26,7 @@ public class CodeGeneratorUtils {
         //子工程的名称
         //String projectName = "uc-service";
 
-        generateByTables(null, packageName, "alumni_association");
+        generateByTables(null, packageName, "activity", "activity_user_apply");
     }
 
     private void generateByTables(String projectName, String packageName, String... tableNames) {

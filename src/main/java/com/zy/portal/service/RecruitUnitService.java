@@ -3,6 +3,8 @@ package com.zy.portal.service;
 import com.zy.portal.entity.RecruitUnit;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -19,4 +21,11 @@ public interface RecruitUnitService extends IService<RecruitUnit> {
      * @return
      */
     RecruitUnit getRecruitUnit(Long unitId);
+
+    /**
+     * 查询公司列表
+     * @param unitIds
+     * @return
+     */
+    List<RecruitUnit> listUnit(List<Long> unitIds);
 }

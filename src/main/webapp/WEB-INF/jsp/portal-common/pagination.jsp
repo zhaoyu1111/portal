@@ -7,18 +7,18 @@
         <ul class="pagination">
             <li><a class="page-indexor" href="javascript:;"
                    aria-label="Previous"
-                   <c:if test="${page.pageIndex>1}">value="${page.pageIndex-1}"</c:if>>
+                   <c:if test="${page.total>1}">value="${page.total-1}"</c:if>>
                 <i class="fa fa-angle-left"></i>
             </a></li>
-            <c:forEach items="${page.codeList}" var="pagecode">
-                <li <c:if test="${page.pageIndex==pagecode}">class="active"</c:if>><a
+            <c:forEach items="${page.list}" var="pagecode">
+                <li <c:if test="${page.total==pagecode}">class="active"</c:if>><a
                         class="page-indexor" href="javascript:;"
                         <c:if test="${pagecode>-1}">value="${pagecode}"</c:if>>${pagecode}<span
                         class="sr-only"></span></a></li>
             </c:forEach>
             <li><a class="page-indexor" href="javascript:;"
                    aria-label="Next"
-                   <c:if test="${page.pageIndex<page.totalPages}">value="${page.pageIndex+1}"</c:if>>
+                   <c:if test="${page.pageIndex<page.totalPages}">value="${page.totalPages+1}"</c:if>>
                 <i class="fa fa-angle-right"></i>
             </a></li>
         </ul>

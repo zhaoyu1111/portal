@@ -1,9 +1,11 @@
 package com.zy.portal.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.zy.portal.common.MyPage;
 import com.zy.portal.dto.RecruitApplyInfo;
 import com.zy.portal.dto.RecruitDetail;
 import com.zy.portal.entity.Recruit;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -50,6 +53,33 @@ public class RecruitController {
 
     @Autowired
     private UserService userService;
+
+    @RequestMapping("")
+    public String index(Model model) {
+        IPage<Recruit> recruitIPage = recruitService.queryRecruit(1);
+        List<Recruit> recruits = recruitIPage.getRecords();
+        if(CollectionUtils.isEmpty(recruits)) {
+            model.addAttribute("page", new MyPage<>());
+            return "recruit/recruit-index";
+        }
+        List<Long> unitIds = recruits.stream().map(Recruit::getUnitId).distinct().collect(Collectors.toList());
+        List<RecruitUnit> units = recruitUnitService.listUnit(unitIds);
+        Map<Long, RecruitUnit> unitMap = Maps.newHashMap();
+        units.forEach(recruitUnit -> unitMap.put(recruitUnit.getUnitId(), recruitUnit));
+
+        List<RecruitDetail> details = Lists.newArrayList();
+        for (Recruit recruit : recruits) {
+            RecruitDetail detail = new RecruitDetail();
+            BeanUtils.copyProperties(recruit, detail);
+            RecruitUnit unit = unitMap.get(recruit.getUnitId());
+            if(null != unit){
+                detail.setUnitName(unit.getUnitName());
+            }
+            details.add(detail);
+        }
+        model.addAttribute("page", new MyPage<RecruitDetail>(recruitIPage.getTotal(), details));
+        return "recruit/recruit-index";
+    }
 
     @RequestMapping("/detailRecruit")
     public String getRecruit(Model model, @NotNull(message = "招聘信息丢失") Long recuritId) {

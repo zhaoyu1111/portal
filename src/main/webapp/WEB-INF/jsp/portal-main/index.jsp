@@ -48,17 +48,26 @@
             </div>
             <div class="panel-body padding0">
 
-                <c:forEach items="${article}" var="article">
-                    <a href="${pageContext.request.contextPath}/article/detail?articleId=${article.articleId}"
+                <c:forEach items="${activity}" var="activity">
+                    <a href="${pageContext.request.contextPath}/article/detail?activityId=${activity.activityId}"
                        class="photoday">
                         <%--<img src="${article}" alt=""/>--%>
                     </a>
                     <div class="photo-details">
-                        <a href="${pageContext.request.contextPath}/article/detail?articleId=${article.articleId}">
-                            <h5 class="photo-title"><ar:sub value="${info.title}" length="20"></ar:sub></h5>
+                        <a href="${pageContext.request.contextPath}/article/detail?articleId=${activity.activityId}">
+                            <h5 class="photo-title"><ar:sub value="${activity.activityName}" length="20"></ar:sub></h5>
                         </a>
                         <small class="text-muted">
-                            发布于 ：<ar:dateTag value="${article.ctime}" pattern="M月d日"></ar:dateTag>
+                            当前状态 ：<c:if test="${activity.status == 1}">
+                                正在进行...
+                                </c:if>
+                                <c:if test="${activity.status == 2}">
+                                    已结束
+                                </c:if>
+                        </small>
+                        <br>
+                        <small class="text-muted">
+                            发布于 ：<ar:dateTag value="${activity.ctime}" pattern="M月d日"></ar:dateTag>
                         </small>
                     </div>
                     <hr>

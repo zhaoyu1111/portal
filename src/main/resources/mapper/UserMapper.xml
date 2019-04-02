@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zy.portal.mapper.UserMapper">
 
+    <select id="getClassUserNum" resultType="com.zy.portal.dto.ClassUser">
+        select class_id as classId, count(*) as classNum from user where
+        class_id in
+        <foreach collection="classIds" item="classIds" index="index" open="(" close=")" separator=",">
+            #{classIds}
+        </foreach>
+         group by class_id
+    </select>
 </mapper>

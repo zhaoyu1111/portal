@@ -1,5 +1,6 @@
 package com.zy.portal.service;
 
+import com.zy.portal.dto.ClassUser;
 import com.zy.portal.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -28,4 +29,24 @@ public interface UserService extends IService<User> {
      */
     List<User> getUser(String address);
 
+    /**
+     * 获取班级人数
+     * @param classIds
+     * @return
+     */
+    List<ClassUser> getClassUserNum(List<Long> classIds);
+
+    /**
+     * 获取班级总人数
+     * @param classId
+     * @return
+     */
+    Integer getClassNum(Long classId);
+
+    /**
+     * 获取班级用户
+     * @param classId
+     * @return
+     */
+    List<User> listUser(Long classId);
 }

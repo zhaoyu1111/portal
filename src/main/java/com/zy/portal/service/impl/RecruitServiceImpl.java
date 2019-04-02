@@ -23,14 +23,13 @@ import java.util.List;
 public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> implements RecruitService {
 
     @Override
-    public List<Recruit> queryRecruit(Integer currentPage) {
+    public IPage<Recruit> queryRecruit(Integer currentPage) {
         QueryWrapper<Recruit> query = new QueryWrapper<>();
         query.orderByDesc("ctime");
         query.eq("status", 2);
         query.eq("deleted", 1);
         Page<Recruit> pages = new Page<>(currentPage, 10);
-        IPage<Recruit> recruitIPage = baseMapper.selectPage(pages, query);
-        return recruitIPage.getRecords();
+        return baseMapper.selectPage(pages, query);
     }
 
     @Override

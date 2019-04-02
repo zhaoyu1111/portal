@@ -3,6 +3,7 @@ package com.zy.portal.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zy.portal.dto.ClassUser;
 import com.zy.portal.entity.User;
 import com.zy.portal.mapper.UserMapper;
 import com.zy.portal.service.UserService;
@@ -40,5 +41,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         Page<User> userPage = new Page<>(1, 20);
         return baseMapper.selectPage(userPage, query).getRecords();
+    }
+
+    @Override
+    public List<ClassUser> getClassUserNum(List<Long> classIds) {
+        return baseMapper.getClassUserNum(classIds);
+    }
+
+    @Override
+    public Integer getClassNum(Long classId) {
+        QueryWrapper<User> query = new QueryWrapper<>();
+        query.eq("class_id", classId);
+        return selectCount(query);
+    }
+
+    @Override
+    public List<User> listUser(Long classId) {
+        QueryWrapper<User> query = new QueryWrapper<>();
+        query.eq("class_id", classId);
+        return baseMapper.selectList(query);
     }
 }

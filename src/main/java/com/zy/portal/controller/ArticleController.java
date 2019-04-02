@@ -43,5 +43,11 @@ public class ArticleController {
         model.addAttribute("article", articleService.getArticle(1));
         return "news/news-index";
     }
+
+    @RequestMapping("/activity")
+    public String getActivity(Model model) {
+        model.addAttribute("activity", null);
+        return "activity/activity-index";
+    }
 }
 

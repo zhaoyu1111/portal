@@ -7,6 +7,8 @@ import com.zy.portal.service.RecruitUnitService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -23,5 +25,12 @@ public class RecruitUnitServiceImpl extends ServiceImpl<RecruitUnitMapper, Recru
         QueryWrapper<RecruitUnit> query = new QueryWrapper<>();
         query.eq("unit_id", unitId);
         return baseMapper.selectOne(query);
+    }
+
+    @Override
+    public List<RecruitUnit> listUnit(List<Long> unitIds) {
+        QueryWrapper<RecruitUnit> query = new QueryWrapper<>();
+        query.in("unit_id", unitIds);
+        return baseMapper.selectList(query);
     }
 }

@@ -50,7 +50,7 @@
                     </ul>
                 </div><!-- panel-body -->
             </div><!-- panel -->
-            <%@include file="../portal-common/pagination.jsp" %>
+            <%--<%@include file="../portal-common/pagination.jsp" %>--%>
         </div>
         <!-- col-md-9 -->
 

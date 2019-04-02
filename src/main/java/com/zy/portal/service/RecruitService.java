@@ -1,5 +1,6 @@
 package com.zy.portal.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zy.portal.entity.Recruit;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -20,7 +21,7 @@ public interface RecruitService extends IService<Recruit> {
      * @param currentPage
      * @return
      */
-    List<Recruit> queryRecruit(Integer currentPage);
+    IPage<Recruit> queryRecruit(Integer currentPage);
 
     /**
      * 获取招聘信息

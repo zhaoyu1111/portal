@@ -1,31 +1,33 @@
 package com.zy.portal.controller;
 
+
 import com.zy.portal.service.ActivityService;
-import com.zy.portal.service.ArticleService;
-import com.zy.portal.service.RecruitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * <p>
+ *  前端控制器
+ * </p>
+ *
+ * @author zy
+ * @since 2019-04-02
+ */
 @Controller
-public class IndexController {
-
-    @Autowired
-    private ArticleService articleService;
-
-    @Autowired
-    private RecruitService recruitService;
+@RequestMapping("/activity")
+public class ActivityController {
 
     @Autowired
     private ActivityService activityService;
 
-    @RequestMapping("/index")
+    @RequestMapping("")
     public String index(Model model) {
-        model.addAttribute("article", articleService.getArticle(1));
-        model.addAttribute("recruit", recruitService.queryRecruit(1).getRecords());
         model.addAttribute("activity", activityService.listActivity(1).getRecords());
-        return "portal-main/index";
+        return "activity/activity-index";
     }
-
 }
+
