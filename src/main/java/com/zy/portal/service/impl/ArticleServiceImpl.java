@@ -48,4 +48,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return article;
     }
 
+    @Override
+    public List<Article> listArticle(Long menuId) {
+        QueryWrapper<Article> query = new QueryWrapper<>();
+        query.eq("menu_id", menuId);
+        return baseMapper.selectList(query);
+    }
 }

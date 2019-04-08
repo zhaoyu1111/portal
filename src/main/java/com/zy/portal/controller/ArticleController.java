@@ -43,5 +43,17 @@ public class ArticleController {
         model.addAttribute("article", articleService.getArticle(1));
         return "news/news-index";
     }
+
+    @RequestMapping("/donation")
+    public String donation(Model model) {
+        model.addAttribute("donation", articleService.listArticle(2L));
+        return "donation/donation-index";
+    }
+
+    @RequestMapping("/donationDetail")
+    public String doantionDetail(Model model, Long articleId) {
+        model.addAttribute("donation", articleService.getArticle(articleId));
+        return "donation/donation-detail";
+    }
 }
 

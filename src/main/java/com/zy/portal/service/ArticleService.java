@@ -29,4 +29,11 @@ public interface ArticleService extends IService<Article> {
      */
     Article getArticle(Long articleId);
 
+    /**
+     * 查询文章列表
+     * @param menuId
+     * @return
+     */
+    List<Article> listArticle(Long menuId);
+
 }
