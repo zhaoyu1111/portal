@@ -24,7 +24,7 @@ public class IndexController {
     public String index(Model model) {
         model.addAttribute("article", articleService.getArticle(1));
         model.addAttribute("recruit", recruitService.queryRecruit(1).getRecords());
-        model.addAttribute("activity", activityService.listActivity(1).getRecords());
+        model.addAttribute("activity", activityService.listActivity(1, null).getRecords());
         return "portal-main/index";
     }
 

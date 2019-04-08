@@ -23,8 +23,23 @@ import java.util.List;
 public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> implements ActivityService {
 
     @Override
-    public IPage<Activity> listActivity(Integer currentPage) {
+    public IPage<Activity> listActivity(Integer currentPage, Long activityId) {
+        QueryWrapper<Activity> query = new QueryWrapper<>();
+        if(null != activityId) {
+            query.ne("activity_id", activityId);
+        }
         Page<Activity> page = new Page<>(currentPage, 10);
-        return baseMapper.selectPage(page, new QueryWrapper<>());
+        return baseMapper.selectPage(page, query);
+    }
+
+    @Override
+    public Activity getActivity(Long activityId) {
+        Activity activity = baseMapper.selectById(activityId);
+        if(null == activity) {
+            return new Activity();
+        }
+        activity.setInterests(activity.getInterests() + 1);
+        baseMapper.updateById(activity);
+        return activity;
     }
 }

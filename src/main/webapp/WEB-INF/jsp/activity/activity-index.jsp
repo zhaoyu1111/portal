@@ -45,7 +45,7 @@
                         <c:forEach items="${activity}" var="activity">
                             <tr>
                                 <td id="${activity.activityId}">&nbsp;<a
-                                        href="${pageContext.request.contextPath}/article/detail?activityId=${activity.activityId}">${activity.activityName}</a>
+                                        href="${pageContext.request.contextPath}/activity/detail?activityId=${activity.activityId}">${activity.activityName}</a>
                                     <ar:top value="${activity.ctime}"/>
                                 </td>
                                 <td>${activity.leaderName}</td>

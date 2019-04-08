@@ -20,26 +20,21 @@
                     <c:choose>
                         <c:when test="${SESSION_USER != null}">
                             <li class="top_link">
-                                <a href="${pageContext.request.contextPath}/my/profile/basic.action" target="blank">
-                                        <%--<c:if test="${SESSION_USER.portrait != null}">--%>
-                                        <%--<img src="${SESSION_USER.portrait}" width="20px" class="img-circle"/>--%>
-                                        <%--</c:if>--%>
-                                        <%--<c:if test="${SESSION_USER.portrait == null}"><i class="fa fa-user"></i></c:if>--%>
-
-                                    <c:if test="${SESSION_USER.trueName != null}"><i
-                                            class="fa fa-user"></i>&nbsp;${SESSION_USER.trueName}</c:if>
-                                    <c:if test="${SESSION_USER.trueName == null}">${SESSION_USER.account}</c:if>
+                                <a href="${pageContext.request.contextPath}/login/basic" target="blank">
+                                    <c:if test="${SESSION_USER.userName != null}"><i
+                                            class="fa fa-user"></i>&nbsp;${SESSION_USER.userName}</c:if>
+                                    <c:if test="${SESSION_USER.userName == null}">${SESSION_USER.studentId}</c:if>
                                 </a>
                             </li>
                             <li>|</li>
-                            <li class="top_link"><a href="${pageContext.request.contextPath}/login/logout.action">退出</a>
+                            <li class="top_link"><a href="${pageContext.request.contextPath}/login/logout">退出</a>
                             </li>
                             <input class="logoutStyle" name="-gfj_jkb-fsjvbkcjadkcnkjsdnzxc"
                                    type="hidden" id="_sfhk_jbkjb_sfhk_"
-                                   value="${SESSION_USER.userId}">
+                                   value="${SESSION_USER.studentId}">
                         </c:when>
                         <c:otherwise>
-                            <li class="top_link"><a href="${pageContext.request.contextPath}/login.action">登录</a></li>
+                            <li class="top_link"><a href="${pageContext.request.contextPath}/login">登录</a></li>
                         </c:otherwise>
                     </c:choose>
                 </ul>
@@ -48,5 +43,3 @@
     </div>
 </div>
 <!-- header -->
-
-<%@ include file="../portal-main/login-alert.jsp" %>

@@ -4,10 +4,10 @@
 <html>
 <head>
     <title>个人中心-信电校友录</title>
-    <%@ include file="/WEB-INF/views/portal-common/portal-meta.jsp" %>
+    <%@ include file="../../portal-common/portal-meta.jsp" %>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/portal-common/header.jsp" %>
+<%@ include file="../../portal-common/header.jsp" %>
 <div class="container higher" id="container">
     <div class="pageheader">
         <h2>
@@ -16,7 +16,7 @@
         <div class="breadcrumb-wrapper">
             <span class="label"></span>
             <ol class="breadcrumb">
-                <li><a href="${pageContext.request.contextPath}/index.action">主页</a></li>
+                <li><a href="${pageContext.request.contextPath}/index">主页</a></li>
                 <li class="active">个人中心</li>
             </ol>
         </div>
@@ -25,18 +25,18 @@
     <div class="row">
         <!-- 侧边栏 -->
         <div class="col-sm-4 col-lg-2">
-            <%@ include file="/WEB-INF/views/my/my-side.jsp" %>
+            <%@ include file="../../my/my-side.jsp" %>
         </div>
         <!-- 侧边栏 -->
 
         <div class="col-sm-8 col-lg-10">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
-                <li><a href="${pageContext.request.contextPath}/my/account.action"><span
+                <li><a href="${pageContext.request.contextPath}/login/account"><span
                         class="glyphicon glyphicon-th-list"></span>&nbsp;<strong>账号信息</strong></a></li>
-                <li><a href="${pageContext.request.contextPath}/my/account/password.action"><span
+                <li><a href="${pageContext.request.contextPath}/login/password"><span
                         class="glyphicon glyphicon-paperclip"></span>&nbsp;<strong>密码修改</strong></a></li>
-                <li class="active"><a href="${pageContext.request.contextPath}/my/account/email.action"><span
+                <li class="active"><a href="${pageContext.request.contextPath}/login/email"><span
                         class="glyphicon glyphicon-briefcase"></span>&nbsp;<strong>邮箱设置</strong></a></li>
             </ul>
             <!-- Nav Tab -->
@@ -68,9 +68,9 @@
 </div>
 <!-- container -->
 
-<%@ include file="/WEB-INF/views/portal-common/footer.jsp" %>
+<%@ include file="../../portal-common/footer.jsp" %>
 
 </body>
-<%@ include file="/WEB-INF/views/portal-common/portal-js.jsp" %>
-<script src="${pageContext.request.contextPath}/assets/script/my/acount/account-email.js"></script>
+<%@ include file="../../portal-common/portal-js.jsp" %>
+<script src="/script/my/acount/account-email.js"></script>
 </html>

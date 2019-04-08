@@ -26,8 +26,20 @@ public class ActivityController {
 
     @RequestMapping("")
     public String index(Model model) {
-        model.addAttribute("activity", activityService.listActivity(1).getRecords());
+        model.addAttribute("activity", activityService.listActivity(1, null).getRecords());
         return "activity/activity-index";
+    }
+
+    @RequestMapping("/detail")
+    public String activityDetail(Model model, Long activityId) {
+        model.addAttribute("detail", activityService.getActivity(activityId));
+        return "activity/activity-detail";
+    }
+
+    @RequestMapping("/outline")
+    public String getOutline(Model model, Long activityId) {
+        model.addAttribute("outline", activityService.listActivity(1, activityId).getRecords());
+        return "activity/activity-outline";
     }
 }
 

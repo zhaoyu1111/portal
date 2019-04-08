@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>个人中心-信电校友录</title>
-    <%@ include file="/WEB-INF/views/portal-common/portal-meta.jsp" %>
+    <title>个人中心-昌航校友录</title>
+    <%@ include file="../../portal-common/portal-meta.jsp" %>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/portal-common/header.jsp" %>
+<%@ include file="../../portal-common/header.jsp" %>
 <div class="container higher" id="container">
     <div class="pageheader">
         <h2>
@@ -25,7 +25,7 @@
     <div class="row">
         <!-- 侧边栏 -->
         <div class="col-sm-4 col-lg-2">
-            <%@ include file="/WEB-INF/views/my/my-side.jsp" %>
+            <%@ include file="../my-side.jsp" %>
         </div>
         <!-- 侧边栏 -->
 
@@ -94,9 +94,9 @@
 </div>
 <!-- container -->
 
-<%@ include file="/WEB-INF/views/portal-common/footer.jsp" %>
+<%@ include file="../../portal-common/footer.jsp" %>
 
 </body>
-<%@ include file="/WEB-INF/views/portal-common/portal-js.jsp" %>
-<script src="${pageContext.request.contextPath}/assets/script/my/profile/profile-job.js"></script>
+<%@ include file="../../portal-common/portal-js.jsp" %>
+<script src="/script/my/profile/profile-job.js"></script>
 </html>

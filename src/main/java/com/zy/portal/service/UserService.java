@@ -49,4 +49,31 @@ public interface UserService extends IService<User> {
      * @return
      */
     List<User> listUser(Long classId);
+
+    /**
+     * 登录验证
+     * @param studentId
+     * @param password
+     * @return
+     */
+    User validateUser(String studentId);
+
+    /**
+     * 获取用户信息
+     * @param studentId
+     * @return
+     */
+    User getUserInfo(Long studentId);
+
+    /**
+     * 更新邮箱信息
+     * @param user
+     */
+    void updateEmail(User user);
+
+    /**
+     * 修改密码
+     * @param user
+     */
+    void updatePassword(User user);
 }

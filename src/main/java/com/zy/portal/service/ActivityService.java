@@ -21,5 +21,12 @@ public interface ActivityService extends IService<Activity> {
      * @param currentPage
      * @return
      */
-    IPage<Activity> listActivity(Integer currentPage);
+    IPage<Activity> listActivity(Integer currentPage, Long activityId);
+
+    /**
+     * 获取活动详情
+     * @param activityId
+     * @return
+     */
+    Activity getActivity(Long activityId);
 }

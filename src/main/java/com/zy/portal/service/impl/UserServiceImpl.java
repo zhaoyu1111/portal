@@ -61,4 +61,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         query.eq("class_id", classId);
         return baseMapper.selectList(query);
     }
+
+    @Override
+    public User validateUser(String studentId) {
+        return baseMapper.selectById(studentId);
+    }
+
+    @Override
+    public User getUserInfo(Long studentId) {
+        return baseMapper.selectById(studentId);
+    }
+
+    @Override
+    public void updateEmail(User user) {
+        baseMapper.updateById(user);
+    }
+
+    @Override
+    public void updatePassword(User user) {
+        baseMapper.updateById(user);
+    }
 }

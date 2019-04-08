@@ -7,7 +7,7 @@
     <div class="breadcrumb-wrapper">
         <ol class="breadcrumb">
             <li><a href="${pageContext.request.contextPath}/index">主页</a></li>
-            <li><a href="${pageContext.request.contextPath}/org">校友组织</a></li>
+            <li><a href="${pageContext.request.contextPath}/origin">校友组织</a></li>
             <li class="active">${orgroom.associaName}</li>
         </ol>
     </div>

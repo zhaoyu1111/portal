@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${classroom.className}-昌航校友录</title>
+    <title>${classInfo.className}-昌航校友录</title>
     <%@ include file="../../portal-common/portal-meta.jsp" %>
 </head>
 <body>
@@ -37,53 +37,11 @@
                         </blockquote>
                     </div>
                 </div>
-                <%--<div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">最新动态：</h4>
-                    </div>
-                </div>--%>
-                <div id="bloglist" class="row">
-                    <c:forEach items="${lastInfos}" var="info" varStatus="status">
-                        <div class="col-md-12">
-                            <div class="blog-item">
-                                <div class="blog-details">
-                                    <div class="blog-summary">
-                                        <ar:sub length="40" value="${info.content}"/>
-                                        <br>
-                                        <ul class="blog-meta">
-                                            <li>By: <a
-                                                    href="${pageContext.request.contextPath}/ta.show.action?userId=${info.userId}">${info.userName}</a>
-                                            </li>
-                                            <li><fmt:formatDate value="${info.createTime}"
-                                                                pattern="yyyy-MM-dd HH:mm"/></li>
-                                            <li><a
-                                                    href="${pageContext.request.contextPath}/classroom/infoDetail.action?classId=${classroom.classId}&infoId=${info.infoId}">评论(${info.comments})</a>
-                                            </li>
-                                        </ul>
-                                        <button class="btn btn-sm btn-white"
-                                                onclick="javascript:location.href='classroom/infoDetail.action?classId=${classroom.classId}&infoId=${info.infoId}';">
-                                            查看详情
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- blog-item -->
-                        </div>
-                        <c:if test="${(status.index+1)%4==0}">
-                            <div class="row"></div>
-                        </c:if>
-                    </c:forEach>
-                </div>
-                <%--<div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">最新照片：</h4>
-                    </div>
-                </div>--%>
             </div>
             <div class="col-md-3"
                  style="background-color: #eee; padding: 10px 10px 50px 10px;">
                 <%@ include file="../../my/my-mini.jsp" %>
-                <ar:exist items="${memberList}" value="${SESSION_USER.userId}">
+                <ar:exist items="${memberList}" value="${SESSION_USER.studentId}">
                     <div class="alert alert-info">
                         <button class="close" aria-hidden="true" data-dismiss="alert"
                                 type="button">×
@@ -91,7 +49,7 @@
                         <strong></strong><a class="alert-link" href="javascript:;">您已加入该班级啦!</a>
                     </div>
                 </ar:exist>
-                <ar:notexist items="${memberList}" value="${SESSION_USER.userId}">
+                <ar:notexist items="${memberList}" value="${SESSION_USER.studentId}">
                     <div class="alert alert-info">
                         <button class="close" aria-hidden="true" data-dismiss="alert"
                                 type="button">×
@@ -106,7 +64,7 @@
                 <h5 class="subtitle mb5">管理员：</h5>
                 <div class="media">
                     <a class="pull-left"
-                       href="${pageContext.request.contextPath}/ta/show.action?userId=${classroom.mgrId}"> <img
+                       href="${pageContext.request.contextPath}/ta/show.action?studentId=${classroom.mgrId}"> <img
                             class="media-object img-responsive" src="${classroom.mgrImg}"
                             alt="" style="max-width: 100px;">
                     </a>

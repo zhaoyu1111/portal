@@ -4,10 +4,10 @@
 <html>
 <head>
     <title>个人中心-信电校友录</title>
-    <%@ include file="/WEB-INF/views/portal-common/portal-meta.jsp" %>
+    <%@ include file="../../portal-common/portal-meta.jsp" %>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/portal-common/header.jsp" %>
+<%@ include file="../../portal-common/header.jsp" %>
 <div class="container higher" id="container">
     <div class="pageheader">
         <h2>
@@ -16,8 +16,8 @@
         <div class="breadcrumb-wrapper">
             <span class="label"></span>
             <ol class="breadcrumb">
-                <li><a href="${pageContext.request.contextPath}/index.action">主页</a></li>
-                <li><a href="${pageContext.request.contextPath}/my.action">个人中心</a></li>
+                <li><a href="${pageContext.request.contextPath}/index">主页</a></li>
+                <li><a href="${pageContext.request.contextPath}/login/basic">个人中心</a></li>
                 <li class="active">我的班级</li>
             </ol>
         </div>
@@ -26,7 +26,7 @@
     <div class="row">
         <!-- 侧边栏 -->
         <div class="col-sm-4 col-lg-2">
-            <%@ include file="/WEB-INF/views/my/my-side.jsp" %>
+            <%@ include file="../my-side.jsp" %>
         </div>
         <!-- 侧边栏 -->
 
@@ -38,30 +38,28 @@
 
                     <%--班级列表--%>
                     <div class="people-list">
-                        <c:forEach items="${classes}" var="clazz">
                             <div class="col-md-6">
                                 <div class="people-item">
                                     <div class="media">
-                                        <a href="${pageContext.request.contextPath}/classroom.action?classId=${clazz.originId}"
+                                        <a href="${pageContext.request.contextPath}/class/classDetail?classId=${myclass.classId}"
                                            class="pull-left"
                                            style="color: black">
                                             <h1><i class="fa fa-mortar-board"></i></h1>
                                         </a>
                                         <div class="media-body">
-                                            <a href="${pageContext.request.contextPath}/classroom.action?classId=${clazz.originId}"
+                                            <a href="${pageContext.request.contextPath}/class/classDetail?classId=${myclass.classId}"
                                                style="color: black">
-                                                <h4 class="person-name">${clazz.originName}</h4>
+                                                <h4 class="person-name">${myclass.className}</h4>
                                             </a>
                                             <div class="text-muted">
-                                                <i class="fa fa-users"></i>班级成员： ${clazz.members}
+                                                <i class="fa fa-users"></i>班级成员： ${count}
                                             </div>
                                             <div class="text-muted">
                                                 <i class="fa fa-calendar"></i>最近活动：
-                                                <fmt:formatDate value="${clazz.stateTime}"
-                                                                pattern="YYYY-MM-dd"></fmt:formatDate>
+                                                <ar:dateTag value="${myclass.utime}" pattern="YYYY-MM-dd"></ar:dateTag>
                                             </div>
                                             <ul class="social-list">
-                                                <c:if test="${clazz==null}">
+                                                <c:if test="${myclass==null}">
                                                     <li><a href="javascript:;" class="tooltips" data-toggle="tooltip"
                                                            data-placement="top" title="手机："><i
                                                             class="fa fa-mobile"></i></a></li>
@@ -72,7 +70,6 @@
                                 </div>
                             </div>
                             <!-- col-md-6 -->
-                        </c:forEach>
                     </div>
 
                 </div>
@@ -83,9 +80,9 @@
 </div>
 <!-- container -->
 
-<%@ include file="/WEB-INF/views/portal-common/footer.jsp" %>
+<%@ include file="../../portal-common/footer.jsp" %>
 
 </body>
-<%@ include file="/WEB-INF/views/portal-common/portal-js.jsp" %>
-<script src="${pageContext.request.contextPath}/assets/script/my/class/class-index.js"></script>
+<%@ include file="../../portal-common/portal-js.jsp" %>
+<script src="/script/my/class/class-index.js"></script>
 </html>
