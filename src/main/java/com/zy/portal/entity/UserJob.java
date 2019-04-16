@@ -1,5 +1,6 @@
 package com.zy.portal.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -21,30 +22,35 @@ import java.io.Serializable;
  * </p>
  *
  * @author zy
- * @since 2019-03-30
+ * @since 2019-04-16
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("recruit_apply")
-public class RecruitApply extends SuperEntity<RecruitApply> {
+@TableName("user_job")
+public class UserJob extends SuperEntity<UserJob> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "recurit_id", type = IdType.INPUT)
-    private Long recuritId;
-    @TableField("student_id")
+    @TableId(value = "student_id", type = IdType.ID_WORKER)
     private Long studentId;
+    @TableField("job_name")
+    private String jobName;
     @TableField("unit_id")
     private Long unitId;
-
-    @TableField("resume_id")
-    private Long resumeId;
+    @TableField("post")
+    private String post;
+    @TableField("start_time")
+    private Long startTime;
+    @TableField("end_time")
+    private Long endTime;
+    @TableField("descrip")
+    private String descrip;
 
 
     @Override
     protected Serializable pkVal() {
-        return this.recuritId;
+        return this.studentId;
     }
 
 }

@@ -9,6 +9,6 @@ $(function () {
 
 function deleteMyRecruit(recruitId) {
     if (window.confirm('确定删除这条招聘信息？')) {
-        post(getContextPath() + "/my/recruit/delete.action", {'recruitId': recruitId});
+        post("/recruit/delete", {'recuritId': recruitId});
     }
 }

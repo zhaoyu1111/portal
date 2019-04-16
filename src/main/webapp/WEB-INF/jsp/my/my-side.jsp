@@ -17,7 +17,7 @@
 <ul class="nav nav-pills nav-stacked nav-email">
     <li id="my-class"><a href="${pageContext.request.contextPath}/login/class"><i class="fa fa-mortar-board"></i>我的班级</a>
     </li>
-    <li id="my-recruit"><a href="${pageContext.request.contextPath}/login/recruit"><i class="fa fa-bookmark"></i>我的招聘</a>
+    <li id="my-recruit"><a href="${pageContext.request.contextPath}/recruit/queryUserRecruit"><i class="fa fa-bookmark"></i>我的招聘</a>
     </li>
 </ul>
 

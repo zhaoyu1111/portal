@@ -37,7 +37,7 @@
                         class="glyphicon glyphicon-th-list"></span>&nbsp;<strong>基本资料</strong></a></li>
                 <li><a href="${pageContext.request.contextPath}/my/profile/job"><span
                         class="glyphicon glyphicon-briefcase"></span>&nbsp;<strong>工作信息</strong></a></li>
-                <li><a href="${pageContext.request.contextPath}/my/profile/portrait"><span
+                <li><a href="${pageContext.request.contextPath}/login/avatar"><span
                         class="glyphicon glyphicon-picture"></span>&nbsp;<strong>头像设置</strong></a></li>
             </ul>
             <!-- Nav Tab -->

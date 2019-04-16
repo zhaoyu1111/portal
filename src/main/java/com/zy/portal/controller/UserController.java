@@ -5,7 +5,10 @@ import com.zy.portal.entity.Class;
 import com.zy.portal.entity.User;
 import com.zy.portal.service.ClassService;
 import com.zy.portal.service.UserService;
+import com.zy.portal.util.ImageUtil;
 import com.zy.portal.util.MD5Utils;
+import com.zy.portal.util.UtilException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -138,6 +142,33 @@ public class UserController {
         model.addAttribute("myclass", myClass);
         model.addAttribute("count", userService.getClassNum(user.getClassId()));
         return "my/class/class-index";
+    }
+
+    @RequestMapping("/avatar")
+    public String portrait() {
+        return "my/profile/profile-portrait";
+    }
+
+    @RequestMapping("/avatar/upload")
+    public String upload(HttpSession session, MultipartFile portrait) throws UtilException {
+        User user = (User) session.getAttribute("SESSION_USER");
+        if(null == user) {
+            return "redirect:/login";
+        }
+        // 参数校验
+        if (portrait != null && portrait.getSize() > 0) {
+            // 保存到硬盘
+            String imagePath = ImageUtil.saveImage(portrait);
+
+            // 更新头像信息
+            if (StringUtils.isNotEmpty(imagePath)) {
+                user.setAvatar(imagePath);
+                userService.updateById(user);
+                // 更新并刷新session
+                session.setAttribute("SESSION_USER", user);
+            }
+        }
+        return "my/profile/portrait-basic";
     }
 }
 

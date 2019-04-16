@@ -114,6 +114,9 @@ public class Recruit extends SuperEntity<Recruit> {
     @TableLogic
     private Integer deleted;
 
+    @TableField("user_id")
+    private Long userdId;
+
 
     @Override
     protected Serializable pkVal() {

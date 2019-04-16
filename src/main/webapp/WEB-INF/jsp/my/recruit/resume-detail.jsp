@@ -4,10 +4,10 @@
 <html>
 <head>
     <title>个人简历-信电校友录</title>
-    <%@ include file="/WEB-INF/views/portal-common/portal-meta.jsp" %>
+    <%@ include file="../../portal-common/portal-meta.jsp" %>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/portal-common/header.jsp" %>
+<%@ include file="../../portal-common/header.jsp" %>
 <div class="container higher" id="container">
     <div class="pageheader">
         <h2>
@@ -16,7 +16,7 @@
         <div class="breadcrumb-wrapper">
             <span class="label"></span>
             <ol class="breadcrumb">
-                <li><a href="${pageContext.request.contextPath}/index.action">主页</a></li>
+                <li><a href="${pageContext.request.contextPath}/index">主页</a></li>
                 <li class="active">个人中心</li>
             </ol>
         </div>
@@ -25,21 +25,21 @@
     <div class="row">
         <!-- 侧边栏 -->
         <div class="col-sm-4 col-lg-2">
-            <%@ include file="/WEB-INF/views/my/my-side.jsp" %>
+            <%@ include file="../my-side.jsp" %>
         </div>
         <!-- 侧边栏 -->
 
         <div class="col-sm-8 col-lg-10">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
-                <li><a href="${pageContext.request.contextPath}/my/recruit.action"><span
+                <li><a href="${pageContext.request.contextPath}/recruit/queryUserRecruit"><span
                         class="fa fa-archive"></span>&nbsp;<strong>我的招聘</strong></a></li>
-                <li><a href="${pageContext.request.contextPath}/my/resume/posted.action"><span
+                <li><a href="${pageContext.request.contextPath}/apply"><span
                         class="fa fa-chain"></span>&nbsp;<strong>我的投递</strong></a></li>
-                <li class="active"><a href="${pageContext.request.contextPath}/my/resume.action"><span
+                <li class="active"><a href="${pageContext.request.contextPath}/resume"><span
                         class="fa fa-file-text-o"></span>&nbsp;<strong>我的简历</strong></a></li>
-                <li><a href="${pageContext.request.contextPath}/unit/my.action"><span
-                        class="fa fa-institution"></span>&nbsp;<strong>我的单位</strong></a></li>
+                <%--<li><a href="${pageContext.request.contextPath}/recruitUnit/queryMyUnit"><span
+                        class="fa fa-institution"></span>&nbsp;<strong>我的单位</strong></a></li>--%>
             </ul>
             <!-- Nav Tab -->
 
@@ -55,7 +55,7 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab-recruit">
                                 <form class="form" id="resumeForm" method="post"
-                                      action="${pageContext.request.contextPath}/my/resume/addResumeSubmit.action">
+                                      action="${pageContext.request.contextPath}/resume/addResumeSubmit">
 
                                     <div class="panel panel-default">
                                         <h5 class="panel-title">职位信息</h5>
@@ -67,13 +67,15 @@
 
                                     <div class="form-group">
                                         <label class="col-sm-2">职业类型：</label>
-                                        <div class="col-sm-4">${resume.profType}</div>
+                                        <div class="col-sm-4">${resume.careerType}</div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-2">期望工资：</label>
                                         <div class="col-sm-4">
-                                            <ar:dictdata dictdata="${resume.expSalary}" dict="sl"></ar:dictdata>
+                                            <c:forEach items="${salary}" var="salary">
+                                                <c:if test="${resume.salary==salary.dictdataValue}">${salary.dictdataName}</c:if>
+                                            </c:forEach>
                                         </div>
                                     </div>
 
@@ -82,28 +84,31 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2">姓名</label>
-                                        <div class="col-sm-4">${resume.name}</div>
+                                        <div class="col-sm-4">${resume.userName}</div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-2">性别</label>
-                                        <div class="col-sm-4"><ar:dictdata dictdata="${resume.sex}"
-                                                                           dict="sex"></ar:dictdata></div>
+                                        <div class="col-sm-4">
+                                            <c:forEach items="${gender}" var="gender">
+                                                <c:if test="${resume.gender==gender.dictdataValue}">${gender.dictdataName}</c:if>
+                                            </c:forEach>
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-2">现居住地</label>
-                                        <div class="col-sm-7">${resume.domicile}</div>
+                                        <div class="col-sm-7">${resume.currentCity}</div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-2">联系方式</label>
-                                        <div class="col-sm-4">${resume.contact}</div>
+                                        <div class="col-sm-4">${resume.mobile}</div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">个人简介</label>
-                                        <div class="col-sm-7">${resume.introduce}</div>
+                                        <div class="col-sm-7">${resume.descrip}</div>
                                     </div>
 
                                 </form>
@@ -114,7 +119,7 @@
 
                         <ul class="pager wizard">
                             <li>
-                                <a href="${pageContext.request.contextPath}/my/resume/edit.action?resumeId=${resume.resumeId}">编辑</a>
+                                <a href="${pageContext.request.contextPath}/resume/edit?resumeId=${resume.resumeId}">编辑</a>
                             </li>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <li><a href="javascript:;" onclick="deleteResume(${resume.resumeId})">删除</a></li>
@@ -128,9 +133,9 @@
 </div>
 <!-- container -->
 
-<%@ include file="/WEB-INF/views/portal-common/footer.jsp" %>
+<%@ include file="../../portal-common/footer.jsp" %>
 
 </body>
-<%@ include file="/WEB-INF/views/portal-common/portal-js.jsp" %>
-<script src="${pageContext.request.contextPath}/assets/script/my/recruit/resume.js"></script>
+<%@ include file="../../portal-common/portal-js.jsp" %>
+<script src="/script/my/recruit/resume.js"></script>
 </html>

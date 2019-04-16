@@ -55,5 +55,17 @@ public class ArticleController {
         model.addAttribute("donation", articleService.getArticle(articleId));
         return "donation/donation-detail";
     }
+
+    @RequestMapping("/outstandAlumni")
+    public String outstandAlumni(Model model) {
+        model.addAttribute("alumni", articleService.listArticle(3L));
+        return "alumni/alumni-index";
+    }
+
+    @RequestMapping("/newsOutline")
+    public String newsOutline(Model model) {
+        model.addAttribute("hotnews", articleService.getArticle());
+        return "news/news-outline";
+    }
 }
 

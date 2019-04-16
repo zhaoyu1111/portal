@@ -51,4 +51,27 @@ public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> impl
         IPage<Recruit> recruitIPage = baseMapper.selectPage(recruitPage, query);
         return recruitIPage.getRecords();
     }
+
+    @Override
+    public IPage<Recruit> queryRecruit(Long userId, Integer currentPage) {
+        QueryWrapper<Recruit> query = new QueryWrapper<>();
+        query.eq("user_id", userId);
+        Page<Recruit> page = new Page<>(currentPage, 10);
+        return baseMapper.selectPage(page, query);
+    }
+
+    @Override
+    public void deleteRecruit(Long recuritId) {
+        Recruit recruit = baseMapper.selectById(recuritId);
+        if(null != recruit) {
+            baseMapper.deleteById(recruit.getRecuritId());
+        }
+    }
+
+    @Override
+    public List<Recruit> getRecruit(List<Long> recruitIds) {
+        QueryWrapper<Recruit> query = new QueryWrapper<>();
+        query.in("recurit_id", recruitIds);
+        return baseMapper.selectList(query);
+    }
 }

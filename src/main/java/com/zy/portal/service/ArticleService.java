@@ -36,4 +36,10 @@ public interface ArticleService extends IService<Article> {
      */
     List<Article> listArticle(Long menuId);
 
+    /**
+     * 获取文章列表根据访问数
+     * @return
+     */
+    List<Article> getArticle();
+
 }

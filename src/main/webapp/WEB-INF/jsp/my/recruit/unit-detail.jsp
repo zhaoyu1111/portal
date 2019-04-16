@@ -4,10 +4,10 @@
 <html>
 <head>
     <title>我的单位-信电校友录</title>
-    <%@ include file="/WEB-INF/views/portal-common/portal-meta.jsp" %>
+    <%@ include file="../../portal-common/portal-meta.jsp" %>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/portal-common/header.jsp" %>
+<%@ include file="../../portal-common/header.jsp" %>
 <div class="container higher" id="container">
     <div class="pageheader">
         <h2>
@@ -16,7 +16,7 @@
         <div class="breadcrumb-wrapper">
             <span class="label"></span>
             <ol class="breadcrumb">
-                <li><a href="${pageContext.request.contextPath}/index.action">主页</a></li>
+                <li><a href="${pageContext.request.contextPath}/index">主页</a></li>
                 <li class="active">个人中心</li>
             </ol>
         </div>
@@ -25,7 +25,7 @@
     <div class="row">
         <!-- 侧边栏 -->
         <div class="col-sm-4 col-lg-2">
-            <%@ include file="/WEB-INF/views/my/my-side.jsp" %>
+            <%@ include file="../my-side.jsp" %>
         </div>
         <!-- 侧边栏 -->
 
@@ -38,8 +38,8 @@
                         class="fa fa-chain"></span>&nbsp;<strong>我的投递</strong></a></li>
                 <li><a href="${pageContext.request.contextPath}/my/resume.action"><span
                         class="fa fa-file-text-o"></span>&nbsp;<strong>我的简历</strong></a></li>
-                <li class="active"><a href="${pageContext.request.contextPath}/unit/my.action"><span
-                        class="fa fa-institution"></span>&nbsp;<strong>我的单位</strong></a></li>
+                <%--<li class="active"><a href="${pageContext.request.contextPath}/recruitUnit/queryMyUnit"><span
+                        class="fa fa-institution"></span>&nbsp;<strong>我的单位</strong></a></li>--%>
             </ul>
             <!-- Nav Tab -->
 
@@ -54,7 +54,7 @@
 
                         <div class="tab-content">
                             <form class="form" id="unitForm" method="post"
-                                  action="${pageContext.request.contextPath}/unit/update.action">
+                                  action="${pageContext.request.contextPath}/unit/update">
                                 <div class="form-group">
                                     <label class="col-sm-4"><span class="asterisk">*</span>公司名称</label>
                                     <div class="col-sm-4">
@@ -154,9 +154,8 @@
 </div>
 <!-- container -->
 
-<%@ include file="/WEB-INF/views/portal-common/footer.jsp" %>
-
+<%@ include file="../../portal-common/footer.jsp" %>
 </body>
-<%@ include file="/WEB-INF/views/portal-common/portal-js.jsp" %>
-<script src="${pageContext.request.contextPath}/assets/script/my/recruit/unit-my.js"></script>
+<%@ include file="../../portal-common/portal-js.jsp" %>
+<script src="/script/my/recruit/unit-my.js"></script>
 </html>

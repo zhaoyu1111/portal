@@ -35,4 +35,25 @@ public interface RecruitService extends IService<Recruit> {
      * @return
      */
     List<Recruit> listRecruit(Long unitId, Long recuritId);
+
+    /**
+     * 查询我发布的职位
+     * @param userId
+     * @param currentPage
+     * @return
+     */
+    IPage<Recruit> queryRecruit(Long userId, Integer currentPage);
+
+    /**
+     * 删除职位信息
+     * @param recuritId
+     */
+    void deleteRecruit(Long recuritId);
+
+    /**
+     * 获取职位信息
+     * @param recruitIds
+     * @return
+     */
+    List<Recruit> getRecruit(List<Long> recruitIds);
 }

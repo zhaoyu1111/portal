@@ -15,7 +15,7 @@
                 </li>
                 <li id="nav-origin"><a class="color1" href="${pageContext.request.contextPath}/origin">校友组织</a>
                 </li>
-                <li id="nav-alumni"><a class="color1" href="${pageContext.request.contextPath}/alumni">杰出校友</a>
+                <li id="nav-alumni"><a class="color1" href="${pageContext.request.contextPath}/article/outstandAlumni">杰出校友</a>
                 </li>
                 <li id="nav-class"><a class="color1" href="${pageContext.request.contextPath}/class">班级录</a>
                 </li>

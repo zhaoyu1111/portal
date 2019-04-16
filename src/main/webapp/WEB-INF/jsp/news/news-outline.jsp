@@ -6,7 +6,7 @@
 
 <h3 class="subtitle">热门新闻</h3>
 <ul class="folder-list">
-    <c:forEach items="${news}" var="news">
+    <c:forEach items="${hotnews}" var="news">
         <li>
             <div class="media">
                 <%--<c:if test="${hot.thumbImage != null && hot.thumbImage !=''}">
@@ -15,13 +15,13 @@
                         <img class="img-responsive" src="${hot.thumbImage}"></a>
                 </c:if>--%>
                 <div class="media-body" style="max-height: 40px;">
-                    <a class="email-summary" href="${pageContext.request.contextPath}/news/detail?articleId=${news.articleId}">
+                    <a class="email-summary" href="${pageContext.request.contextPath}/article/detail?articleId=${news.articleId}">
                         <ar:sub value="${news.title}" length="20"></ar:sub>
                     </a>
                     <small class="text-muted">
                         发布于 ：<ar:dateTag value="${news.ctime}" pattern="yyyy-MM-dd"></ar:dateTag>
                     </small>
-                    <a class="email-summary" href="${pageContext.request.contextPath}/news/detail?articleId=${news.articleId}">
+                    <a class="email-summary" href="${pageContext.request.contextPath}/article/detail?articleId=${news.articleId}">
                         <ar:sub value="${news.context}" length="20"></ar:sub>
                     </a>
                 </div>

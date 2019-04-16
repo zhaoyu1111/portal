@@ -32,9 +32,9 @@
         <div class="col-sm-8 col-lg-10">
             <!-- Navigation tabs -->
             <ul class="nav nav-tabs">
-                <li><a href="${pageContext.request.contextPath}/my/profile/basic.action"><span
+                <li><a href="${pageContext.request.contextPath}/login/basic"><span
                         class="glyphicon glyphicon-th-list"></span>&nbsp;<strong>基本资料</strong></a></li>
-                <li><a href="${pageContext.request.contextPath}/my/profile/job.action"><span
+                <li><a href="${pageContext.request.contextPath}/login/job"><span
                         class="glyphicon glyphicon-briefcase"></span>&nbsp;<strong>工作信息</strong></a></li>
                 <li class="active"><a href="javascript:;"><span
                         class="glyphicon glyphicon-picture"></span>&nbsp;<strong>头像设置</strong></a></li>
@@ -45,7 +45,7 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab-portrait">
                     <div class="col-md-5">
-                        <form method="post" action="my/profile/portrait/upload.action" enctype="multipart/form-data">
+                        <form method="post" action="/login/avatar/upload" enctype="multipart/form-data">
                             <div class="panel-footer" id="picUploadBox">
                                 <input class="file" type="file" id="uploadInput" multiple data-max-file-count="1"
                                        name="portrait" accept=".bmp,.jpg,.gif,.png,.jpeg"> <br>

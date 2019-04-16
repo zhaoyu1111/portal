@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,6 +117,22 @@ public class RecruitController {
         model.addAttribute("otherRecruit", recruitService.listRecruit(recruit.getUnitId(), recruit.getRecuritId()));
         model.addAttribute("applyUser", infos);
         return "recruit/recruit-detail";
+    }
+
+    @RequestMapping("/queryUserRecruit")
+    public String queryUserRecruit(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("SESSION_USER");
+        if(null == user) {
+            return "redirect:/login";
+        }
+        model.addAttribute("myrecruit", recruitService.queryRecruit(user.getStudentId(), 1).getRecords());
+        return "my/recruit/recruit-index";
+    }
+
+    @RequestMapping("/delete")
+    public String delete(Long recuritId) {
+        recruitService.deleteRecruit(recuritId);
+        return "redirect:/my/recruit/recruit-index";
     }
 }
 

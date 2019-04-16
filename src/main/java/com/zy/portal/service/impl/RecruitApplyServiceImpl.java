@@ -1,6 +1,8 @@
 package com.zy.portal.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zy.portal.entity.RecruitApply;
 import com.zy.portal.mapper.RecruitApplyMapper;
 import com.zy.portal.service.RecruitApplyService;
@@ -29,5 +31,13 @@ public class RecruitApplyServiceImpl extends ServiceImpl<RecruitApplyMapper, Rec
         query.eq("recurit_id", recuritId);
         query.eq("unit_id", unitId);
         return baseMapper.selectList(query);
+    }
+
+    @Override
+    public IPage<RecruitApply> queryRecruitApply(Integer currentPage) {
+        QueryWrapper<RecruitApply> query = new QueryWrapper<>();
+        query.orderByDesc("ctime");
+        Page<RecruitApply> page = new Page<>(currentPage, 10);
+        return baseMapper.selectPage(page, query);
     }
 }

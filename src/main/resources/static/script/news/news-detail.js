@@ -6,7 +6,7 @@ $(function () {
     $.post(getContextPath() + "/news/commentList.action?infoId=" + infoId, function (data) {
         $("#comment-list").html(data);
     });*/
-    $.post("/article/outline", function (data) {
+    $.post("/article/newsOutline", function (data) {
         $('#news-detail-outline').html(data);
     })
 

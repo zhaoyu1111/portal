@@ -4,10 +4,10 @@
 <html>
 <head>
     <title>${ta.trueName}的主页-信电校友录</title>
-    <%@ include file="/WEB-INF/views/portal-common/portal-meta.jsp" %>
+    <%@ include file="../../portal-common/portal-meta.jsp" %>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/portal-common/header.jsp" %>
+<%@ include file="../../portal-common/header.jsp" %>
 <div class="container higher" id="container">
     <div class="pageheader">
         <h2>
@@ -16,7 +16,7 @@
         <div class="breadcrumb-wrapper">
             <span class="label"></span>
             <ol class="breadcrumb">
-                <li><a href="${pageContext.request.contextPath}/index.action">首页</a></li>
+                <li><a href="${pageContext.request.contextPath}/index">首页</a></li>
                 <li class="active">个人中心</li>
             </ol>
         </div>
