@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>个人中心-信电校友录</title>
+    <title>个人中心-昌航校友录</title>
     <%@ include file="../../portal-common/portal-meta.jsp" %>
 </head>
 <body>
@@ -16,7 +16,7 @@
         <div class="breadcrumb-wrapper">
             <span class="label"></span>
             <ol class="breadcrumb">
-                <li><a href="index.action">主页</a></li>
+                <li><a href="index">主页</a></li>
                 <li class="active">个人中心</li>
             </ol>
         </div>

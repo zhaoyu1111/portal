@@ -58,4 +58,59 @@ public final class ImageUtil {
         }
         return null;
     }
+
+    public static String saveAlbumCoverImg(MultipartFile image) throws UtilException {
+        if (image != null) {
+            // 原始名称
+            String newImageName = getNewName(image);
+                // 设置物理存储路径
+            String dateDir = CommonUtil.createDateDir(PathConstant.albumCoverImgAbsolutePath);
+            File newImage = new File(PathConstant.albumCoverImgAbsolutePath + dateDir + "/" + newImageName);
+            try {
+                    // 文件保存
+                image.transferTo(newImage);
+            } catch (Exception e) {
+                throw new UtilException("图片存储时发生异常");
+            }
+                // 返回相对路径
+            return PathConstant.albumCoverImgPath + dateDir + "/" + newImageName;
+        }
+        return null;
+    }
+
+    public static String saveAlbumImage(MultipartFile image) throws UtilException {
+        if (image != null) {
+            // 原始名称
+            String newImageName = getNewName(image);
+            // 设置物理存储路径
+            String dateDir = CommonUtil.createDateDir(PathConstant.albumImageAbsolutePath);
+            File newImage = new File(PathConstant.albumImageAbsolutePath + dateDir + "/" + newImageName);
+            transTo(image, newImage);
+            // 返回相对路径
+            return PathConstant.albumImagePath + dateDir + "/" + newImageName;
+        }
+        return null;
+    }
+
+    public static String getNewName(MultipartFile image) {
+        String newImageName = null;
+        if(null != image) {
+            String originalImageName = image.getOriginalFilename();
+            if (StringUtils.isNotEmpty(originalImageName)) {
+                // 新的图片名称
+                 newImageName = UUID.randomUUID()
+                        + originalImageName.substring(originalImageName.lastIndexOf("."));
+            }
+        }
+        return newImageName;
+    }
+
+    private static void  transTo(MultipartFile image, File newImage) throws UtilException {
+        try {
+            // 文件保存
+            image.transferTo(newImage);
+        } catch (Exception e) {
+            throw new UtilException("图片存储时发生异常");
+        }
+    }
 }

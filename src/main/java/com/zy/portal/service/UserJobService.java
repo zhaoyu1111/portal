@@ -13,4 +13,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserJobService extends IService<UserJob> {
 
+    /**
+     * 更新工作信息
+     * @param userJob
+     */
+    void userJobUpdate(UserJob userJob);
 }

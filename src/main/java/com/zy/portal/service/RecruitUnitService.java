@@ -28,4 +28,6 @@ public interface RecruitUnitService extends IService<RecruitUnit> {
      * @return
      */
     List<RecruitUnit> listUnit(List<Long> unitIds);
+
+    List<RecruitUnit> listUnit();
 }

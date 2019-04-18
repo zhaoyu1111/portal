@@ -1,5 +1,6 @@
 package com.zy.portal.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zy.portal.entity.UserJob;
 import com.zy.portal.mapper.UserJobMapper;
 import com.zy.portal.service.UserJobService;
@@ -17,4 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserJobServiceImpl extends ServiceImpl<UserJobMapper, UserJob> implements UserJobService {
 
+    @Override
+    public void userJobUpdate(UserJob userJob) {
+        baseMapper.updateById(userJob);
+    }
 }

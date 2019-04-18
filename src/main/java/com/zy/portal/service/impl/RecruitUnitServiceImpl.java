@@ -33,4 +33,12 @@ public class RecruitUnitServiceImpl extends ServiceImpl<RecruitUnitMapper, Recru
         query.in("unit_id", unitIds);
         return baseMapper.selectList(query);
     }
+
+    @Override
+    public List<RecruitUnit> listUnit() {
+        QueryWrapper<RecruitUnit> query = new QueryWrapper<>();
+        query.eq("status", 2);
+        query.eq("deleted", 1);
+        return baseMapper.selectList(query);
+    }
 }

@@ -1,9 +1,14 @@
 package com.zy.portal.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zy.portal.entity.Class;
+import com.zy.portal.entity.RecruitUnit;
 import com.zy.portal.entity.User;
+import com.zy.portal.entity.UserJob;
 import com.zy.portal.service.ClassService;
+import com.zy.portal.service.RecruitUnitService;
+import com.zy.portal.service.UserJobService;
 import com.zy.portal.service.UserService;
 import com.zy.portal.util.ImageUtil;
 import com.zy.portal.util.MD5Utils;
@@ -16,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -40,6 +44,12 @@ public class UserController {
 
     @Autowired
     private ClassService classService;
+
+    @Autowired
+    private UserJobService userJobService;
+
+    @Autowired
+    private RecruitUnitService recruitUnitService;
 
     @RequestMapping("")
     public String login() {
@@ -136,7 +146,7 @@ public class UserController {
     public String myClass(HttpSession session, Model model) {
         User user = (User) session.getAttribute("SESSION_USER");
         if(null == user) {
-            model.addAttribute("myclass", new Class());
+            return "redirect:/login";
         }
         Class myClass = classService.getClass(user.getClassId());
         model.addAttribute("myclass", myClass);
@@ -168,7 +178,27 @@ public class UserController {
                 session.setAttribute("SESSION_USER", user);
             }
         }
-        return "my/profile/portrait-basic";
+        return "my/profile/profile-portrait";
+    }
+
+    @RequestMapping("/job")
+    public String job(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("SESSION_USER");
+        if(null == user) {
+            return "redirect:/login";
+        }
+        model.addAttribute("job", userJobService.selectById(user.getStudentId()));
+        model.addAttribute("unit", recruitUnitService.listUnit());
+        return "my/profile/profile-job";
+    }
+
+    @RequestMapping("/jobUpdate")
+    public String jobUpdate(HttpSession session, UserJob userJob) {
+        if(null == session.getAttribute("SESSION_USER")) {
+            return "redirect:/login";
+        }
+        userJobService.userJobUpdate(userJob);
+        return "redirect:/login/job";
     }
 }
 

@@ -13,7 +13,7 @@
             href="${pageContext.request.contextPath}/class/directory?classId=${classInfo.classId}"><i
             class="fa  fa-phone-square"></i>&nbsp;<strong>通讯录</strong></a></li>
     <li id="album-li"><a
-            href="${pageContext.request.contextPath}/classroom/album.action?classId=${classInfo.classId}"><i
+            href="${pageContext.request.contextPath}/album?classId=${classInfo.classId}"><i
             class="fa fa-picture-o"></i>&nbsp;<strong>相册</strong></a></li>
     <%--<li id="dropdown-li" class="dropdown"><a href="javascript:;"
                                              data-toggle="dropdown" class="dropdown-toggle"><i

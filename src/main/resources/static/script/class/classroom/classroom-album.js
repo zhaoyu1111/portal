@@ -1,6 +1,32 @@
 $(function () {
     $("#album-li").attr("class", "active");
 
+    $("#coverImg").fileinput({//初始化uploadfile控件
+        language:'zh',
+        uploadUrl:'/album/saveOrUpdate',//初始化url参数能否重新赋值
+        allowedFileExtensions:['txt'],
+        uploadAsync:true,//默认异步上传
+        showUpload:true,//是否显示上传按钮
+        showRemove:true,//显示移除按钮
+        showPreview:true,//是否显示预览
+        showCaption:false,
+        browseClass:"btn btn-primary",//按钮样式
+        dropZoneEnable:true,//是否显示拖拽区域
+        maxFileCount:1,//允许同时上传的最大文件数
+        enctype:'multipart/form-data',
+        validateInitialCount:true,
+
+        uploadExtraData:function(){//向后台传递参数
+            var data={
+                originId:$("#originId").val(),
+                albumName:$("#albumName").val(),
+                albumDesc:$("#albumDesc").val()
+            };
+            return data;
+        },
+
+    });
+
     // 相册翻页
     var classId = $("#classId").val();
     _pageBond(getContextPath() + "/classroom/album.action?classId=" + classId);
@@ -45,7 +71,7 @@ function deleteAlbum(albumId) {
         if (isValid(albumId)) {
             var classId = $('#classId').val();
             //调用方法 如  e
-            post(getContextPath() + '/classroom/album/delete.action', {'albumId': albumId, 'classId': classId});
+            post('/album/delete', {'albumId': albumId, 'classId': classId});
         }
     }
 }

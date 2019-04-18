@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.zy.portal.entity.SuperEntity;
 
 import com.baomidou.mybatisplus.annotation.Version;
@@ -22,35 +21,45 @@ import java.io.Serializable;
  * </p>
  *
  * @author zy
- * @since 2019-04-16
+ * @since 2019-04-17
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("user_job")
-public class UserJob extends SuperEntity<UserJob> {
+public class Image extends SuperEntity<Image> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "student_id", type = IdType.ID_WORKER)
-    private Long studentId;
-    @TableField("job_name")
-    private String jobName;
-    @TableField("unit_id")
-    private Long unitId;
-    @TableField("post")
-    private String post;
-    @TableField("start_time")
-    private String startTime;
-    @TableField("end_time")
-    private String endTime;
-    @TableField("descrip")
-    private String descrip;
+    /**
+     * 图片Id
+     */
+    @TableId(value = "image_id", type = IdType.ID_WORKER)
+    private Long imageId;
+    /**
+     * 图片名称
+     */
+    @TableField("image_name")
+    private String imageName;
+    /**
+     * 图片路径
+     */
+    @TableField("image_url")
+    private String imageUrl;
+    /**
+     * 图片描述
+     */
+    @TableField("image_desc")
+    private String imageDesc;
+    /**
+     * 所属相册
+     */
+    @TableField("album_id")
+    private Long albumId;
 
 
     @Override
     protected Serializable pkVal() {
-        return this.studentId;
+        return this.imageId;
     }
 
 }

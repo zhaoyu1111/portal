@@ -5,6 +5,7 @@
 <head>
     <title>个人中心-昌航校友录</title>
     <%@ include file="../../portal-common/portal-meta.jsp" %>
+    <link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 </head>
 <body>
 <%@ include file="../../portal-common/header.jsp" %>
@@ -16,7 +17,7 @@
         <div class="breadcrumb-wrapper">
             <span class="label"></span>
             <ol class="breadcrumb">
-                <li><a href="index.action">主页</a></li>
+                <li><a href="index">主页</a></li>
                 <li class="active">个人中心</li>
             </ol>
         </div>
@@ -32,61 +33,109 @@
         <div class="col-sm-8 col-lg-10">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
-                <li><a href="${pageContext.request.contextPath}/my/profile/basic.action"><span
+                <li><a href="${pageContext.request.contextPath}/login/basic"><span
                         class="glyphicon glyphicon-th-list"></span>&nbsp;<strong>基本资料</strong></a></li>
                 <li class="active"><a href="javascript:;"><span
                         class="glyphicon glyphicon-briefcase"></span>&nbsp;<strong>工作信息</strong></a></li>
-                <li><a href="${pageContext.request.contextPath}/my/profile/portrait.action"><span
+                <li><a href="${pageContext.request.contextPath}/login/avatar"><span
                         class="glyphicon glyphicon-picture"></span>&nbsp;<strong>头像设置</strong></a></li>
             </ul>
             <!-- Nav Tab -->
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div class="tab-pane active" id="tab-job">
-                    <div class="table-responsive">
-                        <table class="table mb30">
-                            <thead>
-                            <tr>
-                                <th>职位/职务</th>
-                                <th>所在单位</th>
-                                <th>工作时间</th>
-                                <th width="100px">操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${userJobs}" var="job">
-                                <tr>
-                                    <td>${job.jobName}</td>
-                                    <td>${job.jobUnit}</td>
-                                    <td>${job.jobDate}</td>
-                                    <td>
-                                        <button class="btn btn-danger btn-xs" onclick="deleteJob(${job.jobId})">删除
-                                        </button>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </div><!-- table-responsive -->
+                    <form class="form" id="user-info-form" method="post"
+                          action="${pageContext.request.contextPath}/login/jobUpdate">
+                        <div class="panel panel-default">
+                            <h5 class="panel-title">基本信息</h5>
+                        </div>
 
-                    <form method="post" action="${pageContext.request.contextPath}/my/profile/job/add.action">
-                        <div class="col-lg-4">
-                            <input type="text" name="jobName" placeholder="职位/职务" maxlength="30" class="form-control"/>
+                        <div class="form-group">
+                            <label class="col-sm-2"><span class="asterisk">*
+														</span> 所在公司</label>
+                            <div class="col-sm-4">
+                                <select class="select2" name="unitId" id="unitId">
+                                    <option value="">--</option>
+                                    <c:forEach items="${unit}" var="unit">
+                                        <option value="${unit.unitId}"
+                                                <c:if test="${job.unitId==unit.unitId}">selected</c:if>>
+                                                    ${unit.unitName}
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-lg-4">
-                            <input type="text" name="jobUnit" placeholder="所在单位" maxlength="30" class="form-control"/>
+
+                        <div class="form-group">
+                            <label class="col-sm-2">
+                                <span class="asterisk">* </span>工作名称</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="jobName" id="jobName" value="${job.jobName}"
+                                       maxlength="50" class="form-control tooltips" data-trigger="hover"
+                                       data-toggle="tooltip" data-original-title="2-50字"/>
+                            </div>
                         </div>
-                        <div class="col-lg-4">
-                            <input type="text" name="jobDate" placeholder="工作时间" maxlength="30" class="form-control"/>
+
+                        <div class="form-group">
+                            <label class="col-sm-2">
+                                <span class="asterisk">* </span>职位名称</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="post" id="post" value="${job.post}"
+                                       maxlength="50" class="form-control tooltips" data-trigger="hover"
+                                       data-toggle="tooltip" data-original-title="2-50字"/>
+                            </div>
                         </div>
-                        <div class="col-lg-12 text-right">
-                            <br>
-                            <button class="btn btn-primary">添加</button>
+
+                        <div class="form-group">
+                            <label class="col-sm-2">
+                                <span class="asterisk">* </span>开始时间</label>
+                            <div class="input-group date form_date col-sm-4" data-date="" data-date-format="dd MM yyyy"
+                                 data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                <input type="text" name="startTime" readonly
+                                       value="${job.startTime}"
+                                       class="form-control" size="16">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span
+                                        class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                            <input type="hidden" id="dtp_input2" value=""/><br/>
                         </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2">
+                                <span class="asterisk">* </span>结束时间</label>
+                            <div class="input-group date form_date col-sm-4" data-date="" data-date-format="dd MM yyyy"
+                                 data-link-field="dtp_input1" data-link-format="yyyy-mm-dd">
+                                <input type="text" name="endTime" readonly
+                                       value="${job.endTime}"
+                                       class="form-control" size="16">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span
+                                        class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                            <input type="hidden" id="dtp_input1" value=""/><br/>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span
+                                    class="asterisk">* </span>工作描述</label>
+                            <div class="col-sm-7">
+															<textarea rows="7" style="height: 150.4px;"
+                                                                      name="descrip" id="descrip"
+                                                                      class="form-control tooltips" data-trigger="hover"
+                                                                      data-toggle="tooltip" data-original-title=不超过500字"
+                                                                      maxlength="500">${job.descrip}</textarea>
+                            </div>
+                        </div>
+                        <input hidden name="studentId" id="studentId" value="${job.studentId}">
+                        <div class="form-group">
+                            <label class="col-sm-2"></label>
+                            <div class="col-sm-4">
+                                <button class="btn btn-primary" onclick="updateUserInfo()">保存更改</button>
+                            </div>
+                        </div>
+
                     </form>
-
-                </div>
             </div>
         </div>
     </div>
@@ -99,4 +148,6 @@
 </body>
 <%@ include file="../../portal-common/portal-js.jsp" %>
 <script src="/script/my/profile/profile-job.js"></script>
+<script src="/js/bootstrap-datetimepicker.js"></script>
+<script src="/js/bootstrap-datetimepicker.zh-CN.js"></script>
 </html>

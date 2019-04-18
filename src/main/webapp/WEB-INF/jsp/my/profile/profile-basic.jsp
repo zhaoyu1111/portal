@@ -35,7 +35,7 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a href="javascript:;"><span
                         class="glyphicon glyphicon-th-list"></span>&nbsp;<strong>基本资料</strong></a></li>
-                <li><a href="${pageContext.request.contextPath}/my/profile/job"><span
+                <li><a href="${pageContext.request.contextPath}/login/job"><span
                         class="glyphicon glyphicon-briefcase"></span>&nbsp;<strong>工作信息</strong></a></li>
                 <li><a href="${pageContext.request.contextPath}/login/avatar"><span
                         class="glyphicon glyphicon-picture"></span>&nbsp;<strong>头像设置</strong></a></li>
@@ -118,36 +118,6 @@
                                        data-toggle="tooltip" data-original-title="2-50字符"/>
                             </div>
                         </div>
-
-                        <%--<div class="form-group">
-                            <label class="col-sm-2">
-                                <span class="asterisk">* </span>QQ</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="qq" id="qq" value="${userInfo.qq}"
-                                       maxlength="50" class="form-control tooltips" data-trigger="hover"
-                                       data-toggle="tooltip" data-original-title="5-20字符"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2">
-                                <span class="asterisk">* </span>微信</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="wechat" id="wechat" value="${userInfo.wechat}"
-                                       maxlength="50" class="form-control tooltips" data-trigger="hover"
-                                       data-toggle="tooltip" data-original-title="5-20字符"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2">
-                                <span class="asterisk">* </span>微博</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="microblog" id="microblog" value="${userInfo.microblog}"
-                                       maxlength="50" class="form-control tooltips" data-trigger="hover"
-                                       data-toggle="tooltip" data-original-title="5-20字符"/>
-                            </div>
-                        </div>--%>
 
                         <div class="form-group">
                             <label class="col-sm-2"></label>

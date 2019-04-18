@@ -16,7 +16,7 @@
         <div class="breadcrumb-wrapper">
             <span class="label"></span>
             <ol class="breadcrumb">
-                <li><a href="${pageContext.request.contextPath}/index.action">主页</a></li>
+                <li><a href="${pageContext.request.contextPath}/index">主页</a></li>
                 <li class="active">个人中心</li>
             </ol>
         </div>
