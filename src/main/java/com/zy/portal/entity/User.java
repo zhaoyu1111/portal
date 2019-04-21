@@ -106,6 +106,15 @@ public class User extends SuperEntity<User> {
     @TableField("major_id")
     private Long majorId;
 
+    @TableField("qq")
+    private String qq;
+
+    @TableField("wechat")
+    private String wechat;
+
+    @TableField("tik_tok")
+    private String tikTok;
+
 
     @Override
     protected Serializable pkVal() {

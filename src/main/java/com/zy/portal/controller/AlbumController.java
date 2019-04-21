@@ -80,7 +80,7 @@ public class AlbumController {
         }
         album.setCoverImg(imagePath);
         albumService.insertOrUpdate(album);
-        attributes.addAttribute("classId", 152072L);
+        attributes.addAttribute("classId", album.getOriginId());
         return "redirect:/album";
     }
 

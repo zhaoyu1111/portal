@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>新闻中心-昌航校友录</title>
+    <title>活动详情-昌航校友录</title>
     <%@ include file="../portal-common/portal-meta.jsp" %>
 </head>
 <body>
@@ -98,21 +98,35 @@
 
                             <br>
                             <div class="btn-group mr10">
-                                <ar:exist value="${SESSION_USER.userId}" items="${postIds}">
-                                    <button class='btn btn-primary'>
-                                        <i class='fa fa-check mr5'></i>已经申请
+                                <c:if test="${detail.status == 1}">
+                                    <c:if test="${apply == null && SESSION_USER.studentId != null}">
+                                        <button class="btn btn-primary" type="button" id="postBtn"
+                                                data-toggle="modal" data-target="#resume-selector"
+                                                id="postBtn">
+                                            <i class="fa fa-user mr5"></i> 活动申请
+                                        </button>
+                                    </c:if>
+                                    <c:if test="${apply == null && SESSION_USER.studentId == null}">
+                                        <button class="btn btn-primary" type="button" id="postBtn"
+                                                data-toggle="modal" onclick="window.location.href='/login'"
+                                                id="postBtn">
+                                            <i class="fa fa-user mr5"></i> 活动申请
+                                        </button>
+                                    </c:if>
+                                    <c:if test="${apply != null && apply.userId == SESSION_USER.studentId}">
+                                        <button class='btn btn-primary'>
+                                            <i class='fa fa-check mr5'></i>已经申请
+                                        </button>
+                                    </c:if>
+                                </c:if>
+                                <c:if test="${detail.status == 2}">
+                                    <button class='btn btn-primary' disabled>
+                                        <i class='fa fa-check mr5'></i>已结束
                                     </button>
-                                </ar:exist>
-                                <ar:notexist value="${SESSION_USER.userId}" items="${postIds}">
-                                    <button class="btn btn-primary" type="button" id="postBtn"
-                                            data-toggle="modal" data-target="#resume-selector"
-                                            id="postBtn">
-                                        <i class="fa fa-user mr5"></i> 申请职位
-                                    </button>
-                                </ar:notexist>
+                                </c:if>
                             </div>
 
-                            <%--<div class="modal fade" id="resume-selector" tabindex="-1"
+                            <div class="modal fade" id="resume-selector" tabindex="-1"
                                  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -120,31 +134,24 @@
                                             <button type="button" class="close" data-dismiss="modal"
                                                     aria-hidden="true">&times;
                                             </button>
-                                            <h4 class="modal-title" id="myModalLabel">简历投递</h4>
+                                            <h4 class="modal-title" id="myModalLabel">活动申请</h4>
                                         </div>
                                         <div class="modal-body">
                                             <form class="form" method="post" id="postForm"
-                                                  action="${pageContext.request.contextPath}/my/resume/postResume.action">
+                                                  action="${pageContext.request.contextPath}/activity/apply">
                                                 <div class="row">
                                                     <div class="form-group">
                                                         <label class="col-sm-2"><span class="asterisk">*
-															</span>选择简历</label>
+															</span>手机号</label>
                                                         <div class="col-sm-10">
-                                                            <select class="select2" name="resumeId" id="resumeId">
-                                                                <option value="">--</option>
-                                                                <c:forEach items="${resumeList}" var="resume">
-                                                                    <option value="${resume.resumeId}">${resume.resumeTitle}</option>
-                                                                </c:forEach>
-                                                            </select><br/> <br/>
-                                                            <a href="${pageContext.request.contextPath}/my/resume/addResume.action"
-                                                               class="btn btn-default btn-block" type="button">
-                                                                <span class="fa fa-plus-square-o">&nbsp;</span>创建简历
-                                                            </a>
+                                                            <input type="text" name="mobile" id="mobile" maxlength="11" class="form-control tooltips" data-trigger="hover"
+                                                                   data-toggle="tooltip" data-original-title="正确的手机号"/>
+
+                                                            <br/> <br/>
                                                         </div>
                                                     </div>
+                                                    <input class="text" type="hidden" name="activityId" value="${detail.activityId}"/>
                                                 </div>
-                                                <input type="hidden" name="recruitId"
-                                                       value="${recruit.recuritId}">
                                             </form>
                                         </div>
                                         <div class="modal-footer">
@@ -152,7 +159,7 @@
                                                     data-dismiss="modal">取消申请
                                             </button>
                                             <button type="button" class="btn btn-primary"
-                                                    onclick="postResume('${recruit.recuritId}')"
+                                                    onclick="postApply()"
                                                     id="surePostostBtn">确认申请
                                             </button>
                                         </div>
@@ -160,9 +167,8 @@
                                     <!-- /.modal-content -->
                                 </div>
                                 <!-- /.modal-dialog -->
-                            </div>--%>
+                            </div>
                             <!-- /.modal -->
-
                             <div class="mb40"></div>
                         </div>
                     </div>

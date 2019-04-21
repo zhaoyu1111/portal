@@ -10,7 +10,7 @@
                 <li>
                     <div class="media">
                         <a class="pull-left col-sm-4" style="max-height: 40px;"
-                           href="#">
+                           href="${pageContext.request.contextPath}/login/userIndex?studentId=${donationUser.donationUid}">
                             <c:if test="${donationUser.avatar == null}">
                                 <img class="thumbnail img-responsive" src="/images/school/nchu-l.png">
                             </c:if>
@@ -20,7 +20,7 @@
                         </a>
                         <div class="media-body" style="max-height: 40px;">
                             <h6>${donationUser.grade}级校友</h6><a class="email-summary"
-                               href="${pageContext.request.contextPath}/ta/show?userId=">${donationUser.donationName}</a>
+                               href="${pageContext.request.contextPath}/login/userIndex?studentId=${donationUser.donationUid}">${donationUser.donationName}</a>
                             <small class="text-muted">
                                 捐赠时间&nbsp;<ar:dateTag value="${donationUser.utime}" pattern="yyyy-MM-dd"></ar:dateTag>
                             </small>

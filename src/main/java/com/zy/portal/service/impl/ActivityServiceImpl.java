@@ -42,4 +42,13 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         baseMapper.updateById(activity);
         return activity;
     }
+
+    @Override
+    public void updateSignNumber(Long activityId) {
+        Activity activity = baseMapper.selectById(activityId);
+        if(null != activity) {
+            activity.setSignNumber(activity.getSignNumber() + 1);
+        }
+        baseMapper.updateById(activity);
+    }
 }

@@ -28,6 +28,14 @@
                 <div class="col-sm-9">
                     <h3>&nbsp;捐赠项目</h3>
                     <hr>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            感谢各位校友为母校的教育事业做出的贡献，如需捐赠请联系<br>
+                            校友接待办负责人：赵宇<br/>
+                            联系电话：15712341234<br/>
+                            联系地址：江西省南昌市丰和南大道696号
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-primary mb30">
                             <thead>

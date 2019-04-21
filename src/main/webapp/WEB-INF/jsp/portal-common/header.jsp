@@ -20,7 +20,7 @@
                     <c:choose>
                         <c:when test="${SESSION_USER != null}">
                             <li class="top_link">
-                                <a href="${pageContext.request.contextPath}/login/basic" target="blank">
+                                <a href="${pageContext.request.contextPath}/login/index" target="blank">
                                     <c:if test="${SESSION_USER.userName != null}"><i
                                             class="fa fa-user"></i>&nbsp;${SESSION_USER.userName}</c:if>
                                     <c:if test="${SESSION_USER.userName == null}">${SESSION_USER.studentId}</c:if>

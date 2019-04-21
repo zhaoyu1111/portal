@@ -13,6 +13,14 @@ $(function () {
 
 });
 
+function postApply() {
+    if (!isLength($('#mobile').val(), 11 , 11)) {
+        errMsg("mobile", "请输入正确的手机号");
+    } else {
+        $("#postForm").submit();
+    }
+}
+
 /**
  * TODO 加载更多评论
  * @param pageIndex

@@ -1,5 +1,6 @@
 package com.zy.portal.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zy.portal.entity.ActivityUserApply;
 import com.zy.portal.mapper.ActivityUserApplyMapper;
 import com.zy.portal.service.ActivityUserApplyService;
@@ -17,4 +18,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ActivityUserApplyServiceImpl extends ServiceImpl<ActivityUserApplyMapper, ActivityUserApply> implements ActivityUserApplyService {
 
+    @Override
+    public ActivityUserApply getApply(Long studentId, Long activityId) {
+        QueryWrapper<ActivityUserApply> query = new QueryWrapper<>();
+        query.eq("user_id", studentId);
+        return baseMapper.selectOne(query);
+    }
 }

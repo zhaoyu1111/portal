@@ -29,4 +29,6 @@ public interface ActivityService extends IService<Activity> {
      * @return
      */
     Activity getActivity(Long activityId);
+
+    void updateSignNumber(Long activityId);
 }

@@ -17,4 +17,6 @@ public interface AlbumService extends IService<Album> {
 
     List<Album> listAlbum(Long classId);
 
+    List<Album> listAlbumByOrigin(Long studentId);
+
 }

@@ -30,8 +30,8 @@
             <li>
                 <a href="${pageContext.request.contextPath}/album/upload?albumId=${album.albumId}&classId=${classInfo.classId}"
                    class=""><i class="fa fa-upload"></i> 上传照片</a></li>
-            <li><a href="javascript:;" class="itemopt disabled"><i class="fa fa-download"></i> 下载选中</a></li>
-            <li><a href="javascript:;" class="itemopt disabled"><i class="fa fa-trash-o"></i> 删除选中</a></li>
+            <%--<li><a href="javascript:;" class="itemopt disabled"><i class="fa fa-download"></i> 下载选中</a></li>--%>
+            <li><a href="javascript:;" class="itemopt disabled" onclick="deleteChexkImage('${album.albumId}')"><i class="fa fa-trash-o"></i> 删除选中</a></li>
             <li class="filter-type"><span style="font-size: 16px">${album.albumName} &nbsp; | &nbsp;
                 <ar:dateTag value="${album.ctime}" pattern="yyyy-MM-dd HH:mm"></ar:dateTag>
                 </span></li>

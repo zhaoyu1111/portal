@@ -27,4 +27,10 @@ public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements
         return baseMapper.selectList(query);
     }
 
+    @Override
+    public List<Album> listAlbumByOrigin(Long studentId) {
+        QueryWrapper<Album> query = new QueryWrapper<>();
+        query.eq("origin_id", studentId);
+        return baseMapper.selectList(query);
+    }
 }

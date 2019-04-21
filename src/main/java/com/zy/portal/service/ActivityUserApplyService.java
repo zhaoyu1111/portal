@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ActivityUserApplyService extends IService<ActivityUserApply> {
 
+    ActivityUserApply getApply(Long studentId, Long activityId);
 }

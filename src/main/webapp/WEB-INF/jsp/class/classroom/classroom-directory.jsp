@@ -30,7 +30,7 @@
                     <div class="col-md-6">
                         <div class="people-item">
                             <div class="media">
-                                <a href="${pageContext.request.contextPath}/ta/show?studentId=${userInfo.studentId}"
+                                <a href="${pageContext.request.contextPath}/login/userIndex?studentId=${userInfo.studentId}"
                                    class="pull-left"> <img src="${userInfo.avatar}"
                                                            class="img-responsive thumbnail media-object">
                                 </a>

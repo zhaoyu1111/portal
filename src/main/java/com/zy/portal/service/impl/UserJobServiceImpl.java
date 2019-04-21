@@ -7,6 +7,8 @@ import com.zy.portal.service.UserJobService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -21,5 +23,12 @@ public class UserJobServiceImpl extends ServiceImpl<UserJobMapper, UserJob> impl
     @Override
     public void userJobUpdate(UserJob userJob) {
         baseMapper.updateById(userJob);
+    }
+
+    @Override
+    public List<UserJob> getUserJob(List<Long> studentIds) {
+        QueryWrapper<UserJob> query = new QueryWrapper<>();
+        query.in("student_id", studentIds);
+        return baseMapper.selectList(query);
     }
 }

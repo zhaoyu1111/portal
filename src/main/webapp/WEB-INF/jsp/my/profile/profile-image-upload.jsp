@@ -5,6 +5,7 @@
 <head>
     <title>个人中心-昌航校友录</title>
     <%@ include file="../../portal-common/portal-meta.jsp" %>
+    <link rel="stylesheet" href="/css/prettyPhoto.css"/>
 </head>
 <body>
 <%@ include file="../../portal-common/header.jsp" %>
@@ -30,44 +31,34 @@
         <!-- 侧边栏 -->
 
         <div class="col-sm-8 col-lg-10">
-            <!-- Navigation tabs -->
+            <!-- Nav tabs -->
             <ul class="nav nav-tabs">
                 <li><a href="${pageContext.request.contextPath}/login/basic"><span
                         class="glyphicon glyphicon-th-list"></span>&nbsp;<strong>基本资料</strong></a></li>
                 <li><a href="${pageContext.request.contextPath}/login/job"><span
                         class="glyphicon glyphicon-briefcase"></span>&nbsp;<strong>工作信息</strong></a></li>
-                <li class="active"><a href="javascript:;"><span
+                <li><a href="${pageContext.request.contextPath}/login/avatar"><span
                         class="glyphicon glyphicon-picture"></span>&nbsp;<strong>头像设置</strong></a></li>
-                <li><a href="${pageContext.request.contextPath}/login/album"><span
+                <li class="active"><a href="${pageContext.request.contextPath}/login/album"><span
                         class="glyphicon glyphicon-picture"></span>&nbsp;<strong>个人相册</strong></a></li>
             </ul>
-            <!-- Navigation Tab -->
 
-            <!-- Tab panes -->
             <div class="tab-content">
-                <div class="tab-pane active" id="tab-portrait">
-                    <div class="col-md-5">
-                        <form method="post" action="/login/avatar/upload" enctype="multipart/form-data">
-                            <div class="panel-footer" id="picUploadBox">
-                                <input class="file" type="file" id="uploadInput" multiple data-max-file-count="1"
-                                       name="portrait" accept=".bmp,.jpg,.gif,.png,.jpeg"> <br>
-                                <button class="btn btn-default btn-block" type="submit"><i class="fa fa-upload"></i>
-                                    上传照片
-                                </button>
-                            </div>
-                        </form>
+                <form method="post" action="${pageContext.request.contextPath}/login/image/upload"
+                      enctype="multipart/form-data">
+
+                    <div class="panel-footer" id="picUploadBox">
+                        <input class="file" type="file" id="uploadInput" multiple data-max-file-count="12"
+                               name="images" accept=".bmp,.jpg,.gif,.png,.jpeg"> <br>
+                        <button class="btn btn-default btn-block" type="submit"><i class="fa fa-upload"></i> 上传照片</button>
+                        <input hidden id="albumId" name="albumId" value="${album.albumId}">
                     </div>
-                </div>
+                </form>
             </div>
-
         </div>
+        <!-- row -->
     </div>
-    <!-- row -->
-</div>
-<!-- container -->
-
-<%@ include file="../../portal-common/footer.jsp" %>
+    <%@ include file="../../portal-common/footer.jsp" %>
 </body>
 <%@ include file="../../portal-common/portal-js.jsp" %>
-<script src="/script/my/profile/profile-portrait.js"></script>
 </html>
