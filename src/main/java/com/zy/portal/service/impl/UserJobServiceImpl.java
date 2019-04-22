@@ -31,4 +31,14 @@ public class UserJobServiceImpl extends ServiceImpl<UserJobMapper, UserJob> impl
         query.in("student_id", studentIds);
         return baseMapper.selectList(query);
     }
+
+    @Override
+    public UserJob getUserJob(Long studentId, Boolean status) {
+        QueryWrapper<UserJob> query = new QueryWrapper<>();
+        query.eq("student_id", studentId);
+        if(status == true) {
+            query.eq("status", 2);
+        }
+        return baseMapper.selectOne(query);
+    }
 }

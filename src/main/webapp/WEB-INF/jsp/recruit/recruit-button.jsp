@@ -3,13 +3,13 @@
 <form action="${pageContext.request.contextPath}/recruit" method="get">
 	<div class="btn-demo"
 		style="width: 228px; float: right; ">
-		<a class="btn btn-success" href="${pageContext.request.contextPath}/recruit/addRecruit.action"> <span
+		<a class="btn btn-success" href="${pageContext.request.contextPath}/recruit/add"> <span
 			class="fa fa-plus-circle"></span>&nbsp;发布招聘
 		</a> <a class="btn btn-success" href="${pageContext.request.contextPath}/resume/addResume"> <span
 			class="fa fa-file-text-o"></span>&nbsp;登记简历                                        
 		</a>
 	</div>
-	<div class="input-group col-xs-3">
+	<%--<div class="input-group col-xs-3">
 		<input type="hidden" name="ie" value="UTF-8"> <input
 			type="text" name="queryStr" id="queryStr"
 			class="form-control col-xs-3" size="10" width="100px"
@@ -18,5 +18,5 @@
 		<span class="input-group-btn">
 			<button type="submit" id="queryBtn" class="btn btn-default">找工作</button>
 		</span>
-	</div>
+	</div>--%>
 </form>

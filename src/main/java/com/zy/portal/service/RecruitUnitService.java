@@ -30,4 +30,6 @@ public interface RecruitUnitService extends IService<RecruitUnit> {
     List<RecruitUnit> listUnit(List<Long> unitIds);
 
     List<RecruitUnit> listUnit();
+
+    void saveUnit(RecruitUnit unit);
 }

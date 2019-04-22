@@ -104,21 +104,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2">
-                                <span class="asterisk">* </span>结束时间</label>
-                            <div class="input-group date form_date col-sm-4" data-date="" data-date-format="dd MM yyyy"
-                                 data-link-field="dtp_input1" data-link-format="yyyy-mm-dd">
-                                <input type="text" name="endTime" readonly
-                                       value="${job.endTime}"
-                                       class="form-control" size="16">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                <span class="input-group-addon"><span
-                                        class="glyphicon glyphicon-calendar"></span></span>
-                            </div>
-                            <input type="hidden" id="dtp_input1" value=""/><br/>
-                        </div>
-
-                        <div class="form-group">
                             <label class="col-sm-2 control-label"><span
                                     class="asterisk">* </span>工作描述</label>
                             <div class="col-sm-7">

@@ -36,8 +36,6 @@ public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> impl
     public Recruit getRecruit(Long recruitId) {
         QueryWrapper<Recruit> query = new QueryWrapper<>();
         query.eq("recurit_id", recruitId);
-        query.eq("deleted", 1);
-        query.eq("status", 2);
         return baseMapper.selectOne(query);
     }
 

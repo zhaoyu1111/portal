@@ -8,14 +8,8 @@ import com.google.common.collect.Maps;
 import com.zy.portal.common.MyPage;
 import com.zy.portal.dto.RecruitApplyInfo;
 import com.zy.portal.dto.RecruitDetail;
-import com.zy.portal.entity.Recruit;
-import com.zy.portal.entity.RecruitApply;
-import com.zy.portal.entity.RecruitUnit;
-import com.zy.portal.entity.User;
-import com.zy.portal.service.RecruitApplyService;
-import com.zy.portal.service.RecruitService;
-import com.zy.portal.service.RecruitUnitService;
-import com.zy.portal.service.UserService;
+import com.zy.portal.entity.*;
+import com.zy.portal.service.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
@@ -55,6 +50,12 @@ public class RecruitController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private DictionaryDataService dictionaryDataService;
+
+    @Autowired
+    private UserJobService userJobService;
+
     @RequestMapping("")
     public String index(Model model) {
         IPage<Recruit> recruitIPage = recruitService.queryRecruit(1);
@@ -83,7 +84,7 @@ public class RecruitController {
     }
 
     @RequestMapping("/detailRecruit")
-    public String getRecruit(Model model, @NotNull(message = "招聘信息丢失") Long recuritId) {
+    public String getRecruit(Model model, Long recuritId) {
         Recruit recruit = recruitService.getRecruit(recuritId);
         model.addAttribute("recruit", new RecruitDetail());
         if(null == recruit) {
@@ -133,6 +134,45 @@ public class RecruitController {
     public String delete(Long recuritId) {
         recruitService.deleteRecruit(recuritId);
         return "redirect:/my/recruit/recruit-index";
+    }
+
+    @RequestMapping("/add")
+    public String addRecruit(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("SESSION_USER");
+        if(null == user) {
+            return "redirect:/login";
+        }
+        UserJob job = userJobService.getUserJob(user.getStudentId(), true);
+        if(null == job) {
+            return "forward:/recruitUnit/add";
+        }
+        model.addAttribute("salary", dictionaryDataService.listData("sl"));
+        model.addAttribute("benefit", dictionaryDataService.listData("be"));
+        return "recruit/recruit-add";
+    }
+
+    @RequestMapping("/addRecruit")
+    public String addRecruit(Model model, RedirectAttributes attributes, Recruit recruit, HttpSession session) {
+        User user = (User) session.getAttribute("SESSION_USER");
+        if(null == user) {
+            return "redirect:/login";
+        }
+        UserJob job = userJobService.selectById(user.getStudentId());
+        if(null == job) {
+            return "forward:/recruitUnit/add";
+        }
+        recruit.setUnitId(job.getUnitId());
+        recruit.setUserdId(user.getStudentId());
+        recruit.setStatus(1);
+        recruit.setDeleted(1);
+        recruitService.insert(recruit);
+        return "redirect:/recruit/recruitSuccess";
+    }
+
+    @RequestMapping("/recruitSuccess")
+    public String recruitSuccess(Model model) {
+        model.addAttribute("_message","提交成功，等待审核！");
+        return "recruit/recruit-success";
     }
 }
 

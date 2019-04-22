@@ -41,4 +41,9 @@ public class RecruitUnitServiceImpl extends ServiceImpl<RecruitUnitMapper, Recru
         query.eq("deleted", 1);
         return baseMapper.selectList(query);
     }
+
+    @Override
+    public void saveUnit(RecruitUnit unit) {
+        baseMapper.insert(unit);
+    }
 }

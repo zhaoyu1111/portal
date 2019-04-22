@@ -42,10 +42,12 @@ public class UserJob extends SuperEntity<UserJob> {
     private String post;
     @TableField("start_time")
     private String startTime;
-    @TableField("end_time")
-    private String endTime;
+
     @TableField("descrip")
     private String descrip;
+
+    @TableField("status")
+    private Integer status;
 
 
     @Override

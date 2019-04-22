@@ -32,9 +32,7 @@ function updateUserInfo() {
         errMsg("post", "职位名称在2-20字之间");
     } else if (!isValid($("#unitId").val())) {
         errMsg("unitId", "请选择所在公司");
-    } else if (!isLength($("#dtp_input1").val())) {
-        errMsg("dtp_input1", "请选择日期");
-    } else if (!isLength($("#dtp_input2").val())) {
+    }  else if (!isLength($("#dtp_input2").val())) {
         errMsg("dtp_input2", "请选择日期");
     } else if (!isLength($("#descrip").val(), 0, 500)) {
         errMsg("descrip", "个人简介不超过500字");

@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
-<%@ include file="/WEB-INF/views/portal-common/portal-tag.jsp"%>
+<%@ include file="../portal-common/portal-tag.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>发布招聘-信电校友录</title>
-<%@ include file="/WEB-INF/views/portal-common/portal-meta.jsp"%>
+<%@ include file="../portal-common/portal-meta.jsp"%>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/portal-common/header.jsp"%>
+	<%@ include file="../portal-common/header.jsp"%>
 
-	<%@ include file="/WEB-INF/views/portal-common/navmenu.jsp"%>
+	<%@ include file="../portal-common/navmenu.jsp"%>
 
 
 	<div class="banner-bottom">
@@ -19,8 +19,8 @@
 				<!-- 导航栏 -->
 				<div class="header">
 					<ol class="breadcrumb">
-						<li><i class="fa fa-home"></i>&nbsp;<a href="${pageContext.request.contextPath}/index.action">主页</a></li>
-						<li><a href="${pageContext.request.contextPath}/recruit.action">职业招聘</a></li>
+						<li><i class="fa fa-home"></i>&nbsp;<a href="${pageContext.request.contextPath}/index">主页</a></li>
+						<li><a href="${pageContext.request.contextPath}/recruit">职业招聘</a></li>
 						<li class="active">发布招聘</li>
 					</ol>
 				</div>
@@ -57,10 +57,10 @@
 													<div class="form-group">
 														<div class="col-sm-4">
 															<%@ include
-																file="/WEB-INF/views/portal-common/result.jsp"%>
+																file="../portal-common/result.jsp"%>
 															<div class="btn-demo">
 																<br> <a class="btn btn-darkblue"
-																	href="recruit/addRecruit.action"><span
+																	href="${pageContext.request.contextPath}/recruit/add"><span
 																	class="fa fa-plus-square-o">&nbsp; </span>继续发布</a>
 															</div>
 														</div>
@@ -73,7 +73,7 @@
 										<!-- tab-content -->
 
 										<ul class="pager wizard">
-											<li class="next"><a href="${pageContext.request.contextPath}/recruit.action">返回招聘首页</a></li>
+											<li class="next"><a href="${pageContext.request.contextPath}/recruit">返回招聘首页</a></li>
 										</ul>
 
 									</div>
@@ -87,10 +87,10 @@
 		</div>
 	</div>
 
-	<%@ include file="/WEB-INF/views/portal-common/footer.jsp"%>
+	<%@ include file="../portal-common/footer.jsp"%>
 
 </body>
-<%@ include file="/WEB-INF/views/portal-common/portal-js.jsp"%>
-<script src="${pageContext.request.contextPath}/assets/script/recruit/unit/unit-select.js"></script>
+<%@ include file="../portal-common/portal-js.jsp"%>
+<script src="/script/recruit/unit/unit-select.js"></script>
 
 </html>

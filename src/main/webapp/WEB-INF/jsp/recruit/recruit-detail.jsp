@@ -211,7 +211,7 @@
                                 <div id="apply-record" class="tab-pane">
                                     <ul class="media-list comment-list">
                                         <c:forEach items="${applyUser}" var="apply">
-                                            <li class="media"><a href="${pageContext.request.contextPath}/ta/show?userId=${record.userId}"
+                                            <li class="media"><a href="${pageContext.request.contextPath}/login/userIndex?studentId=${apply.studentId}"
                                                                  class="pull-left">
                                                 <img src="${apply.avatar}" class="media-object">
                                             </a>

@@ -27,4 +27,6 @@ public interface UserJobService extends IService<UserJob> {
      * @return
      */
     List<UserJob> getUserJob(List<Long> studentIds);
+
+    UserJob getUserJob(Long studentId, Boolean status);
 }

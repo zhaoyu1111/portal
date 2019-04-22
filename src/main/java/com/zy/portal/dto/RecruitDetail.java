@@ -25,7 +25,7 @@ public class RecruitDetail {
     /**
      * 结束时间
      */
-    private Long endTime;
+    private String endTime;
     /**
      * 联系人姓名
      */
