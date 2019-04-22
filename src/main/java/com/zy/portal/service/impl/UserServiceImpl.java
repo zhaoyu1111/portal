@@ -36,7 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public List<User> getUser(String address) {
         QueryWrapper<User> query = new QueryWrapper<>();
-        query.eq("current_city", address);
+        query.like("current_city", address);
         query.eq("status", 0);
 
         Page<User> userPage = new Page<>(1, 20);

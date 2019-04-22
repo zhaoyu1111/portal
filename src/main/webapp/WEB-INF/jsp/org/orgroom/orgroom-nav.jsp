@@ -10,7 +10,7 @@
     <li id="directory-li"><a
             href="${pageContext.request.contextPath}/origin/directory?address=${orgroom.address}">
         <i class="fa  fa-phone-square"></i>&nbsp;<strong>通讯录</strong></a></li>
-    <li id="album-li"><a href="${pageContext.request.contextPath}/orgroom/album?originId=${orgroom.associaId}"><i
+    <li id="album-li"><a href="${pageContext.request.contextPath}/origin/album?associaId=${orgroom.associaId}"><i
             class="fa fa-picture-o"></i>&nbsp;<strong>相册</strong></a></li>
 </ul>
 <!-- navigation -->

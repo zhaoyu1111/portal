@@ -1,48 +1,91 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ include file="/WEB-INF/views/portal-common/portal-tag.jsp" %>
+<%@ include file="../../portal-common/portal-tag.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${orgroom.originName}相册-信电校友录</title>
-    <%@ include file="/WEB-INF/views/portal-common/portal-meta.jsp" %>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/album.css"/>
+    <title>${orgroom.associaName}相册-昌航校友录</title>
+    <%@ include file="../../portal-common/portal-meta.jsp" %>
+    <link rel="stylesheet" href="/css/prettyPhoto.css"/>
 </head>
 
 <body>
-<%@ include file="/WEB-INF/views/portal-common/header.jsp" %>
+<%@ include file="../../portal-common/header.jsp" %>
 <div class="container higher" id="container">
-    <%@ include file="/WEB-INF/views/org/orgroom/orgroom-pageheader.jsp" %>
+    <%@ include file="orgroom-pageheader.jsp" %>
     <div class="mb5"></div>
     <!-- nav tab -->
-    <%@ include file="/WEB-INF/views/org/orgroom/orgroom-nav.jsp" %>
-    <input type="hidden" value="${orgroom.originId}" id="originId">
+    <%@ include file="orgroom-nav.jsp" %>
+    <input type="hidden" value="${orgroom.associaId}" id="associaId">
     <!-- Tab panes -->
     <div class="tab-content" style="background-color: #ddd;">
-        <div class="album" style="width: 780px">
-            <a class="album-pic" href="${pageContext.request.contextPath}/assets/images/photos/media2.png"
-               title="Lion Rock"></a>
-            <a class="album-pic" href="${pageContext.request.contextPath}/assets/images/photos/media4.png"
-               title="Holsten Gate"></a>
-            <a class="album-pic" href="${pageContext.request.contextPath}/assets/images/photos/media2.png"
-               title="Blue Hour"></a>
-            <a class="album-pic" href="${pageContext.request.contextPath}/assets/images/photos/media4.png"
-               title="Holsten Gate"></a>
-            <a class="album-pic" href="${pageContext.request.contextPath}/assets/images/photos/media2.png"
-               title="Blue Hour"></a>
-        </div>
+        <ul class="filemanager-options">
+            <li>
+                <div class="ckbox ckbox-default">
+                    <input type="checkbox" id="selectall" value="1"/>
+                    <label for="selectall">全选</label>
+                </div>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/origin/album/upload?albumId=${album.albumId}&associaId=${orgroom.associaId}"
+                   class=""><i class="fa fa-upload"></i> 上传照片</a></li>
+            <%--<li><a href="javascript:;" class="itemopt disabled"><i class="fa fa-download"></i> 下载选中</a></li>--%>
+            <li><a href="javascript:;" class="itemopt disabled" onclick="deleteChexkImage('${album.albumId}')"><i class="fa fa-trash-o"></i> 删除选中</a></li>
+            <li class="filter-type"><span style="font-size: 16px">${album.albumName} &nbsp; | &nbsp;
+                <ar:dateTag value="${album.ctime}" pattern="yyyy-MM-dd HH:mm"></ar:dateTag>
+                </span></li>
+        </ul>
 
-        <%@ include file="/WEB-INF/views/portal-common/pagination.jsp" %>
+        <div class="row filemanager">
+            <c:forEach items="${images}" var="image">
+                <div class="col-xs-6 col-sm-4 col-md-3 document">
+                    <div class="thmb" style="min-height: 200px; text-align: center">
+                        <div class="ckbox ckbox-default">
+                            <input type="checkbox" id="check${image.imageId}" name="imageId" value="${image.imageId}"/>
+                            <label for="check${image.imageId}"></label>
+                        </div>
+                        <div class="btn-group fm-group">
+                            <button type="button" class="btn btn-default dropdown-toggle fm-toggle"
+                                    data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu fm-menu" role="menu">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/origin/album/download?fileRelPath=${image.imageUrl}&fileName=${image.imageName}">
+                                        <i class="fa fa-download"></i> 下载照片</a></li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/origin/album/image/delete?associaId=${orgroom.associaId}&albumId=${album.albumId}&imageId=${image.imageId}">
+                                        <i class="fa fa-trash-o"></i> 删除照片</a></li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/origin/album/coverImg?associaId=${orgroom.associaId}&albumId=${album.albumId}&imageId=${image.imageId}">
+                                        <i class="fa fa-trash-o"></i> 设为封面</a></li>
+                            </ul>
+                        </div><!-- btn-group -->
+                        <a href="${image.imageUrl}" id="image_pre_${image.imageId}" data-rel="prettyPhoto">
+                            <div class="thmb-prev" style="height: 170px">
+                                <img src="${image.imageUrl}" class="img-responsive"/>
+                            </div>
+                        </a>
+                        <small class="text-muted">上传于:<ar:dateTag value="${image.ctime}" pattern="yyyy-MM-dd HH:m"></ar:dateTag></small>
+                    </div><!-- thmb -->
+                </div>
+                <!-- col-xs-6 -->
+            </c:forEach>
+        </div>
+        <%@ include file="../../portal-common/pagination.jsp" %>
+
+        <input type="hidden" value="${orgroom.associaId}" id="originId">
+        <input type="hidden" value="${album.albumId}" id="albumId">
     </div>
     <!-- Tab panes -->
 
 </div>
 <!-- container -->
 
-<%@ include file="/WEB-INF/views/portal-common/footer.jsp" %>
+<%@ include file="../../portal-common/footer.jsp" %>
 
 </body>
-<%@ include file="/WEB-INF/views/portal-common/portal-js.jsp" %>
-<script src="${pageContext.request.contextPath}/assets/js/album.js"></script>
-<script src="${pageContext.request.contextPath}/assets/script/org/orgroom/orgroom-album-image.js"></script>
+<%@ include file="../../portal-common/portal-js.jsp" %>
+<script src="/js/jquery.prettyPhoto.js"></script>
+<script src="/script/org/orgroom/orgroom-album-image.js"></script>
 </html>

@@ -93,6 +93,12 @@ public class RecruitDetail {
      */
     private String address;
 
+    private Integer unitStatus;
+
+    private Integer jobStatus;
+
+    private Long userId;
+
     private Long ctime;
 
     private Long utime;

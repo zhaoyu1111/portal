@@ -23,7 +23,7 @@
                 <c:forEach items="${user}" var="member">
                     <div class="col-md-2">
                         <div class="people-item" style="text-align: center; min-height: 170px; max-height: 170px;">
-                            <a href="${pageContext.request.contextPath}/ta/show?userId=${member.studentId}">
+                            <a href="${pageContext.request.contextPath}/login/userIndex?studentId=${member.studentId}">
                                 <div style="min-height: 125px;">
                                     <img src="${member.avatar}" class="img-responsive center-block"
                                          style="max-height: 125px;">

@@ -11,6 +11,7 @@ import com.zy.portal.dto.RecruitPostInfo;
 import com.zy.portal.entity.Recruit;
 import com.zy.portal.entity.RecruitApply;
 import com.zy.portal.entity.Resume;
+import com.zy.portal.entity.User;
 import com.zy.portal.service.RecruitApplyService;
 import com.zy.portal.service.RecruitService;
 import com.zy.portal.service.ResumeService;
@@ -22,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -83,6 +86,18 @@ public class RecruitApplyController {
         }
         model.addAttribute("page", new MyPage<>(applyIPage.getTotal(), infos));
         return "my/recruit/resume-posted";
+    }
+
+    @RequestMapping("/postRecruit")
+    public String postRecruit(RedirectAttributes attributes, RecruitApply apply, HttpSession session) {
+        User user = (User) session.getAttribute("SESSION_USER");
+        if(null == user) {
+            return "redirect:/login";
+        }
+        apply.setStudentId(user.getStudentId());
+        recruitApplyService.insert(apply);
+        attributes.addAttribute("recuritId", apply.getRecuritId());
+        return "redirect:/recruit/detailRecruit";
     }
 }
 

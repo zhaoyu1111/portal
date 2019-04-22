@@ -56,6 +56,9 @@ public class RecruitController {
     @Autowired
     private UserJobService userJobService;
 
+    @Autowired
+    private ResumeService resumeService;
+
     @RequestMapping("")
     public String index(Model model) {
         IPage<Recruit> recruitIPage = recruitService.queryRecruit(1);
@@ -84,7 +87,7 @@ public class RecruitController {
     }
 
     @RequestMapping("/detailRecruit")
-    public String getRecruit(Model model, Long recuritId) {
+    public String getRecruit(Model model, Long recuritId, HttpSession session) {
         Recruit recruit = recruitService.getRecruit(recuritId);
         model.addAttribute("recruit", new RecruitDetail());
         if(null == recruit) {
@@ -94,7 +97,9 @@ public class RecruitController {
 
         RecruitDetail detail = new RecruitDetail();
         BeanUtils.copyProperties(unit, detail);
+        detail.setUnitStatus(unit.getStatus());
         BeanUtils.copyProperties(recruit, detail);
+        detail.setJobStatus(recruit.getStatus());
         model.addAttribute("recruit", detail);
         List<RecruitApplyInfo> infos = Lists.newArrayList();
         List<RecruitApply> applys = recruitApplyService.listApplys(recruit.getRecuritId(), recruit.getUnitId());
@@ -117,6 +122,10 @@ public class RecruitController {
         }
         model.addAttribute("otherRecruit", recruitService.listRecruit(recruit.getUnitId(), recruit.getRecuritId()));
         model.addAttribute("applyUser", infos);
+        User user = (User) session.getAttribute("SESSION_USER");
+        if(null != user) {
+            model.addAttribute("resume", resumeService.listResume(user.getStudentId()));
+        }
         return "recruit/recruit-detail";
     }
 
@@ -152,7 +161,7 @@ public class RecruitController {
     }
 
     @RequestMapping("/addRecruit")
-    public String addRecruit(Model model, RedirectAttributes attributes, Recruit recruit, HttpSession session) {
+    public String addRecruit(Recruit recruit, HttpSession session) {
         User user = (User) session.getAttribute("SESSION_USER");
         if(null == user) {
             return "redirect:/login";
@@ -162,7 +171,7 @@ public class RecruitController {
             return "forward:/recruitUnit/add";
         }
         recruit.setUnitId(job.getUnitId());
-        recruit.setUserdId(user.getStudentId());
+        recruit.setUserId(user.getStudentId());
         recruit.setStatus(1);
         recruit.setDeleted(1);
         recruitService.insert(recruit);
@@ -174,5 +183,6 @@ public class RecruitController {
         model.addAttribute("_message","提交成功，等待审核！");
         return "recruit/recruit-success";
     }
+
 }
 

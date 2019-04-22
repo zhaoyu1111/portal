@@ -37,11 +37,6 @@
                         </blockquote>
                     </div>
                 </div>
-                <%--<div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">最新动态：</h4>
-                    </div>
-                </div>--%>
                 <div id="bloglist" class="row">
                     <%--<c:forEach items="${latestInfos}" var="info" varStatus="status">
                         <div class="col-md-12">
@@ -86,7 +81,7 @@
                     </div>
                 </div>--%>
             </div>
-            <div class="col-md-3"
+            <%--<div class="col-md-3"
                  style="background-color: #eee; padding: 10px 10px 50px 10px;">
                 <%@ include file="../../my/my-mini.jsp" %>
                 <ar:exist items="${memberIds}" value="${SESSION_USER.userId}">
@@ -120,7 +115,7 @@
                     </div>
                 </div>
                 <div class="row"></div>
-            </div>
+            </div>--%>
         </div>
     </div>
     <!-- Tab panes -->

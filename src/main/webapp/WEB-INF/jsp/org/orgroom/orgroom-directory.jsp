@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${orgroom.associaName}通讯录-信电校友录</title>
+    <title>${orgroom.associaName}通讯录-昌航校友录</title>
     <%@ include file="../../portal-common/portal-meta.jsp" %>
 </head>
 
@@ -22,12 +22,6 @@
     <!-- Tab panes -->
     <div class="tab-content" style="background-color: #ddd;">
         <div class="tab-pane active" id="classroom-content">
-            <%--<ul class="letter-list">
-                <c:forEach items="${letters}" var="letter">
-                    <li><a href="javascript:;">${letter}</a></li>
-                </c:forEach>
-            </ul>
---%>
             <div class="mb20"></div>
 
             <div class="people-list">
@@ -35,7 +29,7 @@
                     <div class="col-md-6">
                         <div class="people-item">
                             <div class="media">
-                                <a href="${pageContext.request.contextPath}/ta/show?userId=${user.studentId}"
+                                <a href="${pageContext.request.contextPath}/login/userIndex?studentId=${user.studentId}"
                                    class="pull-left"> <img alt=""
                                                            src="${user.avatar}" class="thumbnail media-object">
                                 </a>
@@ -45,7 +39,7 @@
                                         <i class="fa fa-map-marker"></i> ${user.homeAddress}
                                     </div>
                                     <div class="text-muted">
-                                        <i class="fa fa-briefcase"></i> 软件工程师 就职于<a href="javascript:;">上海证券交易所</a>
+                                        <i class="fa fa-briefcase"></i> ${user.jobName} 就职于<a href="javascript:;">${user.unitName}</a>
                                     </div>
                                     <ul class="social-list">
                                         <c:if test="${user.mobile!=null}">
@@ -59,22 +53,16 @@
                                                    title="邮箱：${user.email}"><i
                                                     class="fa fa-envelope-o"></i></a></li>
                                         </c:if>
-                                        <%--<c:if test="${user.qq!=null}">
+                                        <c:if test="${user.qq!=null}">
                                             <li><a href="javascript:;" class="tooltips"
                                                    data-toggle="tooltip" data-placement="top"
-                                                   title="QQ：${directory.qq}"><i class="fa fa-qq"></i></a></li>
+                                                   title="QQ：${user.qq}"><i class="fa fa-qq"></i></a></li>
                                         </c:if>
-                                        <c:if test="${directory.wechat!=null}">
+                                        <c:if test="${user.wechat!=null}">
                                             <li><a href="javascript:;" class="tooltips"
                                                    data-toggle="tooltip" data-placement="top"
-                                                   title="微信：${directory.wechat}"><i class="fa fa-wechat"></i></a></li>
+                                                   title="微信：${user.wechat}"><i class="fa fa-wechat"></i></a></li>
                                         </c:if>
-                                        <c:if test="${directory.microblog!=null}">
-                                            <li><a href="javascript:;" class="tooltips"
-                                                   data-toggle="tooltip" data-placement="top"
-                                                   title="新浪微博：${directory.microblog}"><i
-                                                    class="fa fa-weibo"></i></a></li>
-                                        </c:if>--%>
                                     </ul>
                                 </div>
                             </div>
@@ -83,7 +71,6 @@
                     <!-- col-md-6 -->
                 </c:forEach>
             </div>
-            <input type="hidden" value="${classroom.classId}" id="classId">
         </div>
         <%@ include file="../../portal-common/pagination.jsp" %>
     </div>

@@ -152,11 +152,6 @@
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-2">离职时间:</div>
-                                        <div class="col-xs-3">${job.endTime}</div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
                                         <div class="col-xs-2">工作描述:</div>
                                         <div class="col-xs-9">${job.descrip}</div>
                                     </div>

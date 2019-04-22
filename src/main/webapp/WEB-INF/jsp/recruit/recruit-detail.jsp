@@ -116,18 +116,34 @@
 
                             <br>
                             <div class="btn-group mr10">
-                                <ar:exist value="${SESSION_USER.studentId}" items="${postIds}">
-                                    <button class='btn btn-primary'>
-                                        <i class='fa fa-check mr5'></i>已经申请
-                                    </button>
-                                </ar:exist>
-                                <ar:notexist value="${SESSION_USER.studentId}" items="${postIds}">
+                                <c:if test="${applyUser == null || applyUser.size() < 1 && SESSION_USER.studentId != null}">
                                     <button class="btn btn-primary" type="button" id="postBtn"
                                             data-toggle="modal" data-target="#resume-selector"
                                             id="postBtn">
-                                        <i class="fa fa-user mr5"></i> 申请职位
+                                        <i class="fa fa-user mr5"></i> 职位申请
                                     </button>
-                                </ar:notexist>
+                                </c:if>
+
+                                <c:if test="${SESSION_USER == null}">
+                                    <button class="btn btn-primary" type="button" id="postBtn"
+                                            data-toggle="modal" onclick="window.location.href='/login'">
+                                        <i class="fa fa-user mr5"></i> 活动申请
+                                    </button>
+                                </c:if>
+                                <c:if test="${applyUser != null && SESSION_USER.studentId != null}">
+                                    <c:forEach items="${applyUser}" var="apply">
+                                        <c:if test="${apply.studentId == SESSION_USER.studentId}">
+                                            <button class='btn btn-primary'>
+                                                <i class='fa fa-check mr5'></i>已经申请
+                                            </button>
+                                        </c:if>
+                                    </c:forEach>
+                                </c:if>
+                                <c:if test="${recruit.jobStatus == 3}">
+                                    <button class='btn btn-primary' disabled>
+                                        <i class='fa fa-check mr5'></i>已结束
+                                    </button>
+                                </c:if>
                             </div>
 
                             <div class="modal fade" id="resume-selector" tabindex="-1"
@@ -142,7 +158,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <form class="form" method="post" id="postForm"
-                                                  action="${pageContext.request.contextPath}/my/resume/postResume.action">
+                                                  action="${pageContext.request.contextPath}/apply/postRecruit">
                                                 <div class="row">
                                                     <div class="form-group">
                                                         <label class="col-sm-2"><span class="asterisk">*
@@ -150,19 +166,19 @@
                                                         <div class="col-sm-10">
                                                             <select class="select2" name="resumeId" id="resumeId">
                                                                 <option value="">--</option>
-                                                                <c:forEach items="${resumeList}" var="resume">
+                                                                <c:forEach items="${resume}" var="resume">
                                                                     <option value="${resume.resumeId}">${resume.resumeTitle}</option>
                                                                 </c:forEach>
                                                             </select><br/> <br/>
-                                                            <a href="${pageContext.request.contextPath}/my/resume/addResume.action"
+                                                            <a href="${pageContext.request.contextPath}/resume/addResume"
                                                                class="btn btn-default btn-block" type="button">
                                                                 <span class="fa fa-plus-square-o">&nbsp;</span>创建简历
                                                             </a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <input type="hidden" name="recruitId"
-                                                       value="${recruit.recuritId}">
+                                                <input type="hidden" name="recuritId" value="${recruit.recuritId}">
+                                                <input type="hidden" name="unitId" value="${recruit.unitId}">
                                             </form>
                                         </div>
                                         <div class="modal-footer">

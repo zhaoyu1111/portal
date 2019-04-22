@@ -115,7 +115,7 @@ public class Recruit extends SuperEntity<Recruit> {
     private Integer deleted;
 
     @TableField("user_id")
-    private Long userdId;
+    private Long userId;
 
 
     @Override
