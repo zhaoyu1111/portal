@@ -1,7 +1,7 @@
 $(function () {
     $("#album-li").attr("class", "active");
-    var originId = $("#originId").val();
-    _pageBond(getContextPath() + "/orgroom/album.action?originId=" + originId);
+    var associaId = $("#associaId").val();
+    _pageBond(getContextPath() + "/album?associaId=" + associaId);
 });
 
 function deleteOrgAlbum(albumId) {

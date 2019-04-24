@@ -167,7 +167,7 @@
                 <div class="tab-pane" id="following">
 
                     <div class="row filemanager">
-                        <c:forEach items="${album}" var="album">
+                        <c:forEach items="${page.records}" var="album">
                             <div class="col-xs-6 col-sm-4 col-md-3 document">
                                 <div class="thmb" style="height: 228px">
                                     <div class="btn-group fm-group">
@@ -196,7 +196,7 @@
                             <!-- col-xs-6 -->
                         </c:forEach>
                     </div><!-- file manager -->
-                    <%@ include file="../../portal-common/pagination.jsp" %>
+                    <%--<%@ include file="../../portal-common/pagination.jsp" %>--%>
                 </div>
             </div><!-- tab-content -->
 

@@ -26,8 +26,12 @@
             </div>
 
             <div class="page-header">
-                <%@ include file="../forum/forum-button.jsp" %>
+                <%--<%@ include file="recruit-button.jsp"%>--%>
+                <h3>活动中心</h3>
             </div>
+            <%--<div class="page-header">
+                <%@ include file="../forum/forum-button.jsp" %>
+            </div>--%>
             <!-- 	<p>论坛帖子</p> -->
             <div class="table-responsive">
                 <div class="dataTables_wrapper no-footer">
@@ -42,7 +46,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${activity}" var="activity">
+                        <c:forEach items="${page.records}" var="activity">
                             <tr>
                                 <td id="${activity.activityId}">&nbsp;<a
                                         href="${pageContext.request.contextPath}/activity/detail?activityId=${activity.activityId}">${activity.activityName}</a>

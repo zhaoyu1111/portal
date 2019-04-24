@@ -1,6 +1,9 @@
 package com.zy.portal.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zy.portal.common.Anonymous;
+import com.zy.portal.common.RequestUser;
 import com.zy.portal.entity.*;
 import com.zy.portal.entity.Class;
 import com.zy.portal.service.*;
@@ -59,14 +62,12 @@ public class UserController {
         return "login";
     }
 
+    @Anonymous
     @RequestMapping("/index")
-    public String index(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
-        model.addAttribute("user", userService.getUserInfo(user.getStudentId()));
-        UserJob job = userJobService.selectById(user.getStudentId());
+    public String index(Model model) {
+        Long studentId = RequestUser.getCurrentUser().getStudentId();
+        model.addAttribute("user", userService.getUserInfo(studentId));
+        UserJob job = userJobService.selectById(studentId);
         model.addAttribute("job", job);
         if(null != job) {
             model.addAttribute("unit", recruitUnitService.getRecruitUnit(job.getUnitId()));
@@ -104,37 +105,30 @@ public class UserController {
         return "portal-main/index";
     }
 
+    @Anonymous
     @RequestMapping("/basic")
-    public String basic(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "portal-main/index";
-        }
-        model.addAttribute("info", userService.getUserInfo(user.getStudentId()));
+    public String basic(Model model) {
+        model.addAttribute("info", userService.getUserInfo(RequestUser.getCurrentUser().getStudentId()));
         return "my/profile/profile-basic";
     }
 
+    @Anonymous
     @RequestMapping("/account")
-    public String account(Model model, HttpSession session) {
-        User user = (User)session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "portal-main/index";
-        }
-        model.addAttribute("account", userService.getUserInfo(user.getStudentId()));
+    public String account(Model model) {
+        model.addAttribute("account", userService.getUserInfo(RequestUser.getCurrentUser().getStudentId()));
         return "my/account/account-index";
     }
 
+    @Anonymous
     @RequestMapping("/password")
     public String password() {
         return "my/account/account-password";
     }
 
+    @Anonymous
     @RequestMapping("/updatePwd")
-    public String updatePwd(Model model, HttpSession session, String password, String confirmPwd, String oldPwd) {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
+    public String updatePwd(Model model, String password, String confirmPwd, String oldPwd) {
+        User user = userService.selectById(RequestUser.getCurrentUser().getStudentId());
         if(!user.getPwd().equals(MD5Utils.encode(oldPwd))) {
             model.addAttribute("old", "原始密码错误");
         }else if(!confirmPwd.equals(password)){
@@ -146,43 +140,38 @@ public class UserController {
         return "my/account/account-password";
     }
 
+    @Anonymous
     @RequestMapping("/email")
     public String email() {
         return "my/account/account-email";
     }
 
+    @Anonymous
     @RequestMapping("/updateEmail")
-    public String updateEmail(HttpSession session, String email) {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
+    public String updateEmail(String email) {
         return "redirect:/login/account";
     }
 
+    @Anonymous
     @RequestMapping("/class")
-    public String myClass(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
+    public String myClass(Model model) {
+        User user = userService.selectById(RequestUser.getCurrentUser().getStudentId());
         Class myClass = classService.getClass(user.getClassId());
         model.addAttribute("myclass", myClass);
         model.addAttribute("count", userService.getClassNum(user.getClassId()));
         return "my/class/class-index";
     }
 
+    @Anonymous
     @RequestMapping("/avatar")
     public String portrait() {
         return "my/profile/profile-portrait";
     }
 
+    @Anonymous
     @RequestMapping("/avatar/upload")
     public String upload(HttpSession session, MultipartFile portrait) throws UtilException {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
+        User user = userService.selectById(RequestUser.getCurrentUser().getStudentId());
         // 参数校验
         if (portrait != null && portrait.getSize() > 0) {
             // 保存到硬盘
@@ -199,32 +188,24 @@ public class UserController {
         return "my/profile/profile-portrait";
     }
 
+    @Anonymous
     @RequestMapping("/job")
-    public String job(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
-        model.addAttribute("job", userJobService.selectById(user.getStudentId()));
+    public String job(Model model) {
+        model.addAttribute("job", userJobService.selectById(RequestUser.getCurrentUser().getStudentId()));
         model.addAttribute("unit", recruitUnitService.listUnit());
         return "my/profile/profile-job";
     }
 
+    @Anonymous
     @RequestMapping("/album")
-    public String album(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
-        model.addAttribute("album", albumService.listAlbumByOrigin(user.getStudentId()));
+    public String album(Model model,@RequestParam(defaultValue = "1") Integer currentPage) {
+        model.addAttribute("page", albumService.listAlbumByOrigin(RequestUser.getCurrentUser().getStudentId(), currentPage));
         return "my/profile/profile-album";
     }
 
+    @Anonymous
     @RequestMapping("/jobUpdate")
     public String jobUpdate(HttpSession session, UserJob userJob) {
-        if(null == session.getAttribute("SESSION_USER")) {
-            return "redirect:/login";
-        }
         userJobService.userJobUpdate(userJob);
         return "redirect:/login/job";
     }
@@ -236,33 +217,33 @@ public class UserController {
     }
 
     @RequestMapping("/userImage")
-    public String userImage(Model model, Long albumId) {
+    public String userImage(Model model, Long albumId, @RequestParam(defaultValue = "1") Integer currentPage) {
         Album album = albumService.selectById(albumId);
-        List<Image> images = imageService.listImage(albumId);
+        IPage<Image> images = imageService.listImage(albumId, currentPage);
         if(null == album) {
             getTaInfo(model, null);
         }
         getTaInfo(model, album.getOriginId());
-        model.addAttribute("images", images);
+        model.addAttribute("page", images);
         return "my/ta/ta-image";
     }
 
+    @Anonymous
     @RequestMapping("/image")
-    public String imgae(HttpSession session, Model model, Long albumId) {
-        if(null == session.getAttribute("SESSION_USER")) {
-            return "redirect:/login";
-        }
-        model.addAttribute("images", imageService.listImage(albumId));
+    public String imgae(HttpSession session, Model model, Long albumId, @RequestParam(defaultValue = "1") Integer currentPage) {
+        model.addAttribute("page", imageService.listImage(albumId, currentPage));
         model.addAttribute("album", albumService.selectById(albumId));
         return "my/profile/profile-image";
     }
 
+    @Anonymous
     @RequestMapping("/upload")
     public String upload(Model model, Long albumId) {
         model.addAttribute("album", albumService.selectById(albumId));
         return "my/profile/profile-image-upload";
     }
 
+    @Anonymous
     @RequestMapping("/image/upload")
     public String imageUpload(Long albumId, RedirectAttributes attributes,
                               MultipartFile images[]) throws UtilException {
@@ -300,24 +281,22 @@ public class UserController {
         return "redirect:/login/image";
     }
 
+    @Anonymous
     @RequestMapping("/addAlbum")
     public String addAlbum() {
         return "my/profile/profile-album-add";
     }
 
+    @Anonymous
     @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
-    public String saveOrUpdateAlbum(HttpSession session, Album album, @RequestParam(value = "file") MultipartFile coverImg) throws UtilException {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
+    public String saveOrUpdateAlbum(Album album, @RequestParam(value = "file") MultipartFile coverImg) throws UtilException {
         String imagePath = null;
         if (coverImg != null && coverImg.getSize() > 0) {
             // 保存到硬盘
             imagePath = ImageUtil.saveAlbumCoverImg(coverImg);
         }
         album.setCoverImg(imagePath);
-        album.setOriginId(user.getStudentId());
+        album.setOriginId(RequestUser.getCurrentUser().getStudentId());
         albumService.insertOrUpdate(album);
         return "redirect:/login/album";
     }
@@ -326,19 +305,21 @@ public class UserController {
         model.addAttribute("user", userService.getUserInfo(studentId));
         UserJob job = userJobService.selectById(studentId);
         model.addAttribute("job", job);
-        model.addAttribute("album", albumService.listAlbum(studentId));
+        model.addAttribute("page", albumService.listAlbum(studentId, 1));
         if(null != job) {
             model.addAttribute("unit", recruitUnitService.getRecruitUnit(job.getUnitId()));
         }
         return model;
     }
 
+    @Anonymous
     @RequestMapping("/edit")
     public String edit(Model model, Long albumId) {
         model.addAttribute("album", albumService.selectById(albumId));
         return "my/profile/profile-album-add";
     }
 
+    @Anonymous
     @RequestMapping("/coverImg")
     public String cover(RedirectAttributes attributes, Long albumId, Long imageId) {
         // 参数校验
@@ -357,6 +338,7 @@ public class UserController {
         return "redirect:/login/album";
     }
 
+    @Anonymous
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteAlbum(Long albumId) {
         // 参数校验
@@ -369,6 +351,7 @@ public class UserController {
         return "redirect:/login/album";
     }
 
+    @Anonymous
     @RequestMapping("/image/delete")
     public String deleteImage(RedirectAttributes attributes, Long albumId, Long imageId) {
         // 删除图片
@@ -381,6 +364,7 @@ public class UserController {
         return "redirect:/login/image";
     }
 
+    @Anonymous
     @RequestMapping("/download")
     public String download(HttpServletResponse response, String fileRelPath, String fileName) throws UtilException {
         response.setCharacterEncoding("utf-8");

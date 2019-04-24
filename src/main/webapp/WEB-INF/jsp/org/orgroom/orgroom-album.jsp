@@ -15,7 +15,7 @@
     <div class="mb5"></div>
     <!-- nav tab -->
     <%@ include file="orgroom-nav.jsp" %>
-    <input type="hidden" value="${orgroom.associaId}" id="originId">
+    <input type="hidden" value="${orgroom.associaId}" id="associaId">
     <!-- Tab panes -->
     <div class="tab-content" style="background-color: #ddd;">
 
@@ -36,7 +36,7 @@
                 </div><!-- thmb -->
             </div>
 
-            <c:forEach items="${album}" var="album">
+            <c:forEach items="${page.records}" var="album">
                 <div class="col-xs-6 col-sm-4 col-md-3 document">
                     <div class="thmb" style="height: 228px">
                         <div class="btn-group fm-group">

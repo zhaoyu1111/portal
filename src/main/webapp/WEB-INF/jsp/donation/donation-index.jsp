@@ -45,7 +45,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${donation}" var="donation">
+                            <c:forEach items="${page.records}" var="donation">
                                 <tr>
                                     <td>
                                         <a href="${pageContext.request.contextPath}/article/donationDetail?articleId=${donation.articleId}">${donation.title}</a>
@@ -56,13 +56,13 @@
                             </tbody>
                         </table>
                     </div>
-                    <c:if test="${page.totalRows < 1}">
+                    <c:if test="${page.total < 1}">
                         <div class="alert alert-info">
                             <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
                             <strong>抱歉，没有相关班级!</strong>
                         </div>
                     </c:if>
-                    <c:if test="${page.totalRows > 0}">
+                    <c:if test="${page.total > 0}">
                         <%@ include file="../portal-common/pagination.jsp" %>
                     </c:if>
                 </div>

@@ -35,4 +35,6 @@ public interface ClassService extends IService<Class> {
      * @return
      */
     Class getClass(Long classId);
+
+    Integer getClassCount();
 }

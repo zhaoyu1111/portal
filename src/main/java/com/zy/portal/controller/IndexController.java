@@ -22,7 +22,7 @@ public class IndexController {
 
     @RequestMapping("/index")
     public String index(Model model) {
-        model.addAttribute("article", articleService.getArticle(1));
+        model.addAttribute("article", articleService.getArticle(1, 10, 1L).getRecords());
         model.addAttribute("recruit", recruitService.queryRecruit(1).getRecords());
         model.addAttribute("activity", activityService.listActivity(1, null).getRecords());
         return "portal-main/index";

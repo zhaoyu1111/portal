@@ -1,43 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@ include file="../portal-common/portal-tag.jsp" %>
+<%@ include file="../../portal-common/portal-tag.jsp" %>
 <div class="fm-sidebar">
-    <h3 class="subtitle">校友组织信息</h3>
+
+    <h3 class="subtitle">其他组织</h3>
     <ul class="folder-list">
-        <li><i class="fa fa-institution"></i>
-            院系分会总数&nbsp;:&nbsp;${alumniCount}&nbsp;个</li>
-        <li><i class="fa fa-users"></i>已加入校友&nbsp;:&nbsp;${userCount}&nbsp;位校友</li>
-    </ul>
-
-    <div class="mb30"></div>
-
-    <h3 class="subtitle">人气排行</h3>
-    <ul class="folder-list">
-        <c:forEach items="${orgSort}" var="orgSort">
-            <li><a href="orgroom/index?originId=${orgSort.associaId}">
-                <i class="fa fa-graduation-cap"></i>${orgSort.associaName} (${orgSort.count}人)</a>
-            </li>
-        </c:forEach>
-    </ul>
-
-    <div class="mb30"></div>
-
-    <h3 class="subtitle">最新活动</h3>
-    <ul class="folder-list">
-        <c:forEach items="${activity}" var="activity">
+        <c:forEach items="${other}" var="other">
             <li>
                 <div class="media">
-
                     <div class="media-body" style="max-height: 40px;">
-                        <a class="email-summary" href="${pageContext.request.contextPath}/activity/detail?activityId=${activity.activityId}">
-                            <ar:sub value="${activity.activityName}" length="20"></ar:sub>
+                        <a class="email-summary" href="${pageContext.request.contextPath}/origin/index?associaId=${other.associaId}">
+                            <ar:sub value="${other.associaName}" length="20"></ar:sub>
                         </a>
                         <small class="text-muted">
-                            发布于 ：<ar:dateTag value="${activity.ctime}" pattern="yyyy-MM-dd"></ar:dateTag>
+                            创建于 ：<ar:dateTag value="${other.ctime}" pattern="yyyy-MM-dd"></ar:dateTag>
                         </small>
-                        <a class="email-summary" href="${pageContext.request.contextPath}/activity/detail?activityId=${activity.activityId}">
-                            地址：<ar:sub value="${activity.activityAddr}" length="20"></ar:sub>
-                        </a>
                     </div>
                 </div>
             </li>

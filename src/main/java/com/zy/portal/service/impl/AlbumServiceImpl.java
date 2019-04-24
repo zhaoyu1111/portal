@@ -1,6 +1,8 @@
 package com.zy.portal.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zy.portal.entity.Album;
 import com.zy.portal.mapper.AlbumMapper;
 import com.zy.portal.service.AlbumService;
@@ -21,16 +23,18 @@ import java.util.List;
 public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements AlbumService {
 
     @Override
-    public List<Album> listAlbum(Long classId) {
+    public IPage<Album> listAlbum(Long classId, Integer currentPage) {
         QueryWrapper<Album> query = new QueryWrapper<>();
+        Page<Album> page = new Page<>(currentPage, 1000);
         query.eq("origin_id", classId);
-        return baseMapper.selectList(query);
+        return baseMapper.selectPage(page, query);
     }
 
     @Override
-    public List<Album> listAlbumByOrigin(Long studentId) {
+    public IPage<Album> listAlbumByOrigin(Long studentId, Integer currentPage) {
         QueryWrapper<Album> query = new QueryWrapper<>();
+        Page<Album> page = new Page<>(currentPage, 7);
         query.eq("origin_id", studentId);
-        return baseMapper.selectList(query);
+        return baseMapper.selectPage(page, query);
     }
 }

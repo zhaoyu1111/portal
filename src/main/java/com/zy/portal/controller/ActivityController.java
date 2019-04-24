@@ -1,6 +1,8 @@
 package com.zy.portal.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zy.portal.entity.Activity;
 import com.zy.portal.entity.ActivityUserApply;
 import com.zy.portal.entity.User;
 import com.zy.portal.service.ActivityService;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -34,8 +37,8 @@ public class ActivityController {
     private ActivityUserApplyService activityUserApplyService;
 
     @RequestMapping("")
-    public String index(Model model) {
-        model.addAttribute("activity", activityService.listActivity(1, null).getRecords());
+    public String index(Model model,@RequestParam(defaultValue = "1") Integer currentPage) {
+        model.addAttribute("page", activityService.listActivity(currentPage, null));
         return "activity/activity-index";
     }
 

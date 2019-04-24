@@ -15,12 +15,12 @@
     <!-- nav tab -->
     <%@ include file="orgroom-nav.jsp" %>
 
-    <input type="hidden" value="${orgroom.associaId}" id="originId">
+    <input type="hidden" value="${orgroom.address}" id="originAddress">
     <!-- Tab panes -->
     <div class="tab-content" style="background-color: #ddd;">
         <div class="tab-pane active" id="classroom-content">
             <div class="people-list">
-                <c:forEach items="${user}" var="member">
+                <c:forEach items="${page.records}" var="member">
                     <div class="col-md-2">
                         <div class="people-item" style="text-align: center; min-height: 170px; max-height: 170px;">
                             <a href="${pageContext.request.contextPath}/login/userIndex?studentId=${member.studentId}">

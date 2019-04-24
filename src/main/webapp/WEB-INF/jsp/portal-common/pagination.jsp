@@ -7,18 +7,18 @@
         <ul class="pagination">
             <li><a class="page-indexor" href="javascript:;"
                    aria-label="Previous"
-                   <c:if test="${page.total>1}">value="${page.total-1}"</c:if>>
+                   <c:if test="${page.current>1}">value="${page.current-1}"</c:if>>
                 <i class="fa fa-angle-left"></i>
             </a></li>
-            <c:forEach items="${page.list}" var="pagecode">
-                <li <c:if test="${page.total==pagecode}">class="active"</c:if>><a
+            <c:forEach var="p" begin="1" end="${page.total % page.size == 0 ? page.total / page.size : page.total / page.size + 1}" step="1">
+                <li <c:if test="${page.current==p}">class="active"</c:if>><a
                         class="page-indexor" href="javascript:;"
-                        <c:if test="${pagecode>-1}">value="${pagecode}"</c:if>>${pagecode}<span
+                        <c:if test="${p>-1}">value="${p}"</c:if>>${p}<span
                         class="sr-only"></span></a></li>
             </c:forEach>
             <li><a class="page-indexor" href="javascript:;"
                    aria-label="Next"
-                   <c:if test="${page.pageIndex<page.totalPages}">value="${page.totalPages+1}"</c:if>>
+                   <c:if test="${page.current<page.total}">value="${page.current+1}"</c:if>>
                 <i class="fa fa-angle-right"></i>
             </a></li>
         </ul>
@@ -34,15 +34,28 @@
                 function () {
                     /*页码*/
                     var pageIndex = $(this).attr("value");
-                    var queryStr = $("#queryStr").val();
-                    var selectStr = $("#selectStr").val();
+                    if(pageIndex != null) {
+                        if (action.indexOf("?") > 0) {
+                            $(this).attr(
+                                "href",
+                                action + "&currentPage="
+                                + pageIndex);
+                        } else {
+                            $(this).attr(
+                                "href",
+                                action + "?currentPage="
+                                + pageIndex);
+                        }
+                    }
+                    /*var queryStr = $("#queryStr").val();
+                    var selectStr = $("#selectStr").val();*/
                     /* 页码可用 */
-                    if (pageIndex != null) {
+                    /*if (pageIndex != null) {
                         // 判断是否有查询条件
                         if (isValid(queryStr)) {
                             // 下拉框已选则
                             if (isValid(selectStr)) {
-                                /*执行查询*/
+                                /!*执行查询*!/
                                 if (action.indexOf("?") > 0) {
                                     $(this).attr(
                                         "href",
@@ -63,7 +76,7 @@
                                         + selectStr);
                                 }
                             } else {
-                                /*执行查询*/
+                                /!*执行查询*!/
                                 if (action.indexOf("?") > 0) {
                                     $(this).attr(
                                         "href",
@@ -83,7 +96,7 @@
                         } else {
                             // 下拉框已选则
                             if (isValid(selectStr)) {
-                                /*执行查询*/
+                                /!*执行查询*!/
                                 if (action.indexOf("?") > 0) {
                                     $(this).attr(
                                         "href",
@@ -100,7 +113,7 @@
                                         + selectStr);
                                 }
                             } else {
-                                /*执行查询*/
+                                /!*执行查询*!/
                                 if (action.indexOf("?") > 0) {
                                     $(this).attr(
                                         "href",
@@ -114,7 +127,7 @@
                                 }
                             }
                         }
-                    }
+                    }*/
                 });
     }
 </script>

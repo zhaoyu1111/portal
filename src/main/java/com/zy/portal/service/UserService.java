@@ -1,6 +1,8 @@
 package com.zy.portal.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zy.portal.dto.ClassUser;
+import com.zy.portal.dto.UserClassInfo;
 import com.zy.portal.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -27,7 +29,7 @@ public interface UserService extends IService<User> {
      * 获取用户列表
      * @return
      */
-    List<User> getUser(String address);
+    IPage<User> getUser(String address, Integer currentPage);
 
     /**
      * 获取班级人数
@@ -48,7 +50,7 @@ public interface UserService extends IService<User> {
      * @param classId
      * @return
      */
-    List<User> listUser(Long classId);
+    IPage<User> listUser(Long classId, Integer currentPage);
 
     /**
      * 登录验证
@@ -76,4 +78,10 @@ public interface UserService extends IService<User> {
      * @param user
      */
     void updatePassword(User user);
+
+    Integer getUserCount();
+
+    Integer getClassUserCount();
+
+    List<UserClassInfo> sortClassUser();
 }

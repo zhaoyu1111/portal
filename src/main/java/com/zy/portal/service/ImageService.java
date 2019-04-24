@@ -1,5 +1,6 @@
 package com.zy.portal.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zy.portal.entity.Image;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -15,5 +16,5 @@ import java.util.List;
  */
 public interface ImageService extends IService<Image> {
 
-    List<Image> listImage(Long albumId);
+    IPage<Image> listImage(Long albumId, Integer currentPage);
 }

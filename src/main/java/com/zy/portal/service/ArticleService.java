@@ -1,5 +1,6 @@
 package com.zy.portal.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zy.portal.entity.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -20,7 +21,7 @@ public interface ArticleService extends IService<Article> {
      * @param currentPage
      * @return
      */
-    List<Article> getArticle(Integer currentPage);
+    IPage<Article> getArticle(Integer currentPage, Integer size, Long menuId);
 
     /**
      * 获取文章详细信息
@@ -34,7 +35,7 @@ public interface ArticleService extends IService<Article> {
      * @param menuId
      * @return
      */
-    List<Article> listArticle(Long menuId);
+    IPage<Article> listArticle(Long menuId, Integer currentPage);
 
     /**
      * 获取文章列表根据访问数

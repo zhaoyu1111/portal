@@ -3,6 +3,7 @@ package com.zy.portal.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.zy.portal.dto.AlumniAssociaIndex;
+import com.zy.portal.dto.OrgSortInfo;
 import com.zy.portal.entity.AlumniAssociation;
 import com.zy.portal.mapper.AlumniAssociationMapper;
 import com.zy.portal.service.AlumniAssociationService;
@@ -43,5 +44,10 @@ public class AlumniAssociationServiceImpl extends ServiceImpl<AlumniAssociationM
         query.eq("address", address);
         List<AlumniAssociation> associations = baseMapper.selectList(query);
         return CollectionUtils.isEmpty(associations) ? null : associations.get(0);
+    }
+
+    @Override
+    public List<OrgSortInfo> getOrgSort(Boolean flag) {
+        return baseMapper.getOrgSort(flag);
     }
 }

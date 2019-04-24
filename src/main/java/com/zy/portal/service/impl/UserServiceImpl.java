@@ -1,9 +1,11 @@
 package com.zy.portal.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zy.portal.dto.ClassUser;
+import com.zy.portal.dto.UserClassInfo;
 import com.zy.portal.entity.User;
 import com.zy.portal.mapper.UserMapper;
 import com.zy.portal.service.UserService;
@@ -34,13 +36,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public List<User> getUser(String address) {
+    public IPage<User> getUser(String address, Integer currentPage) {
         QueryWrapper<User> query = new QueryWrapper<>();
         query.like("current_city", address);
         query.eq("status", 0);
 
-        Page<User> userPage = new Page<>(1, 20);
-        return baseMapper.selectPage(userPage, query).getRecords();
+        Page<User> userPage = new Page<>(currentPage, 12);
+        return baseMapper.selectPage(userPage, query);
     }
 
     @Override
@@ -56,10 +58,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public List<User> listUser(Long classId) {
+    public IPage<User> listUser(Long classId, Integer currentPage) {
         QueryWrapper<User> query = new QueryWrapper<>();
+        Page<User> page = new Page<>(currentPage, 12);
         query.eq("class_id", classId);
-        return baseMapper.selectList(query);
+        return baseMapper.selectPage(page, query);
     }
 
     @Override
@@ -80,5 +83,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public void updatePassword(User user) {
         baseMapper.updateById(user);
+    }
+
+    @Override
+    public Integer getUserCount() {
+        QueryWrapper<User> query = new QueryWrapper<>();
+        query.isNotNull("current_city");
+        return baseMapper.selectCount(query);
+    }
+
+    @Override
+    public Integer getClassUserCount() {
+        QueryWrapper<User> query = new QueryWrapper<>();
+        query.isNotNull("class_id");
+        return baseMapper.selectCount(query);
+    }
+
+    @Override
+    public List<UserClassInfo> sortClassUser() {
+        return baseMapper.sortClassUser();
     }
 }

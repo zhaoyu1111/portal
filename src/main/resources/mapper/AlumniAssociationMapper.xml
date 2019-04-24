@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zy.portal.mapper.AlumniAssociationMapper">
 
+    <select id="getOrgSort" resultType="com.zy.portal.dto.OrgSortInfo">
+        select  count(1) count, a.address, a.associa_id, a.associa_name from user u ,
+        alumni_association a where u.current_city like concat("%",a.address,"%")
+         GROUP BY a.address
+        <if test="flag">
+            order by count desc limit 0, 3
+        </if>;
+    </select>
 </mapper>

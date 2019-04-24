@@ -26,55 +26,57 @@
             <div class="mb20"></div>
 
             <div class="people-list">
-                <c:forEach items="${user}" var="userInfo">
-                    <div class="col-md-6">
-                        <div class="people-item">
-                            <div class="media">
-                                <a href="${pageContext.request.contextPath}/login/userIndex?studentId=${userInfo.studentId}"
-                                   class="pull-left"> <img src="${userInfo.avatar}"
-                                                           class="img-responsive thumbnail media-object">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="person-name">${userInfo.userName}</h4>
-                                    <div class="text-muted">
-                                        <i class="fa fa-map-marker"></i> ${userInfo.homeAddress}
+                <c:forEach items="${page.records}" var="userInfo">
+                    <c:if test="${userInfo.jobName != null || userInfo.unitName != null}">
+                        <div class="col-md-6">
+                            <div class="people-item">
+                                <div class="media">
+                                    <a href="${pageContext.request.contextPath}/login/userIndex?studentId=${userInfo.studentId}"
+                                       class="pull-left"> <img src="${userInfo.avatar}"
+                                                               class="img-responsive thumbnail media-object">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="person-name">${userInfo.userName}</h4>
+                                        <div class="text-muted">
+                                            <i class="fa fa-map-marker"></i> ${userInfo.homeAddress}
+                                        </div>
+                                        <div class="text-muted">
+                                            <i class="fa fa-briefcase"></i> ${userInfo.jobName} 就职于<a href="javascript:;">${userInfo.unitName}</a>
+                                        </div>
+                                        <ul class="social-list">
+                                            <c:if test="${userInfo.mobile!=null}">
+                                                <li><a href="javascript:;" class="tooltips" data-toggle="tooltip"
+                                                       data-placement="top" title="手机：${userInfo.mobile}"><i
+                                                        class="fa fa-mobile"></i></a></li>
+                                            </c:if>
+                                            <c:if test="${userInfo.email!=null}">
+                                                <li><a href="javascript:;" class="tooltips"
+                                                       data-toggle="tooltip" data-placement="top"
+                                                       title="邮箱：${userInfo.email}"><i
+                                                        class="fa fa-envelope-o"></i></a></li>
+                                            </c:if>
+                                            <c:if test="${userInfo.qq!=null}">
+                                                <li><a href="javascript:;" class="tooltips"
+                                                       data-toggle="tooltip" data-placement="top"
+                                                       title="QQ：${userInfo.qq}"><i class="fa fa-qq"></i></a></li>
+                                            </c:if>
+                                            <c:if test="${userInfo.wechat!=null}">
+                                                <li><a href="javascript:;" class="tooltips"
+                                                       data-toggle="tooltip" data-placement="top"
+                                                       title="微信：${userInfo.wechat}"><i class="fa fa-wechat"></i></a></li>
+                                            </c:if>
+                                                <%--<c:if test="${directory.microblog!=null}">
+                                                    <li><a href="javascript:;" class="tooltips"
+                                                           data-toggle="tooltip" data-placement="top"
+                                                           title="新浪微博：${directory.microblog}"><i
+                                                            class="fa fa-weibo"></i></a></li>
+                                                </c:if>--%>
+                                        </ul>
                                     </div>
-                                    <div class="text-muted">
-                                        <i class="fa fa-briefcase"></i> 软件工程师 就职于<a href="javascript:;">上海证券交易所</a>
-                                    </div>
-                                    <ul class="social-list">
-                                        <c:if test="${userInfo.mobile!=null}">
-                                            <li><a href="javascript:;" class="tooltips" data-toggle="tooltip"
-                                                   data-placement="top" title="手机：${userInfo.mobile}"><i
-                                                    class="fa fa-mobile"></i></a></li>
-                                        </c:if>
-                                        <c:if test="${userInfo.email!=null}">
-                                            <li><a href="javascript:;" class="tooltips"
-                                                   data-toggle="tooltip" data-placement="top"
-                                                   title="邮箱：${userInfo.email}"><i
-                                                    class="fa fa-envelope-o"></i></a></li>
-                                        </c:if>
-                                        <%--<c:if test="${directory.qq!=null}">
-                                            <li><a href="javascript:;" class="tooltips"
-                                                   data-toggle="tooltip" data-placement="top"
-                                                   title="QQ：${directory.qq}"><i class="fa fa-qq"></i></a></li>
-                                        </c:if>
-                                        <c:if test="${directory.wechat!=null}">
-                                            <li><a href="javascript:;" class="tooltips"
-                                                   data-toggle="tooltip" data-placement="top"
-                                                   title="微信：${directory.wechat}"><i class="fa fa-wechat"></i></a></li>
-                                        </c:if>
-                                        <c:if test="${directory.microblog!=null}">
-                                            <li><a href="javascript:;" class="tooltips"
-                                                   data-toggle="tooltip" data-placement="top"
-                                                   title="新浪微博：${directory.microblog}"><i
-                                                    class="fa fa-weibo"></i></a></li>
-                                        </c:if>--%>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </c:if>
                     <!-- col-md-6 -->
                 </c:forEach>
             </div>

@@ -45,4 +45,9 @@ public class ClassServiceImpl extends ServiceImpl<ClassMapper, Class> implements
         query.eq("class_id", classId);
         return baseMapper.selectOne(query);
     }
+
+    @Override
+    public Integer getClassCount() {
+        return baseMapper.selectCount(new QueryWrapper<>());
+    }
 }

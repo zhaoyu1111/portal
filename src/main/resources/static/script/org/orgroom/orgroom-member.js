@@ -1,5 +1,5 @@
 $(function () {
     $("#member-li").attr("class", "active");
-    var originId = $("#originId").val();
-    _pageBond(getContextPath() + "/orgroom/member?originId=" + originId);
+    var originAddress = $("#originAddress").val();
+    _pageBond(getContextPath() + "/member?address=" + originAddress);
 });

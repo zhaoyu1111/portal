@@ -1,6 +1,8 @@
 package com.zy.portal.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zy.portal.entity.RecruitUnit;
 import com.zy.portal.mapper.RecruitUnitMapper;
 import com.zy.portal.service.RecruitUnitService;
@@ -24,6 +26,7 @@ public class RecruitUnitServiceImpl extends ServiceImpl<RecruitUnitMapper, Recru
     public RecruitUnit getRecruitUnit(Long unitId) {
         QueryWrapper<RecruitUnit> query = new QueryWrapper<>();
         query.eq("unit_id", unitId);
+
         return baseMapper.selectOne(query);
     }
 

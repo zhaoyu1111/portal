@@ -1,5 +1,5 @@
 $(function () {
-    $("#nav-news").attr("class", "active grid");
+    $("#nav-donation").attr("class", "active grid");
 
     // 加载评论列表
 

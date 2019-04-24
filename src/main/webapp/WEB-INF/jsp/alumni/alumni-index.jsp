@@ -30,7 +30,7 @@
                     <div class="panel panel-default panel-alt widget-messaging">
                         <div class="panel-body">
                             <ul>
-                                <c:forEach items="${alumni}" var="alumni">
+                                <c:forEach items="${page.records}" var="alumni">
                                     <li>
                                         <small class="pull-right">
                                             <ar:dateTag value="${alumni.ctime}" pattern="M月d日"></ar:dateTag>
@@ -44,6 +44,7 @@
                         </div><!-- panel-body -->
                     </div><!-- panel -->
 
+                    <%@ include file="../portal-common/pagination.jsp"%>
                     <div class="mb30"></div>
 
                 </div>

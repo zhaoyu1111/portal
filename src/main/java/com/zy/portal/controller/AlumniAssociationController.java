@@ -1,9 +1,14 @@
 package com.zy.portal.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.zy.portal.dto.AlumniAssociaIndex;
+import com.zy.portal.dto.OrgSortInfo;
 import com.zy.portal.dto.UserDto;
 import com.zy.portal.entity.*;
 import com.zy.portal.service.*;
@@ -60,14 +65,26 @@ public class AlumniAssociationController {
     @Autowired
     private RecruitUnitService recruitUnitService;
 
+    @Autowired
+    private ActivityService activityService;
+
     @RequestMapping("")
     public String index(Model model) {
+
         List<AlumniAssociation> associations = alumniAssociationService.listAssocia();
-        // TODO: 2019/3/31
-        List<String> address = associations.stream().map(AlumniAssociation::getAddress).distinct().collect(Collectors.toList());
 
+        List<OrgSortInfo> sortInfos = alumniAssociationService.getOrgSort(false);
+        Map<Long, Integer> sortInfo = Maps.newHashMap();
+        sortInfos.forEach(orgSortInfo -> sortInfo.put(orgSortInfo.getAssociaId(), orgSortInfo.getCount()));
 
-        model.addAttribute("associa", associations);
+        List<AlumniAssociaIndex> indices = Lists.newArrayList();
+        for (AlumniAssociation association : associations) {
+            AlumniAssociaIndex index = new AlumniAssociaIndex();
+            BeanUtils.copyProperties(association, index);
+            index.setMembers(sortInfo.get(association.getAssociaId()));
+            indices.add(index);
+        }
+        model.addAttribute("associa", indices);
         return "org/org-institute";
     }
 
@@ -75,26 +92,27 @@ public class AlumniAssociationController {
     public String indexDetail(Model model, Long associaId) {
         AlumniAssociation association = alumniAssociationService.getAssociation(associaId);
         model.addAttribute("orgroom", association);
-        List<User> users = userService.getUser(association.getAddress());
-        Integer member = CollectionUtils.isEmpty(users) ? 0 : users.size();
+        IPage<User> users = userService.getUser(association.getAddress(), 1);
+        Long member = CollectionUtils.isEmpty(users.getRecords()) ? 0 : users.getTotal();
         model.addAttribute("member", member);
         return "org/orgroom/orgroom-index";
     }
 
     @RequestMapping("/member")
-    public String getMembers(String address, Model model) {
+    public String getMembers(String address, Model model,@RequestParam(defaultValue = "1") Integer currentPage) {
         model.addAttribute("orgroom", alumniAssociationService.getAssociation(address));
-        List<User> users = userService.getUser(address);
-        model.addAttribute("user", users);
-        Integer member = CollectionUtils.isEmpty(users) ? 0 : users.size();
+        IPage<User> users = userService.getUser(address, currentPage);
+        model.addAttribute("page", users);
+        Long member = CollectionUtils.isEmpty(users.getRecords()) ? 0 : users.getTotal();
         model.addAttribute("member", member);
         return "org/orgroom/orgroom-member";
     }
 
     @RequestMapping("/directory")
-    public String getDirectory(Model model, String address) {
+    public String getDirectory(Model model, String address,@RequestParam(defaultValue = "1") Integer currentPage) {
         model.addAttribute("orgroom", alumniAssociationService.getAssociation(address));
-        List<User> users = userService.getUser(address);
+        IPage<User> userIPage = userService.getUser(address, currentPage);
+        List<User> users = userIPage.getRecords();
 
         List<Long> studentIds = users.stream().map(User::getStudentId).distinct().collect(Collectors.toList());
         List<UserJob> job = userJobService.getUserJob(studentIds);
@@ -118,23 +136,43 @@ public class AlumniAssociationController {
             userDtos.add(userDto);
         }
 
-        model.addAttribute("user", userDtos);
+        IPage<UserDto> iPage = new Page<>();
+        iPage.setRecords(userDtos);
+        iPage.setCurrent(userIPage.getCurrent());
+        iPage.setTotal(userIPage.getTotal());
+        iPage.setSize(userIPage.getSize());
+        model.addAttribute("page", iPage);
         Integer member = CollectionUtils.isEmpty(users) ? 0 : users.size();
         model.addAttribute("member", member);
         return "org/orgroom/orgroom-directory";
     }
 
     @RequestMapping("/album")
-    public String album(Model model, Long associaId) {
-        model.addAttribute("album", albumService.listAlbum(associaId));
+    public String album(Model model, Long associaId,@RequestParam(defaultValue = "1") Integer currentPage) {
+        model.addAttribute("page", albumService.listAlbum(associaId, currentPage));
         getOrigin(model, associaId);
         return "org/orgroom/orgroom-album";
+    }
+
+    @RequestMapping("/outline")
+    public String outline(Model model) {
+        model.addAttribute("userCount", userService.getUserCount());
+        model.addAttribute("alumniCount", alumniAssociationService.selectCount(new QueryWrapper<>()));
+        model.addAttribute("orgSort", alumniAssociationService.getOrgSort(true));
+        model.addAttribute("activity", activityService.listActivity());
+        return "org/org-outline";
+    }
+
+    @RequestMapping("/otherOrg")
+    public String otherOrg(Model model) {
+        model.addAttribute("other", alumniAssociationService.selectPage(new Page<>(1, 5), new QueryWrapper<>()).getRecords());
+        return "org/orgroom/orgroom-other";
     }
 
     private Model getOrigin(Model model, Long associaId) {
         AlumniAssociation association = alumniAssociationService.selectById(associaId);
         model.addAttribute("orgroom", association);
-        model.addAttribute("member", userService.getUser(association.getAddress()).size());
+        model.addAttribute("member", userService.getUser(association.getAddress(), 1).getTotal());
         return model;
     }
 
@@ -165,9 +203,9 @@ public class AlumniAssociationController {
     }
 
     @RequestMapping("/album/image")
-    public String imgae(Model model, Long albumId, Long associaId) {
+    public String imgae(Model model, Long albumId, Long associaId, @RequestParam(defaultValue = "1")Integer currentPage) {
         getOrigin(model, associaId);
-        model.addAttribute("images", imageService.listImage(albumId));
+        model.addAttribute("images", imageService.listImage(albumId, currentPage));
         model.addAttribute("album", albumService.selectById(albumId));
         return "org/orgroom/orgroom-album-image";
     }

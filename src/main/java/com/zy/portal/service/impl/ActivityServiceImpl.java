@@ -51,4 +51,12 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         }
         baseMapper.updateById(activity);
     }
+
+    @Override
+    public List<Activity> listActivity() {
+        QueryWrapper<Activity> query = new QueryWrapper<>();
+        Page<Activity> page = new Page<>(1, 10);
+        query.orderByDesc("utime");
+        return baseMapper.selectPage(page, query).getRecords();
+    }
 }

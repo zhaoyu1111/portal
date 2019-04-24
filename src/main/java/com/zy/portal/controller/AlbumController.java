@@ -52,8 +52,8 @@ public class AlbumController {
     private ImageService imageService;
 
     @RequestMapping("")
-    public String index(Model model, Long classId) {
-        model.addAttribute("album", albumService.listAlbum(classId));
+    public String index(Model model, Long classId,@RequestParam(defaultValue = "1") Integer currentPage) {
+        model.addAttribute("page", albumService.listAlbum(classId, currentPage));
         model = getClassInfo(model, classId);
         return "class/classroom/classroom-album";
     }
@@ -91,9 +91,9 @@ public class AlbumController {
     }
 
     @RequestMapping("/image")
-    public String imgae(Model model, Long albumId, Long classId) {
+    public String imgae(Model model, Long albumId, Long classId, @RequestParam(defaultValue = "1")Integer currentPage) {
         getClassInfo(model, classId);
-        model.addAttribute("images", imageService.listImage(albumId));
+        model.addAttribute("images", imageService.listImage(albumId, currentPage));
         model.addAttribute("album", albumService.selectById(albumId));
         return "class/classroom/classroom-album-image";
     }

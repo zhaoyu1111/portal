@@ -1,6 +1,7 @@
 package com.zy.portal.mapper;
 
 import com.zy.portal.dto.ClassUser;
+import com.zy.portal.dto.UserClassInfo;
 import com.zy.portal.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -25,4 +26,6 @@ public interface UserMapper extends BaseMapper<User> {
      * @return
      */
     List<ClassUser> getClassUserNum(@Param("classIds") List<Long> classids);
+
+    List<UserClassInfo> sortClassUser();
 }

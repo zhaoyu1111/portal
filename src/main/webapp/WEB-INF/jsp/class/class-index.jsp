@@ -25,7 +25,7 @@
         </div>
         <div class="row">
             <div class="col-sm-9">
-                <%@ include file="query-form.jsp" %>
+                <%--<%@ include file="query-form.jsp" %>--%>
 
                 <h3>&nbsp;班级录</h3>
                 <hr>

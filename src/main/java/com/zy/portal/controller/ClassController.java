@@ -1,19 +1,27 @@
 package com.zy.portal.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zy.portal.dto.ClassList;
 import com.zy.portal.dto.ClassUser;
+import com.zy.portal.dto.UserDto;
 import com.zy.portal.entity.Class;
+import com.zy.portal.entity.RecruitUnit;
+import com.zy.portal.entity.User;
+import com.zy.portal.entity.UserJob;
 import com.zy.portal.service.ClassService;
+import com.zy.portal.service.RecruitUnitService;
+import com.zy.portal.service.UserJobService;
 import com.zy.portal.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -39,10 +47,28 @@ public class ClassController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserJobService userJobService;
+
+    @Autowired
+    private RecruitUnitService recruitUnitService;
+
     @RequestMapping("")
     public String index(Model model) {
         model.addAttribute("grade", classService.listGrade());
         return "class/class-index";
+    }
+
+    @RequestMapping("/outline")
+    public String outline(Model model, HttpSession session) {
+        model.addAttribute("classCount", classService.getClassCount());
+        model.addAttribute("userCount", userService.getClassUserCount());
+        model.addAttribute("sortClass", userService.sortClassUser());
+        User user = (User) session.getAttribute("SESSION_USER");
+        if(null != user) {
+            model.addAttribute("myClass", classService.selectById(user.getClassId()));
+        }
+        return "class/class-outline";
     }
 
     @RequestMapping("/queryClasses")
@@ -73,16 +99,48 @@ public class ClassController {
     }
 
     @RequestMapping("/member")
-    public String getMember(Model model, Long classId) {
+    public String getMember(Model model, Long classId, @RequestParam(defaultValue = "1") Integer currentPage) {
         commonModel(model, classId);
-        model.addAttribute("user", userService.listUser(classId));
+        model.addAttribute("page", userService.listUser(classId, currentPage));
         return "class/classroom/classroom-member";
     }
 
     @RequestMapping("/directory")
-    public String getDirectory(Long classId, Model model) {
+    public String getDirectory(Long classId, Model model, @RequestParam(defaultValue = "1") Integer currentPage) {
         commonModel(model, classId);
-        model.addAttribute("user", userService.listUser(classId));
+
+        IPage<User> userIPage = userService.listUser(classId, currentPage);
+        List<User> users = userIPage.getRecords();
+
+        List<Long> studentIds = users.stream().map(User::getStudentId).distinct().collect(Collectors.toList());
+        List<UserJob> job = userJobService.getUserJob(studentIds);
+        Map<Long, UserJob> jobMap = Maps.newHashMap();
+        job.forEach(userJob -> jobMap.put(userJob.getStudentId(), userJob));
+
+        List<Long> unitIds = job.stream().map(UserJob::getUnitId).distinct().collect(Collectors.toList());
+        List<RecruitUnit> units = recruitUnitService.listUnit(unitIds);
+        Map<Long, String> unitMap = Maps.newHashMap();
+        units.forEach(unit -> unitMap.put(unit.getUnitId(), unit.getUnitName()));
+
+        List<UserDto> userDtos = Lists.newArrayList();
+        for (User user : users) {
+            UserDto userDto = new UserDto();
+            BeanUtils.copyProperties(user, userDto);
+            UserJob userJob = jobMap.get(user.getStudentId());
+            if(null != userJob) {
+                userDto.setJobName(userJob.getJobName());
+                userDto.setUnitName(unitMap.get(userJob.getUnitId()));
+            }
+            userDtos.add(userDto);
+        }
+
+        IPage<UserDto> iPage = new Page<>();
+        iPage.setRecords(userDtos);
+        iPage.setTotal(userIPage.getTotal());
+        iPage.setSize(userIPage.getSize());
+        iPage.setCurrent(userIPage.getCurrent());
+
+        model.addAttribute("page", iPage);
         return "class/classroom/classroom-directory";
     }
 

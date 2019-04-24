@@ -1,6 +1,8 @@
 package com.zy.portal.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zy.portal.entity.Image;
 import com.zy.portal.mapper.ImageMapper;
 import com.zy.portal.service.ImageService;
@@ -21,9 +23,10 @@ import java.util.List;
 public class ImageServiceImpl extends ServiceImpl<ImageMapper, Image> implements ImageService {
 
     @Override
-    public List<Image> listImage(Long albumId) {
+    public IPage<Image> listImage(Long albumId, Integer currentPage) {
         QueryWrapper<Image> query = new QueryWrapper<>();
+        Page<Image> page = new Page<>(currentPage, 8);
         query.eq("album_id", albumId);
-        return baseMapper.selectList(query);
+        return baseMapper.selectPage(page, query);
     }
 }

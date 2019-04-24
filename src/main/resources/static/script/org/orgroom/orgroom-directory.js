@@ -1,5 +1,5 @@
 $(function () {
     $("#directory-li").attr("class", "active");
-    var originId = $("#originId").val();
-    _pageBond(getContextPath() + "/orgroom/directory.action?originId=" + originId);
+    var originAddress = $("#originAddress").val();
+    _pageBond(getContextPath() + "/directory?address=" + originAddress);
 });

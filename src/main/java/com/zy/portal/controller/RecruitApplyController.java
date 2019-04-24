@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.zy.portal.common.Anonymous;
 import com.zy.portal.common.MyPage;
+import com.zy.portal.common.RequestUser;
 import com.zy.portal.dto.RecruitApplyInfo;
 import com.zy.portal.dto.RecruitPostInfo;
 import com.zy.portal.entity.Recruit;
@@ -88,13 +90,10 @@ public class RecruitApplyController {
         return "my/recruit/resume-posted";
     }
 
+    @Anonymous
     @RequestMapping("/postRecruit")
-    public String postRecruit(RedirectAttributes attributes, RecruitApply apply, HttpSession session) {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
-        apply.setStudentId(user.getStudentId());
+    public String postRecruit(RedirectAttributes attributes, RecruitApply apply) {
+        apply.setStudentId(RequestUser.getCurrentUser().getStudentId());
         recruitApplyService.insert(apply);
         attributes.addAttribute("recuritId", apply.getRecuritId());
         return "redirect:/recruit/detailRecruit";

@@ -28,8 +28,7 @@ $(function () {
     });*/
 
     // 相册翻页
-    var classId = $("#classId").val();
-    //_pageBond(getContextPath() + "/classroom/album.action?classId=" + classId);
+    _pageBond(getContextPath() + "/album");
 });
 
 /**

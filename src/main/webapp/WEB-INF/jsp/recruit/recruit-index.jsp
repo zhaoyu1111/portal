@@ -43,7 +43,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${page.list}" var="recruit">
+								<c:forEach items="${page.records}" var="recruit">
 									<tr>
 										<td id="${recruit.title}">&nbsp;
 											<a href="${pageContext.request.contextPath}/recruit/detailRecruit?recuritId=${recruit.recuritId}"> ${recruit.title}</a>
@@ -57,7 +57,7 @@
 						</table>
 					</div>
 				</div>
-				<%--<%@ include file="../portal-common/pagination.jsp"%>--%>
+				<%@ include file="../portal-common/pagination.jsp"%>
 			</section>
 		</div>
 	</div>

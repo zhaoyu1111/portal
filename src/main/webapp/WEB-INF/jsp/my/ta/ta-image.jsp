@@ -157,11 +157,6 @@
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-2">离职时间:</div>
-                                        <div class="col-xs-3">${job.endTime}</div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
                                         <div class="col-xs-2">工作描述:</div>
                                         <div class="col-xs-9">${job.descrip}</div>
                                     </div>
@@ -178,7 +173,7 @@
 
                     <div class="row filemanager">
                         <div class="row filemanager">
-                            <c:forEach items="${images}" var="image">
+                            <c:forEach items="${page.records}" var="image">
                                 <div class="col-xs-6 col-sm-4 col-md-3 document">
                                     <div class="thmb" style="min-height: 200px; text-align: center">
                                         <div class="ckbox ckbox-default">

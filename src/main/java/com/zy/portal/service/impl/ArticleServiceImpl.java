@@ -24,18 +24,12 @@ import java.util.List;
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
     @Override
-    public List<Article> getArticle(Integer currentPage) {
+    public IPage<Article> getArticle(Integer currentPage, Integer size, Long menuId) {
         QueryWrapper<Article> query = new QueryWrapper<>();
-        Page<Article> articlePage = new Page<>(currentPage, 10);
-        IPage<Article> articleIPage = baseMapper.selectPage(articlePage, query);
-        List<Article> articles = articleIPage.getRecords();
-        if(CollectionUtils.isEmpty(articles)) {
-            return null;
-        }
-        for (Article article : articles) {
-            
-        }
-        return articleIPage.getRecords();
+        Page<Article> articlePage = new Page<>(currentPage, size);
+        query.eq("menu_id", menuId);
+
+        return baseMapper.selectPage(articlePage, query);
     }
 
     @Override
@@ -49,16 +43,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public List<Article> listArticle(Long menuId) {
+    public IPage<Article> listArticle(Long menuId, Integer currentPage) {
         QueryWrapper<Article> query = new QueryWrapper<>();
+        Page<Article> page = new Page<>(currentPage, 10);
         query.eq("menu_id", menuId);
-        return baseMapper.selectList(query);
+        return baseMapper.selectPage(page, query);
     }
 
     @Override
     public List<Article> getArticle() {
         QueryWrapper<Article> query = new QueryWrapper<>();
-        Page<Article> page = new Page<>(1, 10);
+        Page<Article> page = new Page<>(1, 5);
         query.orderByDesc("count");
         return baseMapper.selectPage(page, query).getRecords();
     }

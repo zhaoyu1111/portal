@@ -1,6 +1,7 @@
 package com.zy.portal.service;
 
 import com.zy.portal.dto.AlumniAssociaIndex;
+import com.zy.portal.dto.OrgSortInfo;
 import com.zy.portal.entity.AlumniAssociation;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -35,4 +36,6 @@ public interface AlumniAssociationService extends IService<AlumniAssociation> {
      * @return
      */
     AlumniAssociation getAssociation(String address);
+
+    List<OrgSortInfo> getOrgSort(Boolean flag);
 }

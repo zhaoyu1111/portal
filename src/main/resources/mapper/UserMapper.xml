@@ -10,4 +10,9 @@
         </foreach>
          group by class_id
     </select>
+
+    <select id="sortClassUser" resultType="com.zy.portal.dto.UserClassInfo">
+        select count(1) count, c.class_id, c.class_name from `class` c, `user` u where c.class_id
+        = u.class_id GROUP BY c.class_id limit 0, 5;
+    </select>
 </mapper>

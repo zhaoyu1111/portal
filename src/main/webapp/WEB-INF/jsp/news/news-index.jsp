@@ -23,20 +23,17 @@
             </ol>
         </div>
 
+        <div class="page-header">
+            <%--<%@ include file="recruit-button.jsp"%>--%>
+            <h3>校友新闻</h3>
+        </div>
         <div class="col-md-9">
 
             <!-- 校友新闻 -->
             <div class="panel panel-default panel-alt widget-messaging">
-                <div class="panel-heading">
-                    <div class="panel-btns">
-                        <a href="${pageContext.request.contextPath}/forum" class="panel-edit"><i
-                                class="fa fa-chevron-right"></i></a>
-                    </div>
-                    <h1 class="panel-title">校友新闻</h1>
-                </div>
                 <div class="panel-body">
                     <ul>
-                        <c:forEach items="${article}" var="info">
+                        <c:forEach items="${page.records}" var="info">
                             <li>
                                 <small class="pull-right">
                                     <ar:dateTag value="${info.ctime}" pattern="M月d日"></ar:dateTag>
@@ -50,7 +47,7 @@
                     </ul>
                 </div><!-- panel-body -->
             </div><!-- panel -->
-            <%--<%@include file="../portal-common/pagination.jsp" %>--%>
+            <%@include file="../portal-common/pagination.jsp" %>
         </div>
         <!-- col-md-9 -->
 

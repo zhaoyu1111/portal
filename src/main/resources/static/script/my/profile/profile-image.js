@@ -1,9 +1,9 @@
 $(function () {
     $("#album-li").attr("class", "active");
 
-    var classId = $("#classId").val();
+    //var classId = $("#classId").val();
     var albumId = $("#albumId").val();
-    _pageBond("classroom/album/image.action?classId=" + classId + "&albumId=" + albumId);
+    _pageBond("/login/image?albumId=" + albumId);
 
 
     /**

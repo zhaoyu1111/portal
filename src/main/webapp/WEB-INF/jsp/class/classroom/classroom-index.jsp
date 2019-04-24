@@ -41,38 +41,30 @@
             <div class="col-md-3"
                  style="background-color: #eee; padding: 10px 10px 50px 10px;">
                 <%@ include file="../../my/my-mini.jsp" %>
-                <ar:exist items="${memberList}" value="${SESSION_USER.studentId}">
+                <c:if test="${classInfo.classId == SESSION_USER.classId}">
                     <div class="alert alert-info">
                         <button class="close" aria-hidden="true" data-dismiss="alert"
                                 type="button">×
                         </button>
                         <strong></strong><a class="alert-link" href="javascript:;">您已加入该班级啦!</a>
                     </div>
-                </ar:exist>
-                <ar:notexist items="${memberList}" value="${SESSION_USER.studentId}">
+                </c:if>
+                <c:if test="${classInfo.classId != SESSION_USER.classId}">
                     <div class="alert alert-info">
                         <button class="close" aria-hidden="true" data-dismiss="alert"
                                 type="button">×
                         </button>
                         <strong></strong><a class="alert-link" href="javascript:;">您还未加入该班级!</a>
                     </div>
-                    <a class="btn btn-darkblue"
+                    <%--<a class="btn btn-darkblue"
                        href="${pageContext.request.contextPath}/classroom/joinClass.action?classId=${classroom.classId}"><span
-                            class="glyphicon glyphicon-plus"></span>&nbsp;加入班级</a>
-                </ar:notexist>
+                            class="glyphicon glyphicon-plus"></span>&nbsp;加入班级</a>--%>
+                </c:if>
                 <hr/>
                 <h5 class="subtitle mb5">管理员：</h5>
                 <div class="media">
-                    <a class="pull-left"
-                       href="${pageContext.request.contextPath}/ta/show.action?studentId=${classroom.mgrId}"> <img
-                            class="media-object img-responsive" src="${classroom.mgrImg}"
-                            alt="" style="max-width: 100px;">
-                    </a>
                     <div class="media-body">
-                        <h5>${classroom.mgrName}</h5>
-                        <p class="email-summary">
-                            <ar:sub length="20" value="${classroom.mgrDesc}"/>
-                        </p>
+                        <h5>${classInfo.contractor}</h5>
                     </div>
                 </div>
                 <div class="row"></div>

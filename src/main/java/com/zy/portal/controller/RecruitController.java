@@ -3,9 +3,12 @@ package com.zy.portal.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.zy.portal.common.Anonymous;
 import com.zy.portal.common.MyPage;
+import com.zy.portal.common.RequestUser;
 import com.zy.portal.dto.RecruitApplyInfo;
 import com.zy.portal.dto.RecruitDetail;
 import com.zy.portal.entity.*;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -60,11 +64,11 @@ public class RecruitController {
     private ResumeService resumeService;
 
     @RequestMapping("")
-    public String index(Model model) {
-        IPage<Recruit> recruitIPage = recruitService.queryRecruit(1);
+    public String index(Model model,@RequestParam(defaultValue = "1") Integer currentPage) {
+        IPage<Recruit> recruitIPage = recruitService.queryRecruit(currentPage);
         List<Recruit> recruits = recruitIPage.getRecords();
         if(CollectionUtils.isEmpty(recruits)) {
-            model.addAttribute("page", new MyPage<>());
+            model.addAttribute("page", new Page<>());
             return "recruit/recruit-index";
         }
         List<Long> unitIds = recruits.stream().map(Recruit::getUnitId).distinct().collect(Collectors.toList());
@@ -82,7 +86,12 @@ public class RecruitController {
             }
             details.add(detail);
         }
-        model.addAttribute("page", new MyPage<RecruitDetail>(recruitIPage.getTotal(), details));
+        IPage<RecruitDetail> detailIPage = new Page<>();
+        detailIPage.setRecords(details);
+        detailIPage.setTotal(recruitIPage.getTotal());
+        detailIPage.setCurrent(recruitIPage.getCurrent());
+        detailIPage.setSize(recruitIPage.getSize());
+        model.addAttribute("page", detailIPage);
         return "recruit/recruit-index";
     }
 
@@ -129,13 +138,10 @@ public class RecruitController {
         return "recruit/recruit-detail";
     }
 
+    @Anonymous
     @RequestMapping("/queryUserRecruit")
-    public String queryUserRecruit(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
-        model.addAttribute("myrecruit", recruitService.queryRecruit(user.getStudentId(), 1).getRecords());
+    public String queryUserRecruit(Model model) {
+        model.addAttribute("myrecruit", recruitService.queryRecruit(RequestUser.getCurrentUser().getStudentId(), 1).getRecords());
         return "my/recruit/recruit-index";
     }
 
@@ -145,13 +151,10 @@ public class RecruitController {
         return "redirect:/my/recruit/recruit-index";
     }
 
+    @Anonymous
     @RequestMapping("/add")
-    public String addRecruit(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
-        UserJob job = userJobService.getUserJob(user.getStudentId(), true);
+    public String addRecruit(Model model) {
+        UserJob job = userJobService.getUserJob(RequestUser.getCurrentUser().getStudentId(), true);
         if(null == job) {
             return "forward:/recruitUnit/add";
         }
@@ -160,18 +163,16 @@ public class RecruitController {
         return "recruit/recruit-add";
     }
 
+    @Anonymous
     @RequestMapping("/addRecruit")
-    public String addRecruit(Recruit recruit, HttpSession session) {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
-        UserJob job = userJobService.selectById(user.getStudentId());
+    public String addRecruit(Recruit recruit) {
+        Long studentId = RequestUser.getCurrentUser().getStudentId();
+        UserJob job = userJobService.selectById(studentId);
         if(null == job) {
             return "forward:/recruitUnit/add";
         }
         recruit.setUnitId(job.getUnitId());
-        recruit.setUserId(user.getStudentId());
+        recruit.setUserId(studentId);
         recruit.setStatus(1);
         recruit.setDeleted(1);
         recruitService.insert(recruit);

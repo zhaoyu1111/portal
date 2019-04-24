@@ -23,6 +23,9 @@
                 <li class="active">校友组织</li>
             </ol>
         </div>
+        <div class="page-header">
+            <h3>校友组织</h3>
+        </div>
         <div class="row">
             <div class="col-sm-9">
                 <div id="bloglist" class="row" style="position: relative;">
@@ -38,7 +41,9 @@
                                     <ul class="blog-meta">
                                         <li>最近活动：<ar:dateTag value="${associa.ctime}" pattern="YYYY-MM-dd"></ar:dateTag>
                                         <li>成员：<a
-                                                href="${pageContext.request.contextPath}/origin/members?associaId=${associa.associaId}">${associa.associaId}</a>
+                                                href="${pageContext.request.contextPath}/origin/members?associaId=${associa.associaId}">
+                                        <c:if test="${associa.members == null}">0</c:if>
+                                        <c:if test="${associa.members != null}">${associa.members}</c:if></a>
                                         </li>
                                     </ul>
                                 </div>

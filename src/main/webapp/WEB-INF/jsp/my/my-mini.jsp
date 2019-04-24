@@ -8,7 +8,7 @@
         </a>
         <div class="media-body event-body">
             <h4 class="subtitle">${SESSION_USER.userName}</h4>
-            <%--<p><ar:sub length="20" value="${SESSION_USER.introduce}"/></p>--%>
+            <p><ar:sub length="20" value="${SESSION_USER.introduce}"/></p>
         </div>
     </div>
 </c:if>

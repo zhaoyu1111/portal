@@ -62,7 +62,7 @@
                 </ul>
 
                 <div class="row filemanager">
-                    <c:forEach items="${images}" var="image">
+                    <c:forEach items="${page.records}" var="image">
                         <div class="col-xs-6 col-sm-4 col-md-3 document">
                             <div class="thmb" style="min-height: 200px; text-align: center">
                                 <div class="ckbox ckbox-default">

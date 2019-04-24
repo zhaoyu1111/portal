@@ -1,5 +1,5 @@
 $(function () {
-    $("#nav-news").attr("class", "active grid");
+    $("#nav-activity").attr("class", "active grid");
 
     // 加载评论列表
     /*var infoId = $("#infoId").val();

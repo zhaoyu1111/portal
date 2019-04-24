@@ -57,7 +57,14 @@
                 rs = eval(data);
                 if (rs.msg == "OK") {
                     $("#studentId").val("");
-                    window.location.href = "http://localhost:8080/index";
+                    var url="<%=session.getAttribute("requestUrl")%>";
+                    if(url.length == "null") {
+                        //alert(1);
+                        //window.location.href = "http://localhost:8080/index";
+                    }else {
+                        alert(2);
+                        window.location.href = url;
+                    }
                 } else if (rs.type == "p") {
                     errMsg("password", rs.msg);
                 } else if (rs.type == "a") {

@@ -1,6 +1,8 @@
 package com.zy.portal.controller;
 
 
+import com.zy.portal.common.Anonymous;
+import com.zy.portal.common.RequestUser;
 import com.zy.portal.dto.ResumeDetail;
 import com.zy.portal.entity.Resume;
 import com.zy.portal.entity.User;
@@ -38,14 +40,11 @@ public class ResumeController {
     @Autowired
     private DictionaryDataService dictionaryDataService;
 
+    @Anonymous
     @RequestMapping("")
-    public String index(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
+    public String index(Model model) {
         model.addAttribute("salary", dictionaryDataService.listData("sl"));
-        model.addAttribute("resume", resumeService.listResume(user.getStudentId()));
+        model.addAttribute("resume", resumeService.listResume(RequestUser.getCurrentUser().getStudentId()));
         return "my/recruit/resume-index";
     }
 
@@ -62,11 +61,9 @@ public class ResumeController {
         return "my/recruit/resume-detail";
     }
 
+    @Anonymous
     @RequestMapping("addResume")
-    public String addResume(Model model, HttpSession session) {
-        if(null == session.getAttribute("SESSION_USER")) {
-            return "redirect:/login";
-        }
+    public String addResume(Model model) {
         model.addAttribute("salary", dictionaryDataService.listData("sl"));
         return "my/recruit/resume-add";
     }
@@ -80,6 +77,7 @@ public class ResumeController {
         return model;
     }
 
+    @Anonymous
     @RequestMapping("edit")
     public String edit(Model model, Long resumeId) {
         Resume resume = resumeService.getResume(resumeId);
@@ -92,12 +90,10 @@ public class ResumeController {
         return "my/recruit/resume-edit";
     }
 
+    @Anonymous
     @RequestMapping("/saveOrUpdate")
-    public String saveOrUpdate(Model model, HttpSession session, ResumeDetail detail) {
-        User user =  (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
+    public String saveOrUpdate(ResumeDetail detail) {
+        User user =  userService.selectById(RequestUser.getCurrentUser().getStudentId());
         Resume resume = new Resume();
         BeanUtils.copyProperties(detail, resume);
         resume.setStudentId(user.getStudentId());
@@ -107,6 +103,7 @@ public class ResumeController {
         return "redirect:/resume";
     }
 
+    @Anonymous
     @RequestMapping("/delete")
     public String delete(Long resumeId) {
         resumeService.deleteById(resumeId);
