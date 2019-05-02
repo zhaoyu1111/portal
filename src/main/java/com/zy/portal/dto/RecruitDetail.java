@@ -13,7 +13,7 @@ public class RecruitDetail {
     /**
      * 工资
      */
-    private String salary;
+    private Integer salary;
     /**
      * 招聘人数
      */

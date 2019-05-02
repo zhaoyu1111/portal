@@ -1,11 +1,3 @@
-/**  
- * @Title: SubStringTag.java
- * @Package com.xzit.ar.common.tag
- * @Description: TODO
- * @author Mr.Black
- * @date 2016年2月27日 下午1:18:21
- * @version V1.0  
- */
 package com.zy.portal.common;
 
 import javax.servlet.jsp.JspException;

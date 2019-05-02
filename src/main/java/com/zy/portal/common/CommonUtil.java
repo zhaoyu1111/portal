@@ -1,11 +1,3 @@
-/**
- * @Title: CommonUtil.java
- * @Package com.xzit.ar.common.util
- * @Description: TODO
- * @author Mr.Black
- * @date 2015年12月10日 下午5:09:50
- * @version V1.0
- */
 package com.zy.portal.common;
 
 import java.io.File;
@@ -24,11 +16,6 @@ public class CommonUtil {
      */
     private static final Random RANDOM = new Random();
 
-    /**
-     * @Title: isEmpty @Description: TODO 判断字符串是否为空 @param @param
-     *         str @param @return @return boolean @author Mr.Black @date
-     *         2015年12月10日 下午5:19:15 @throws
-     */
     public static boolean isEmpty(String str) {
         if (str == null || "".equals(str)) {
             return true;
@@ -36,20 +23,10 @@ public class CommonUtil {
         return false;
     }
 
-    /**
-     *
-     * @Title: isNotEmpty @Description: TODO 字符串是否不为空 @param @param
-     *         str @param @return @return boolean @author Mr.Black @date
-     *         2015年12月10日 下午5:18:05 @throws
-     */
     public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
     }
 
-    /**
-     * @Title: isEmpty @Description: TODO is Integer Empty? @param @param
-     *         integer @param @return @return boolean @throws
-     */
     public static boolean isEmpty(Integer integer) {
         if (integer == null || integer == 0) {
             return true;
@@ -65,103 +42,30 @@ public class CommonUtil {
         return !isEmpty(integer);
     }
 
-    /**
-     *
-     * @Title: isEmpty @Description: TODO 判断字符串是否为空 @param @param
-     *         t @param @return @return boolean @author Mr.Black @date
-     *         2015年12月10日 下午5:18:44 @throws
-     */
     public static <T> boolean isEmpty(T[] t) {
         return t == null || t.length == 0;
     }
 
-    /**
-     *
-     * @Title: isNotEmpty @Description: TODO 判断字符串是否不为空 @param @param
-     *         t @param @return @return boolean @author Mr.Black @date
-     *         2015年12月10日 下午5:19:42 @throws
-     */
     public static <T> boolean isNotEmpty(T[] t) {
         return !isEmpty(t);
     }
 
-    /**
-     *
-     * @Title: isEmpty <br>
-     * @Description: TODO 判断集合是否为空<br>
-     * @param @param
-     *            col
-     * @param @return
-     *            <br>
-     * @return boolean <br>
-     * @author Mr.Black <br>
-     * @date 2015年12月10日 下午5:23:30 <br>
-     * @throws <br>
-     */
     public static boolean isEmpty(Collection<?> col) {
         return col == null || col.isEmpty();
     }
 
-    /**
-     * @Title: isNotEmpty <br>
-     * @Description: TODO 集合不为NULL也不为空 <br>
-     * @param @param
-     *            col
-     * @param @return
-     *            <br>
-     * @return boolean <br>
-     * @author Mr.Black <br>
-     * @date 2015年12月10日 下午5:23:56 <br>
-     * @throws <br>
-     */
     public static boolean isNotEmpty(Collection<?> col) {
         return !isEmpty(col);
     }
 
-    /**
-     * @Title: isEmpty <br>
-     * @Description: TODO 集合不为NULL也不为空 <br>
-     * @param @param
-     *            map
-     * @param @return
-     *            <br>
-     * @return boolean <br>
-     * @author Mr.Black <br>
-     * @date 2015年12月10日 下午5:24:12 <br>
-     * @throws <br>
-     */
     public static boolean isEmpty(Map<?, ?> map) {
         return map == null || map.isEmpty();
     }
 
-    /**
-     * @Title: isNotEmpty <br>
-     * @Description: TODO 集合不为NULL也不为空 <br>
-     * @param @param
-     *            map
-     * @param @return
-     *            <br>
-     * @return boolean <br>
-     * @author Mr.Black <br>
-     * @date 2015年12月10日 下午5:24:27 <br>
-     * @throws <br>
-     */
     public static boolean isNotEmpty(Map<?, ?> map) {
         return !isEmpty(map);
     }
 
-    /**
-     * @Title: lowerCaseFirstChar <br>
-     * @Description: TODO 字符串第一个字母小写<br>
-     * @param @param
-     *            str
-     * @param @return
-     *            <br>
-     * @return String <br>
-     * @author Mr.Black <br>
-     * @date 2015年12月10日 下午5:24:41 <br>
-     * @throws <br>
-     */
     public static String lowerCaseFirstChar(String str) {
         if (isNotEmpty(str)) {
             char firstChar = str.charAt(0);
@@ -174,50 +78,14 @@ public class CommonUtil {
         return str;
     }
 
-    /**
-     *
-     * @Title: isNull <br>
-     * @Description: TODO 判断是否是空对象 <br>
-     * @param @param
-     *            obj
-     * @param @return
-     *            <br>
-     * @return boolean <br>
-     * @author Mr.Black <br>
-     * @date 2015年12月10日 下午5:27:00 <br>
-     * @throws <br>
-     */
     public static boolean isNull(Object obj) {
         return null == obj;
     }
 
-    /**
-     * @Title: getUUID <br>
-     * @Description: TODO 获取UUID值 <br>
-     * @param @return
-     *            <br>
-     * @return String <br>
-     * @author Mr.Black <br>
-     * @date 2015年12月10日 下午5:27:54 <br>
-     * @throws <br>
-     */
     public static String getUUID() {
         return UUID.randomUUID().toString();
     }
 
-    /**
-     *
-     * @Title: getRandomNumber <br>
-     * @Description: TODO 获取指定位数的随机数 <br>
-     * @param @param
-     *            size
-     * @param @return
-     *            <br>
-     * @return String <br>
-     * @author Mr.Black <br>
-     * @date 2015年12月10日 下午5:29:19 <br>
-     * @throws <br>
-     */
     public static String getRandomNumber(int size) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size; i++) {
@@ -226,32 +94,10 @@ public class CommonUtil {
         return sb.toString();
     }
 
-    /**
-     *
-     * @Title: messageFormat <br>
-     * @Description: TODO 消息格式化<br>
-     * @return String <br>
-     * @author Mr.Black <br>
-     * @date 2015年12月21日 下午1:10:20 <br>
-     * @throws <br>
-     */
     public static String messageFormat(String message, Object... params) {
         return isNotEmpty(params) ? MessageFormat.format(message, params) : message;
     }
 
-    /**
-     *
-     * @Title: getRandomChar <br>
-     * @Description: TODO 获取指定位数随机字符串 <br>
-     * @param @param
-     *            size
-     * @param @return
-     *            <br>
-     * @return String <br>
-     * @author Mr.Black <br>
-     * @date 2015年12月10日 下午5:31:53 <br>
-     * @throws <br>
-     */
     public static String getRandomChar(int size) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size; i++) {
@@ -272,16 +118,6 @@ public class CommonUtil {
         return sb.toString();
     }
 
-    /**
-     * @Description: TODO 数组转换为字符串<br>
-     * @param @param
-     *            objs
-     * @param @return
-     *            <br>
-     * @return String <br>
-     * @author Mr.Black <br>
-     * @date 2015年12月30日 下午6:48:38 <br>
-     */
     public static String arr2String(Object[] objs) {
         StringBuffer sb = new StringBuffer();
         if ((objs != null) && (objs.length != 0)) {
@@ -299,12 +135,6 @@ public class CommonUtil {
         return sb.toString();
     }
 
-    /**
-     * @Title: splitIds
-     * @Description: TODO 从ids中解析出若干个id
-     * @param @param ids id序列
-     * @return List<Integer> id list
-     */
     public static List<Integer> splitIds(String ids) {
         List<Integer> idList = null;
         // 判断ids 不为空

@@ -30,7 +30,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("alumni_association")
-public class AlumniAssociation extends SuperEntity<AlumniAssociation> {
+public class AlumniAssociation extends SuperEntity<AlumniAssociation> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

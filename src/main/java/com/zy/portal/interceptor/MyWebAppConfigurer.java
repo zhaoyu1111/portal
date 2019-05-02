@@ -11,6 +11,7 @@ public class MyWebAppConfigurer extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/zy/**").addResourceLocations("file:E:/cache/zy/");
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:E/upload/images/");
         super.addResourceHandlers(registry);
     }
 

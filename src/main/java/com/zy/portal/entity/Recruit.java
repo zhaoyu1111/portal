@@ -28,7 +28,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Recruit extends SuperEntity<Recruit> {
+public class Recruit extends SuperEntity<Recruit> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,7 +46,7 @@ public class Recruit extends SuperEntity<Recruit> {
      * 工资
      */
     @TableField("salary")
-    private String salary;
+    private Integer salary;
     /**
      * 招聘人数
      */

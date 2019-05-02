@@ -54,6 +54,7 @@ public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> impl
     public IPage<Recruit> queryRecruit(Long userId, Integer currentPage) {
         QueryWrapper<Recruit> query = new QueryWrapper<>();
         query.eq("user_id", userId);
+        query.eq("status", 2);
         Page<Recruit> page = new Page<>(currentPage, 10);
         return baseMapper.selectPage(page, query);
     }

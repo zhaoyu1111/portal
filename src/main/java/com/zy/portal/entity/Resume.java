@@ -26,7 +26,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Resume extends SuperEntity<Resume> {
+public class Resume extends SuperEntity<Resume> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

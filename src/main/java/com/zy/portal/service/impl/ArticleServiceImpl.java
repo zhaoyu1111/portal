@@ -28,6 +28,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         QueryWrapper<Article> query = new QueryWrapper<>();
         Page<Article> articlePage = new Page<>(currentPage, size);
         query.eq("menu_id", menuId);
+        query.eq("status", 1);
 
         return baseMapper.selectPage(articlePage, query);
     }
