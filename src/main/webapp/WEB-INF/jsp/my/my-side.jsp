@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<img src="${SESSION_USER.avatar}" class="thumbnail img-responsive"/>
+<c:if test="${SESSION_USER == null || SESSION_USER.avatar == null}">
+    <img src="/images/logo/nchu_title.jpg" class="thumbnail img-responsive"/>
+</c:if>
+<c:if test="${SESSION_USER.avatar != null}">
+    <img src="${SESSION_USER.avatar}" class="thumbnail img-responsive"/>
+</c:if>
+
 <h1 class="subtitle">基本信息</h1>
 <ul class="nav nav-pills nav-stacked nav-email ul-h">
     <li id="my-home"><a href="${pageContext.request.contextPath}/login/index"><i

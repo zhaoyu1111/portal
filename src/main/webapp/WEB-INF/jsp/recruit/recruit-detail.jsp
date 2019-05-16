@@ -127,7 +127,7 @@
                                 <c:if test="${SESSION_USER == null}">
                                     <button class="btn btn-primary" type="button" id="postBtn"
                                             data-toggle="modal" onclick="window.location.href='/login'">
-                                        <i class="fa fa-user mr5"></i> 活动申请
+                                        <i class="fa fa-user mr5"></i> 职位申请
                                     </button>
                                 </c:if>
                                 <c:if test="${applyUser != null && SESSION_USER.studentId != null}">
@@ -135,6 +135,13 @@
                                         <c:if test="${apply.studentId == SESSION_USER.studentId}">
                                             <button class='btn btn-primary'>
                                                 <i class='fa fa-check mr5'></i>已经申请
+                                            </button>
+                                        </c:if>
+                                        <c:if test="${apply.studentId != SESSION_USER.studentId}">
+                                            <button class="btn btn-primary" type="button" id="postBtn"
+                                                    data-toggle="modal" data-target="#resume-selector"
+                                                    id="postBtn">
+                                                <i class="fa fa-user mr5"></i> 职位申请
                                             </button>
                                         </c:if>
                                     </c:forEach>
@@ -197,6 +204,75 @@
                             </div>
                             <!-- /.modal -->
 
+                            <div class="modal fade" id="select-resume" tabindex="-2"
+                                 role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">&times;
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel2">简历</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form" method="post" id="resume" action="#">
+                                                    <div class="panel panel-default">
+                                                        <h5 class="panel-title">简历信息</h5>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2">简历标题：</label>
+                                                        <div class="col-sm-4"></div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2">职业类型：</label>
+                                                        <div class="col-sm-4"></div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2">期望工资：</label>
+                                                        <div class="col-sm-4">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="panel panel-default">
+                                                        <h5 class="panel-title">个人信息</h5>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2">姓名</label>
+                                                        <div class="col-sm-4" id="name"></div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2">性别</label>
+                                                        <div class="col-sm-4">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2">现居住地</label>
+                                                        <div class="col-sm-7"></div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2">联系方式</label>
+                                                        <div class="col-sm-4"></div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">个人简介</label>
+                                                        <div class="col-sm-7"></div>
+                                                    </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+
                             <div class="mb40"></div>
                             <ul class="nav nav-tabs nav-dark">
                                 <li class="active"><a data-toggle="tab"
@@ -229,6 +305,12 @@
                                         <c:forEach items="${applyUser}" var="apply">
                                             <li class="media"><a href="${pageContext.request.contextPath}/login/userIndex?studentId=${apply.studentId}"
                                                                  class="pull-left">
+                                                <c:if test="${apply.avatar == null}">
+                                                    <img src="/images/logo/nchu_title.jpg" class="media-object">
+                                                </c:if>
+                                                <c:if test="${apply.avatar != null}">
+                                                    <img src="${apply.avatar}" class="media-object">
+                                                </c:if>
                                                 <img src="${apply.avatar}" class="media-object">
                                             </a>
                                                 <div class="media-body">
@@ -239,6 +321,15 @@
                                                     </small>
                                                     <p></p>
                                                 </div>
+                                                <div class="media-body">
+                                                    <button class="btn btn-primary" type="button" id="postResume"
+                                                            data-toggle="modal" data-target="#select-resume" onclick="selectResume()"
+                                                            id="postResume">
+                                                        <i class="fa fa-user mr5"></i> 查看简历
+                                                    </button>
+                                                </div>
+
+                                                <input type="hidden" id="hisResume" value="${apply.resumeId}">
                                             </li>
                                         </c:forEach>
                                     </ul>

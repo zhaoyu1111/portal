@@ -70,10 +70,10 @@
                                         <div class="col-xs-4">${detail.signNumber}</div>
                                         <div class="col-xs-1" style="width: 13.33333%">当前状态:</div>
                                         <div class="col-xs-4">
-                                            <c:if test="${detail.status == 1}">
+                                            <c:if test="${detail.status == 2}">
                                                 正在进行
                                             </c:if>
-                                            <c:if test="${detail.status == 2}">
+                                            <c:if test="${detail.status == 3}">
                                                 已结束
                                             </c:if>
                                         </div>
@@ -98,7 +98,7 @@
 
                             <br>
                             <div class="btn-group mr10">
-                                <c:if test="${detail.status == 1}">
+                                <c:if test="${detail.status == 2}">
                                     <c:if test="${apply == null && SESSION_USER.studentId != null}">
                                         <button class="btn btn-primary" type="button" id="postBtn"
                                                 data-toggle="modal" data-target="#resume-selector"
@@ -113,13 +113,13 @@
                                             <i class="fa fa-user mr5"></i> 活动申请
                                         </button>
                                     </c:if>
-                                    <c:if test="${apply != null && apply.userId == SESSION_USER.studentId}">
+                                    <c:if test="${apply != null}">
                                         <button class='btn btn-primary'>
                                             <i class='fa fa-check mr5'></i>已经申请
                                         </button>
                                     </c:if>
                                 </c:if>
-                                <c:if test="${detail.status == 2}">
+                                <c:if test="${detail.status == 3}">
                                     <button class='btn btn-primary' disabled>
                                         <i class='fa fa-check mr5'></i>已结束
                                     </button>
@@ -146,6 +146,16 @@
                                                         <div class="col-sm-10">
                                                             <input type="text" name="mobile" id="mobile" maxlength="11" class="form-control tooltips" data-trigger="hover"
                                                                    data-toggle="tooltip" data-original-title="正确的手机号"/>
+
+                                                            <br/> <br/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2"><span class="asterisk">*
+															</span>邮箱</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="email" id="email" class="form-control tooltips" data-trigger="hover"
+                                                                   data-toggle="tooltip" data-original-title="正确的邮箱"/>
 
                                                             <br/> <br/>
                                                         </div>

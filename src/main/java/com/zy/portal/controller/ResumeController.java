@@ -48,6 +48,7 @@ public class ResumeController {
         return "my/recruit/resume-index";
     }
 
+    @Anonymous
     @RequestMapping("/detail")
     public String detail(Model model, Long resumeId) {
         Resume resume = resumeService.getResume(resumeId);
@@ -108,6 +109,11 @@ public class ResumeController {
     public String delete(Long resumeId) {
         resumeService.deleteById(resumeId);
         return "redirect:/resume";
+    }
+
+    @RequestMapping("/getResume")
+    public Resume getResume(Long resumeId) {
+        return resumeService.selectById(resumeId);
     }
 }
 

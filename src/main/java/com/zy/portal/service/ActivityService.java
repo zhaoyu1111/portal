@@ -33,4 +33,8 @@ public interface ActivityService extends IService<Activity> {
     Activity getActivity(Long activityId);
 
     void updateSignNumber(Long activityId);
+
+    List<Activity> batchGet();
+
+    List<Activity> getActivity();
 }

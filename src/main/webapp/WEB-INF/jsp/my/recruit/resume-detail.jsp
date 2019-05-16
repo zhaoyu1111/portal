@@ -58,7 +58,7 @@
                                       action="${pageContext.request.contextPath}/resume/addResumeSubmit">
 
                                     <div class="panel panel-default">
-                                        <h5 class="panel-title">职位信息</h5>
+                                        <h5 class="panel-title">简历信息</h5>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2">简历标题：</label>

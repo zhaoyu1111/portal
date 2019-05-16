@@ -24,7 +24,12 @@
     <div class="mb5"></div>
     <div class="row">
         <div class="col-sm-3">
-            <img src="${user.avatar}" class="thumbnail img-responsive" alt=""/>
+            <c:if test="${user.avatar == null}">
+                <img src="/images/logo/nchu_title.jpg" class="thumbnail img-responsive" alt=""/>
+            </c:if>
+            <c:if test="${user.avatar != null}">
+                <img src="${user.avatar}" class="thumbnail img-responsive" alt=""/>
+            </c:if>
 
             <div class="mb30"></div>
 
@@ -209,5 +214,5 @@
 
 </body>
 <%@ include file="../../portal-common/portal-js.jsp" %>
-<script src="/script/ta/ta-index.js"></script>
+<script src="/script/my/ta/ta-index.js"></script>
 </html>

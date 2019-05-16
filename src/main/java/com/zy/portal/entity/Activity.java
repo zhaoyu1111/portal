@@ -50,12 +50,12 @@ public class Activity extends SuperEntity<Activity> implements  Serializable {
      * 活动开始时间
      */
     @TableField("start_time")
-    private Long startTime;
+    private String startTime;
     /**
      * 结束时间
      */
     @TableField("end_time")
-    private Long endTime;
+    private String endTime;
     /**
      * 活动描述
      */

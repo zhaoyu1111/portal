@@ -9,6 +9,9 @@ import com.zy.portal.service.ActivityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +31,8 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         if(null != activityId) {
             query.ne("activity_id", activityId);
         }
+        query.orderByDesc("start_time");
+        query.ne("status", 1);
         Page<Activity> page = new Page<>(currentPage, 10);
         return baseMapper.selectPage(page, query);
     }
@@ -58,5 +63,28 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         Page<Activity> page = new Page<>(1, 10);
         query.orderByDesc("utime");
         return baseMapper.selectPage(page, query).getRecords();
+    }
+
+    @Override
+    public List<Activity> batchGet() {
+        QueryWrapper<Activity> query = new QueryWrapper<>();
+        SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
+        String now = sm.format(new Date());
+        query.lt("end_time", now);
+        query.eq("status", 2);
+        return baseMapper.selectList(query);
+    }
+
+    @Override
+    public List<Activity> getActivity() {
+        QueryWrapper<Activity> query = new QueryWrapper<>();
+        SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE, 1);
+        String yestady =  sm.format(calendar.getTime());
+        query.eq("start_time", yestady);
+        query.eq("status", 2);
+        return baseMapper.selectList(query);
     }
 }

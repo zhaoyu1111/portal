@@ -23,11 +23,12 @@
     </ol>
     <!-- 轮播（Carousel）项目 -->
     <div class="carousel-inner">
-        <div class="item active"><img src="/images/school/nchu-l.png"></div>
+        <div class="item active"><img src="/images/school/1.jpg"></div>
         <%--<div class="item"><img src="${pageContext.request.contextPath}/assets/images/school/xzit-south.jpg"></div>--%>
-        <div class="item"><img src="/images/school/xzit-motto.jpg"></div>
-        <div class="item"><img src="/images/school/xzit-library.jpg"></div>
-        <div class="item"><img src="/images/school/xzit-alumni.jpg"></div>
+        <div class="item"><img src="/images/school/2.jpg"></div>
+        <div class="item"><img src="/images/school/3.jpg"></div>
+        <div class="item"><img src="/images/school/6.jpg"></div>
+        <div class="item"><img src="/images/school/7.jpg"></div>
     </div>
     <!-- 轮播（Carousel）导航 -->
     <a class="carousel-control focus-navigation left" href="#myCarousel" data-slide="prev">

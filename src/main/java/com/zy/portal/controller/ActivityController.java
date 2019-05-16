@@ -2,11 +2,13 @@ package com.zy.portal.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zy.portal.common.Anonymous;
 import com.zy.portal.entity.Activity;
 import com.zy.portal.entity.ActivityUserApply;
 import com.zy.portal.entity.User;
 import com.zy.portal.service.ActivityService;
 import com.zy.portal.service.ActivityUserApplyService;
+import com.zy.portal.util.PostEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +38,9 @@ public class ActivityController {
     @Autowired
     private ActivityUserApplyService activityUserApplyService;
 
+    @Autowired
+    private PostEmail postEmail;
+
     @RequestMapping("")
     public String index(Model model,@RequestParam(defaultValue = "1") Integer currentPage) {
         model.addAttribute("page", activityService.listActivity(currentPage, null));
@@ -58,20 +63,22 @@ public class ActivityController {
         return "activity/activity-outline";
     }
 
+    @Anonymous
     @RequestMapping("/apply")
-    public String apply(RedirectAttributes attributes, Long activityId, String mobile, HttpSession session) {
+    public String apply(RedirectAttributes attributes, Long activityId, String mobile, String email, HttpSession session) {
         User user = (User) session.getAttribute("SESSION_USER");
-        if(null == user) {
-            return "redirect:/login";
-        }
         ActivityUserApply apply = new ActivityUserApply();
         apply.setActivityId(activityId);
         apply.setUserId(user.getStudentId());
         apply.setMobile(mobile);
-        apply.setActivityCode((Math.random()*9+1)*100000 + "");
+        String activityCode = (int)(Math.random()*9+1)*100000 + "";
+        apply.setActivityCode(activityCode);
+        apply.setEmail(email);
         activityUserApplyService.insert(apply);
         activityService.updateSignNumber(activityId);
         attributes.addAttribute("activityId", activityId);
+        postEmail.email("南昌航空大学活动通知", activityCode , email);
+
         return "redirect:/activity/detail";
     }
 }

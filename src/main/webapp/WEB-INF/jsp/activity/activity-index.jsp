@@ -54,7 +54,7 @@
                                 </td>
                                 <td>${activity.leaderName}</td>
                                 <td>${activity.activityNumber}</td>
-                                <td><ar:dateTag value="${activity.startTime}" pattern="M月d日"></ar:dateTag>
+                                <td>${activity.startTime}</td>
                             </tr>
                         </c:forEach>
                         </tbody>

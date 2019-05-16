@@ -119,3 +119,11 @@ function cancelPostResume(recruitId) {
         }
     }
 }
+
+function selectResume() {
+    var resumeId = $("#resumeId").val();
+    $.get('/resume/getResume', {"resumeId": 1}, function (data) {
+        $("#name").text(data.resumeId);
+       alert(data.resumeId);
+    });
+}

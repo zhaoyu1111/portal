@@ -62,7 +62,7 @@
                         //alert(1);
                         //window.location.href = "http://localhost:8080/index";
                     }else {
-                        alert(2);
+                        alert(url);
                         window.location.href = url;
                     }
                 } else if (rs.type == "p") {

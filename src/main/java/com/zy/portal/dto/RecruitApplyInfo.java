@@ -13,5 +13,7 @@ public class RecruitApplyInfo {
 
     private String avatar;
 
+    private Long resumeId;
+
     private Long ctime;
 }

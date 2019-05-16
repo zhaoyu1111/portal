@@ -59,6 +59,9 @@ public class ActivityUserApply extends SuperEntity<ActivityUserApply> implements
     @TableField("activity_code")
     private String activityCode;
 
+    @TableField("email")
+    private String email;
+
 
     @Override
     protected Serializable pkVal() {

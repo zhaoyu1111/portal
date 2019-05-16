@@ -17,6 +17,7 @@ import com.zy.portal.entity.User;
 import com.zy.portal.service.RecruitApplyService;
 import com.zy.portal.service.RecruitService;
 import com.zy.portal.service.ResumeService;
+import com.zy.portal.util.PostEmail;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,6 +53,9 @@ public class RecruitApplyController {
 
     @Autowired
     private RecruitService recruitService;
+
+    @Autowired
+    private PostEmail postEmail;
 
     @RequestMapping("")
     public String index(Model model,@RequestParam(defaultValue = "1") Integer currentPage) {
@@ -95,6 +99,10 @@ public class RecruitApplyController {
     public String postRecruit(RedirectAttributes attributes, RecruitApply apply) {
         apply.setStudentId(RequestUser.getCurrentUser().getStudentId());
         recruitApplyService.insert(apply);
+
+        Recruit recruit = recruitService.selectById(apply.getRecuritId());
+        postEmail.email("简历投递", "您发布的职位有校友投递，请到职位详情页查看", recruit.getEmail());
+
         attributes.addAttribute("recuritId", apply.getRecuritId());
         return "redirect:/recruit/detailRecruit";
     }
